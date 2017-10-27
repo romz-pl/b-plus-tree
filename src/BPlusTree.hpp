@@ -22,7 +22,7 @@
 #include <tuple>
 #include <vector>
 #include "definitions.h"
-#include "Printer.hpp"
+#include "printer.h"
 
 class InternalNode;
 class LeafNode;

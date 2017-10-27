@@ -29,7 +29,7 @@ SOURCE += InternalNode.cpp
 SOURCE += LeafNode.cpp
 SOURCE += main.cpp
 SOURCE += node.cpp
-SOURCE += Printer.cpp
+SOURCE += printer.cpp
 SOURCE += record.cpp
 
 
