@@ -19,8 +19,8 @@ public:
     explicit Value( const int64_t& v );
     ~Value() = default;
 
-    bool operator == ( const Value& v ) const;
-    bool operator != ( const Value& v ) const;
+//    bool operator == ( const Value& v ) const;
+//    bool operator != ( const Value& v ) const;
 
     std::string ToString() const;
 

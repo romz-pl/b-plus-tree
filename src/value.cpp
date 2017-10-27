@@ -16,7 +16,7 @@ Value::Value( const int64_t& v )
 {
 
 }
-
+/*
 //
 //
 //
@@ -32,6 +32,7 @@ bool Value::operator != ( const Value& v ) const
 {
     return !( m_value == v.m_value );
 }
+*/
 
 //
 //
