@@ -38,17 +38,17 @@ bool InternalNode::isLeaf() const
     return false;
 }
 
-int InternalNode::size() const
+size_t InternalNode::size() const
 {
-    return static_cast<int>(fMappings.size());
+    return fMappings.size();
 }
 
-int InternalNode::minSize() const
+size_t InternalNode::minSize() const
 {
     return order()/2;
 }
 
-int InternalNode::maxSize() const
+size_t InternalNode::maxSize() const
 {
     // Includes the first entry, which
     // has key DUMMY_KEY and a value that
@@ -78,7 +78,7 @@ void InternalNode::populateNewRoot(Node *aOldNode, KeyType aNewKey, Node *aNewNo
     fMappings.push_back(std::make_pair(aNewKey, aNewNode));
 }
 
-int InternalNode::insertNodeAfter(Node *aOldNode, KeyType aNewKey, Node *aNewNode)
+size_t InternalNode::insertNodeAfter(Node *aOldNode, KeyType aNewKey, Node *aNewNode)
 {
     auto iter = fMappings.begin();
     for (; iter != fMappings.end() && iter->second != aOldNode; ++iter);

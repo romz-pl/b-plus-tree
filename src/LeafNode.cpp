@@ -22,9 +22,15 @@
 #include "InternalNode.hpp"
 #include "LeafNode.hpp"
 
-LeafNode::LeafNode(int aOrder) : fNext{nullptr}, Node(aOrder) {}
+LeafNode::LeafNode(int aOrder)
+    : Node(aOrder)
+    , fNext{nullptr}
+{}
 
-LeafNode::LeafNode(int aOrder, Node* aParent) : fNext{nullptr}, Node(aOrder, aParent) {}
+LeafNode::LeafNode(int aOrder, Node* aParent)
+    : Node(aOrder, aParent)
+    , fNext{nullptr}
+{}
 
 LeafNode::~LeafNode()
 {
@@ -48,17 +54,17 @@ void LeafNode::setNext(LeafNode* aNext)
     fNext = aNext;
 }
 
-int LeafNode::size() const
+size_t LeafNode::size() const
 {
-    return static_cast<int>(fMappings.size());
+    return fMappings.size();
 }
 
-int LeafNode::minSize() const
+size_t LeafNode::minSize() const
 {
     return order()/2;
 }
 
-int LeafNode::maxSize() const
+size_t LeafNode::maxSize() const
 {
     return order() - 1;
 }
@@ -84,14 +90,14 @@ std::string LeafNode::toString(bool aVerbose) const
     return keyToTextConverter.str();
 }
 
-int LeafNode::createAndInsertRecord(KeyType aKey, ValueType aValue)
+size_t LeafNode::createAndInsertRecord(KeyType aKey, ValueType aValue)
 {
     Record* existingRecord = lookup(aKey);
     if (!existingRecord) {
         Record* newRecord = new Record(aValue);
         insert(aKey, newRecord);
     }
-    return static_cast<int>(fMappings.size());
+    return fMappings.size();
 }
 
 void LeafNode::insert(KeyType aKey, Record* aRecord)
@@ -148,7 +154,7 @@ void LeafNode::copyRange(std::vector<EntryType>& aVector)
 }
 
 
-int LeafNode::removeAndDeleteRecord(KeyType aKey)
+size_t LeafNode::removeAndDeleteRecord(KeyType aKey)
 {
     auto removalPoint = fMappings.begin();
     auto end = fMappings.end();
@@ -161,7 +167,7 @@ int LeafNode::removeAndDeleteRecord(KeyType aKey)
     auto record = *removalPoint;
     fMappings.erase(removalPoint);
     delete record.second;
-    return static_cast<int>(fMappings.size());
+    return fMappings.size();
 }
 
 KeyType LeafNode::firstKey() const

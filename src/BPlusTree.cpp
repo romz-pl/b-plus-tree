@@ -57,7 +57,7 @@ void BPlusTree::insertIntoLeaf(KeyType aKey, ValueType aValue)
     if (!leafNode) {
         throw LeafNotFoundException(aKey);
     }
-    int newSize = leafNode->createAndInsertRecord(aKey, aValue);
+    size_t newSize = leafNode->createAndInsertRecord(aKey, aValue);
     if (newSize > leafNode->maxSize()) {
         LeafNode* newLeaf = split(leafNode);
         newLeaf->setNext(leafNode->next());
@@ -77,7 +77,7 @@ void BPlusTree::insertIntoParent(Node *aOldNode, KeyType aKey, Node *aNewNode)
         aNewNode->setParent(parent);
         parent->populateNewRoot(aOldNode, aKey, aNewNode);
     } else {
-        int newSize = parent->insertNodeAfter(aOldNode, aKey, aNewNode);
+        size_t newSize = parent->insertNodeAfter(aOldNode, aKey, aNewNode);
         if (newSize > parent->maxSize()) {
             InternalNode* newNode = split(parent);
             KeyType newKey = newNode->replaceAndReturnFirstKey();
@@ -116,7 +116,7 @@ void BPlusTree::removeFromLeaf(KeyType aKey)
     if (!leafNode->lookup(aKey)) {
         return;
     }
-    int newSize = leafNode->removeAndDeleteRecord(aKey);
+    size_t newSize = leafNode->removeAndDeleteRecord(aKey);
     if (newSize < leafNode->minSize()) {
         coalesceOrRedistribute(leafNode);
     }
@@ -156,7 +156,7 @@ void BPlusTree::coalesce(N* aNeighborNode, N* aNode, InternalNode* aParent, int 
 }
 
 template <typename N>
-void BPlusTree::redistribute(N* aNeighborNode, N* aNode, InternalNode* aParent, int aIndex)
+void BPlusTree::redistribute(N* aNeighborNode, N* aNode, InternalNode* /*aParent*/, int aIndex)
 {
     if (aIndex == 0) {
         aNeighborNode->moveFirstToEndOf(aNode);
