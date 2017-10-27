@@ -6,8 +6,7 @@
 //
 // 2. The current implementation stores int64_t.
 //
-// 3. If you need other type, just change int64_t to your type D,
-//    and make sure comparision operators are available for type D.
+// 3. If you need other type, just change int64_t to your type D.
 //
 
 #include <string>
