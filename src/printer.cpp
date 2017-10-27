@@ -1,28 +1,8 @@
-//
-//  Printer.cpp
-//  BPlusTree.2a
-//
-//  Created by Amittai Aviram on 6/13/16.
-//  Copyright © 2016 Amittai Aviram. All rights reserved.
-//
-//  Licensed under the Apache License, Version 2.0 (the "License");
-//  you may not use this file except in compliance with the License.
-//  You may obtain a copy of the License at
-//
-//  http://www.apache.org/licenses/LICENSE-2.0
-//
-//  Unless required by applicable law or agreed to in writing, software
-//  distributed under the License is distributed on an "AS IS" BASIS,
-//  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//  See the License for the specific language governing permissions and
-//  limitations under the License.
-
 #include <iostream>
-#include "InternalNode.hpp"
-#include "LeafNode.hpp"
-#include "Node.hpp"
-
-#include "Printer.hpp"
+#include "internalnode.h"
+#include "leafnode.h"
+#include "node.h"
+#include "printer.h"
 
 Printer::Printer() : fVerbose(false) {}
 

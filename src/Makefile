@@ -23,14 +23,14 @@ VPATH := ../src/
 # Source files (listed in alphabetical order)
 
 SOURCE :=
-SOURCE += BPlusTree.cpp
-SOURCE += Exceptions.cpp
-SOURCE += InternalNode.cpp
-SOURCE += LeafNode.cpp
+SOURCE += bplustree.cpp
+SOURCE += exceptions.cpp
+SOURCE += internalnode.cpp
+SOURCE += leafnode.cpp
 SOURCE += main.cpp
-SOURCE += Node.cpp
-SOURCE += Printer.cpp
-SOURCE += Record.cpp
+SOURCE += node.cpp
+SOURCE += printer.cpp
+SOURCE += record.cpp
 
 
 #Object files
