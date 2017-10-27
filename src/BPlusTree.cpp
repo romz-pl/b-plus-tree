@@ -24,7 +24,7 @@
 #include "BPlusTree.hpp"
 #include "exceptions.h"
 #include "InternalNode.hpp"
-#include "LeafNode.hpp"
+#include "leafnode.h"
 #include "node.h"
 
 BPlusTree::BPlusTree(int aOrder) : fOrder{aOrder}, fRoot{nullptr} {}

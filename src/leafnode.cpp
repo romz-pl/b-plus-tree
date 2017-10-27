@@ -20,7 +20,7 @@
 #include <sstream>
 #include "exceptions.h"
 #include "InternalNode.hpp"
-#include "LeafNode.hpp"
+#include "leafnode.h"
 
 LeafNode::LeafNode(int aOrder)
     : Node(aOrder)

@@ -1,6 +1,6 @@
 #include <iostream>
 #include "InternalNode.hpp"
-#include "LeafNode.hpp"
+#include "leafnode.h"
 #include "node.h"
 #include "printer.h"
 
