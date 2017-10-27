@@ -7,7 +7,7 @@
 #include "leafnode.h"
 #include "node.h"
 
-BPlusTree::BPlusTree(int aOrder) : fOrder{aOrder}, fRoot{nullptr} {}
+BPlusTree::BPlusTree(size_t aOrder) : fOrder{aOrder}, fRoot{nullptr} {}
 
 bool BPlusTree::isEmpty() const
 {

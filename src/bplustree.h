@@ -18,7 +18,7 @@ public:
     /// Sole constructor.  Accepts an optional order for the B+ Tree.
     /// The default order will provide a reasonable demonstration of the
     /// data structure and its operations.
-    explicit BPlusTree(int aOrder = DEFAULT_ORDER);
+    explicit BPlusTree(size_t aOrder = DEFAULT_ORDER);
     
     /// The type used in the API for inserting a new key-value pair
     /// into the tree.  The third item is the type of the Node into
@@ -79,7 +79,7 @@ private:
     LeafNode* findLeafNode(KeyType aKey, bool aPrinting = false, bool aVerbose = false);
     void printValue(KeyType aKey, bool aPrintPath, bool aVerbose);
     std::vector<EntryType> range(KeyType aStart, KeyType aEnd);
-    const int fOrder;
+    const size_t fOrder;
     Node* fRoot;
     Printer fPrinter;
 };
