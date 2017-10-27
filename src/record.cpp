@@ -1,5 +1,5 @@
 //
-//  Record.hpp
+//  Record.cpp
 //  BPlusTree.2a
 //
 //  Created by Amittai Aviram on 6/10/16.
@@ -17,17 +17,23 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 
-#pragma once
-
+#include <string>
+#include <sstream>
 #include "definitions.h"
+#include "record.h"
 
-class Record
+Record::Record(ValueType aValue)
+: fValue(aValue)
+{}
+
+ValueType Record::value() const
 {
-public:
-    explicit Record(ValueType aValue);
-    ValueType value() const;
-    std::string toString() const;
-private:
-    Record() : fValue(0) {}
-    ValueType fValue;
-};
+    return fValue;
+}
+
+std::string Record::toString() const
+{
+    std::ostringstream oss;
+    oss << fValue;
+    return oss.str();
+}

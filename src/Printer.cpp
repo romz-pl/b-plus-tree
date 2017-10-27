@@ -20,7 +20,7 @@
 #include <iostream>
 #include "InternalNode.hpp"
 #include "LeafNode.hpp"
-#include "Node.hpp"
+#include "node.h"
 
 #include "Printer.hpp"
 

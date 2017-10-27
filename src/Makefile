@@ -28,9 +28,9 @@ SOURCE += exceptions.cpp
 SOURCE += InternalNode.cpp
 SOURCE += LeafNode.cpp
 SOURCE += main.cpp
-SOURCE += Node.cpp
+SOURCE += node.cpp
 SOURCE += Printer.cpp
-SOURCE += Record.cpp
+SOURCE += record.cpp
 
 
 #Object files
