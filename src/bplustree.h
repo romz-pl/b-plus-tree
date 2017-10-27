@@ -45,8 +45,8 @@ private:
     template < typename T > T* split( T* aNode );
     void removeFromLeaf( KeyType key );
     template < typename N > void coalesceOrRedistribute( N* node );
-    template < typename N > void coalesce( N* neighborNode, N* node, InternalNode* parent, int index );
-    template < typename N > void redistribute( N* neighborNode, N* node, InternalNode* parent, int index );
+    template < typename N > void coalesce( N* neighborNode, N* node, InternalNode* parent, size_t index );
+    template < typename N > void redistribute( N* neighborNode, N* node, InternalNode* parent, size_t index );
     void adjustRoot();
     LeafNode* findLeafNode( KeyType key, bool printing = false, bool verbose = false );
     void printValue( KeyType key, bool printPath, bool verbose );

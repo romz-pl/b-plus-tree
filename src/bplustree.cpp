@@ -160,8 +160,8 @@ void BPlusTree::coalesceOrRedistribute( N* node )
     }
 
     auto parent = static_cast< InternalNode* >( node->parent() );
-    int indexOfNodeInParent = parent->nodeIndex( node );
-    int neighborIndex = ( indexOfNodeInParent == 0 ) ? 1 : indexOfNodeInParent - 1;
+    const size_t indexOfNodeInParent = parent->nodeIndex( node );
+    const size_t neighborIndex = ( indexOfNodeInParent == 0 ) ? 1 : indexOfNodeInParent - 1;
     N* neighborNode = static_cast< N* >( parent->neighbor( neighborIndex ) );
     if( node->size() + neighborNode->size() <= neighborNode->maxSize() )
     {
@@ -177,7 +177,7 @@ void BPlusTree::coalesceOrRedistribute( N* node )
 //
 //
 template < typename N >
-void BPlusTree::coalesce( N* neighborNode, N* node, InternalNode* parent, int index )
+void BPlusTree::coalesce( N* neighborNode, N* node, InternalNode* parent, size_t index )
 {
     if( index == 0 )
     {
@@ -197,7 +197,7 @@ void BPlusTree::coalesce( N* neighborNode, N* node, InternalNode* parent, int in
 //
 //
 template < typename N >
-void BPlusTree::redistribute( N* neighborNode, N* node, InternalNode* /*aParent*/, int index )
+void BPlusTree::redistribute( N* neighborNode, N* node, InternalNode* /*aParent*/, size_t index )
 {
     if( index == 0 )
     {

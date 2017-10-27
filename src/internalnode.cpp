@@ -71,7 +71,7 @@ size_t InternalNode::maxSize() const
 //
 //
 //
-KeyType InternalNode::keyAt( int index ) const
+KeyType InternalNode::keyAt( size_t index ) const
 {
     return m_mappings[ index ].first;
 }
@@ -79,7 +79,7 @@ KeyType InternalNode::keyAt( int index ) const
 //
 //
 //
-void InternalNode::setKeyAt( int index, KeyType key )
+void InternalNode::setKeyAt( size_t index, KeyType key )
 {
     m_mappings[ index ].first = key;
 }
@@ -115,7 +115,7 @@ size_t InternalNode::insertNodeAfter( Node *oldNode, KeyType newKey, Node *newNo
 //
 //
 //
-void InternalNode::remove( int index )
+void InternalNode::remove( size_t index )
 {
     m_mappings.erase( m_mappings.begin() + index );
 }
@@ -168,7 +168,7 @@ void InternalNode::copyHalfFrom( std::vector< MappingType > &mappings )
 //
 //
 //
-void InternalNode::moveAllTo( InternalNode *recipient, int indexInParent )
+void InternalNode::moveAllTo( InternalNode *recipient, size_t indexInParent )
 {
     m_mappings[ 0 ].first = static_cast< InternalNode* >( parent() )->keyAt( indexInParent );
     recipient->copyAllFrom( m_mappings );
@@ -209,7 +209,7 @@ void InternalNode::copyLastFrom( MappingType pair )
 //
 //
 //
-void InternalNode::moveLastToFrontOf( InternalNode *recipient, int parentIndex )
+void InternalNode::moveLastToFrontOf( InternalNode *recipient, size_t parentIndex )
 {
     recipient->copyFirstFrom( m_mappings.back(), parentIndex );
     m_mappings.pop_back();
@@ -218,7 +218,7 @@ void InternalNode::moveLastToFrontOf( InternalNode *recipient, int parentIndex )
 //
 //
 //
-void InternalNode::copyFirstFrom( MappingType pair, int parentIndex )
+void InternalNode::copyFirstFrom( MappingType pair, size_t parentIndex )
 {
     m_mappings.front().first = static_cast< InternalNode* >( parent() )->keyAt( parentIndex );
     m_mappings.insert( m_mappings.begin(), pair );
@@ -247,13 +247,13 @@ Node* InternalNode::lookup( KeyType key ) const
 //
 //
 //
-int InternalNode::nodeIndex( Node *node ) const
+size_t InternalNode::nodeIndex( Node *node ) const
 {
     for( size_t i = 0; i < size(); ++i )
     {
         if ( m_mappings[ i ].second == node )
         {
-            return static_cast< int >( i );
+            return i;
         }
     }
     throw NodeNotFoundException( node->toString(), toString() );
@@ -262,7 +262,7 @@ int InternalNode::nodeIndex( Node *node ) const
 //
 //
 //
-Node* InternalNode::neighbor( int index ) const
+Node* InternalNode::neighbor( size_t index ) const
 {
     return m_mappings[ index ].second;
 }

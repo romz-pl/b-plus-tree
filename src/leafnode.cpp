@@ -263,7 +263,7 @@ void LeafNode::copyHalfFrom( std::vector< std::pair< KeyType, Record* > > &mappi
 //
 //
 //
-void LeafNode::moveAllTo( LeafNode *recipient, int )
+void LeafNode::moveAllTo(LeafNode *recipient, size_t )
 {
     recipient->copyAllFrom( m_mappings );
     m_mappings.clear();
@@ -302,7 +302,7 @@ void LeafNode::copyLastFrom( MappingType pair )
 //
 //
 //
-void LeafNode::moveLastToFrontOf( LeafNode *recipient, int parentIndex )
+void LeafNode::moveLastToFrontOf( LeafNode *recipient, size_t parentIndex )
 {
     recipient->copyFirstFrom( m_mappings.back(), parentIndex );
     m_mappings.pop_back();
@@ -311,7 +311,7 @@ void LeafNode::moveLastToFrontOf( LeafNode *recipient, int parentIndex )
 //
 //
 //
-void LeafNode::copyFirstFrom( MappingType pair, int parentIndex )
+void LeafNode::copyFirstFrom( MappingType pair, size_t parentIndex )
 {
     m_mappings.insert( m_mappings.begin(), pair );
     static_cast< InternalNode* >( parent() )->setKeyAt( parentIndex, m_mappings.front().first );

@@ -29,9 +29,9 @@ public:
     size_t removeAndDeleteRecord( KeyType key );
     KeyType firstKey() const;
     void moveHalfTo( LeafNode* recipient );
-    void moveAllTo( LeafNode* recipient, int /* Unused */ );
+    void moveAllTo( LeafNode* recipient, size_t /* Unused */ );
     void moveFirstToEndOf( LeafNode* recipient );
-    void moveLastToFrontOf( LeafNode* recipient, int parentIndex );
+    void moveLastToFrontOf( LeafNode* recipient, size_t parentIndex );
     void copyRangeStartingFrom( KeyType key, std::vector< EntryType >& vector );
     void copyRangeUntil( KeyType aKey, std::vector< EntryType >& vector );
     void copyRange( std::vector< EntryType >& vector );
@@ -41,7 +41,7 @@ private:
     void copyHalfFrom( std::vector< MappingType >& mappings );
     void copyAllFrom( std::vector< MappingType >& mappings );
     void copyLastFrom( MappingType pair );
-    void copyFirstFrom( MappingType pair, int parentIndex );
+    void copyFirstFrom( MappingType pair, size_t parentIndex );
 
 private:
     std::vector< MappingType > m_mappings;
