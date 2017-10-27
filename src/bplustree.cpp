@@ -30,7 +30,7 @@ bool BPlusTree::isEmpty() const
 //
 // Insert a key-value pair into this B+ tree.
 //
-void BPlusTree::insert( KeyType key, ValueType value )
+void BPlusTree::insert( Key key, ValueType value )
 {
     if( isEmpty() )
     {
@@ -44,7 +44,7 @@ void BPlusTree::insert( KeyType key, ValueType value )
 //
 //
 //
-void BPlusTree::startNewTree( KeyType key, ValueType value )
+void BPlusTree::startNewTree( Key key, ValueType value )
 {
     LeafNode* newLeafNode = new LeafNode( m_order );
     newLeafNode->createAndInsertRecord( key, value );
@@ -54,7 +54,7 @@ void BPlusTree::startNewTree( KeyType key, ValueType value )
 //
 //
 //
-void BPlusTree::insertIntoLeaf( KeyType key, ValueType value )
+void BPlusTree::insertIntoLeaf( Key key, ValueType value )
 {
     LeafNode* leafNode = findLeafNode( key );
     if( !leafNode )
@@ -68,7 +68,7 @@ void BPlusTree::insertIntoLeaf( KeyType key, ValueType value )
         LeafNode* newLeaf = split( leafNode );
         newLeaf->setNext( leafNode->next() );
         leafNode->setNext( newLeaf );
-        KeyType newKey = newLeaf->firstKey();
+        Key newKey = newLeaf->firstKey();
         insertIntoParent( leafNode, newKey, newLeaf );
     }
 }
@@ -76,7 +76,7 @@ void BPlusTree::insertIntoLeaf( KeyType key, ValueType value )
 //
 //
 //
-void BPlusTree::insertIntoParent( Node *oldNode, KeyType key, Node *newNode )
+void BPlusTree::insertIntoParent( Node *oldNode, Key key, Node *newNode )
 {
     InternalNode* parent = static_cast< InternalNode* >( oldNode->parent() );
     if( parent == nullptr )
@@ -93,7 +93,7 @@ void BPlusTree::insertIntoParent( Node *oldNode, KeyType key, Node *newNode )
         if( newSize > parent->maxSize() )
         {
             InternalNode* newNode = split( parent );
-            KeyType newKey = newNode->replaceAndReturnFirstKey();
+            Key newKey = newNode->replaceAndReturnFirstKey();
             insertIntoParent( parent, newKey, newNode );
         }
     }
@@ -114,7 +114,7 @@ T* BPlusTree::split( T* node )
 //
 // Remove a key and its value from this B+ tree.
 //
-void BPlusTree::remove(KeyType key)
+void BPlusTree::remove(Key key)
 {
     if( isEmpty() )
     {
@@ -129,7 +129,7 @@ void BPlusTree::remove(KeyType key)
 //
 //
 //
-void BPlusTree::removeFromLeaf( KeyType key )
+void BPlusTree::removeFromLeaf( Key key )
 {
     LeafNode* leafNode = findLeafNode( key );
     if( !leafNode )
@@ -232,7 +232,7 @@ void BPlusTree::adjustRoot()
 //
 // UTILITIES AND PRINTING
 //
-LeafNode* BPlusTree::findLeafNode( KeyType key, bool printing, bool verbose )
+LeafNode* BPlusTree::findLeafNode( Key key, bool printing, bool verbose )
 {
     if( isEmpty() )
     {
@@ -329,7 +329,7 @@ void BPlusTree::destroyTree()
 // at which the tree stores that value.
 // verbose - Determines whether printing should include addresses.
 //
-void BPlusTree::printValue( KeyType key, bool verbose )
+void BPlusTree::printValue( Key key, bool verbose )
 {
     printValue( key, false, verbose );
 }
@@ -337,7 +337,7 @@ void BPlusTree::printValue( KeyType key, bool verbose )
 //
 //
 //
-void BPlusTree::printValue( KeyType key, bool printPath, bool verbose )
+void BPlusTree::printValue( Key key, bool printPath, bool verbose )
 {
     LeafNode* leaf = findLeafNode( key, printPath, verbose );
     if( !leaf )
@@ -368,7 +368,7 @@ void BPlusTree::printValue( KeyType key, bool printPath, bool verbose )
 // Print the path from the root to the leaf bearing key aKey.
 // verbose - Determines whether printing should include addresses.
 //
-void BPlusTree::printPathTo( KeyType key, bool verbose )
+void BPlusTree::printPathTo( Key key, bool verbose )
 {
     printValue( key, true, verbose );
 }
@@ -377,7 +377,7 @@ void BPlusTree::printPathTo( KeyType key, bool verbose )
 // Print key, value, and address for each item in the range
 // from aStart to aEnd, including both.
 //
-void BPlusTree::printRange( KeyType start, KeyType end )
+void BPlusTree::printRange( Key start, Key end )
 {
     auto rangeVector = range( start, end );
     for( auto entry : rangeVector )
@@ -391,11 +391,11 @@ void BPlusTree::printRange( KeyType start, KeyType end )
 //
 //
 //
-std::vector<BPlusTree::EntryType> BPlusTree::range( KeyType start, KeyType end )
+std::vector<BPlusTree::EntryType> BPlusTree::range( Key start, Key end )
 {
     auto startLeaf = findLeafNode( start );
     auto endLeaf = findLeafNode( end );
-    std::vector< std::tuple< KeyType, ValueType, LeafNode* > > entries;
+    std::vector< std::tuple< Key, ValueType, LeafNode* > > entries;
     if( !startLeaf || !endLeaf )
     {
         return entries;

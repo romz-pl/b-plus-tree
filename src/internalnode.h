@@ -14,25 +14,25 @@ public:
     explicit InternalNode( size_t order, Node* parent );
     ~InternalNode() override;
 
-    using MappingType = std::pair< KeyType, Node* >;
+    using MappingType = std::pair< Key, Node* >;
 
     bool isLeaf() const override;
     size_t size() const override;
     size_t minSize() const override;
     size_t maxSize() const override;
-    KeyType keyAt( size_t index) const;
-    void setKeyAt( size_t index, KeyType key );
+    Key keyAt( size_t index) const;
+    void setKeyAt( size_t index, Key key );
     Node* firstChild() const;
-    void populateNewRoot( Node* oldNode, KeyType newKey, Node* newNode );
-    size_t insertNodeAfter( Node* oldNode, KeyType newKey, Node* newNode );
+    void populateNewRoot( Node* oldNode, Key newKey, Node* newNode );
+    size_t insertNodeAfter( Node* oldNode, Key newKey, Node* newNode );
     void remove( size_t index );
     Node* removeAndReturnOnlyChild();
-    KeyType replaceAndReturnFirstKey();
+    Key replaceAndReturnFirstKey();
     void moveHalfTo( InternalNode* recipient );
     void moveAllTo( InternalNode* recipient, size_t indexInParent );
     void moveFirstToEndOf( InternalNode* recipient );
     void moveLastToFrontOf( InternalNode* recipient, size_t parentIndex );
-    Node* lookup( KeyType key ) const;
+    Node* lookup( Key key ) const;
     size_t nodeIndex( Node* node ) const;
     Node* neighbor( size_t index ) const;
     std::string toString( bool verbose = false ) const override;

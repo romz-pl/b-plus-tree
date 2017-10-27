@@ -6,7 +6,7 @@
 //
 //
 //
-LeafNotFoundException::LeafNotFoundException( KeyType key )
+LeafNotFoundException::LeafNotFoundException( Key key )
     : m_key{ key }
 {
 
@@ -52,7 +52,7 @@ const char* NodeNotFoundException::what() const noexcept
 //
 //
 //
-RecordNotFoundException::RecordNotFoundException( KeyType key )
+RecordNotFoundException::RecordNotFoundException( Key key )
     : m_key{ key }
 {
 
