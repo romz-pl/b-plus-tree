@@ -21,7 +21,7 @@
 
 #include <tuple>
 #include <vector>
-#include "Definitions.hpp"
+#include "definitions.h"
 #include "Printer.hpp"
 
 class InternalNode;

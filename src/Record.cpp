@@ -19,7 +19,7 @@
 
 #include <string>
 #include <sstream>
-#include "Definitions.hpp"
+#include "definitions.h"
 #include "Record.hpp"
 
 Record::Record(ValueType aValue)

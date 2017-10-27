@@ -20,7 +20,7 @@
 #include <iostream>
 #include <sstream>
 #include "BPlusTree.hpp"
-#include "Definitions.hpp"
+#include "definitions.h"
 
 std::string introMessage(int aOrder) {
     std::ostringstream oss;

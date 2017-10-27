@@ -19,7 +19,7 @@
 
 #pragma once
 
-#include "Definitions.hpp"
+#include "definitions.h"
 
 class Record
 {
