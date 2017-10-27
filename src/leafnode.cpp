@@ -3,19 +3,23 @@
 #include "internalnode.h"
 #include "leafnode.h"
 
-LeafNode::LeafNode(int aOrder)
-    : Node(aOrder)
-    , fNext{nullptr}
-{}
+LeafNode::LeafNode( size_t order )
+    : Node( order )
+    , m_next{ nullptr }
+{
 
-LeafNode::LeafNode(int aOrder, Node* aParent)
-    : Node(aOrder, aParent)
-    , fNext{nullptr}
-{}
+}
+
+LeafNode::LeafNode( size_t order, Node* parent )
+    : Node( order, parent )
+    , m_next{ nullptr }
+{
+
+}
 
 LeafNode::~LeafNode()
 {
-    for (auto mapping : fMappings) {
+    for (auto mapping : m_mappings) {
         delete mapping.second;
     }
 }
@@ -27,22 +31,22 @@ bool LeafNode::isLeaf() const
 
 LeafNode* LeafNode::next() const
 {
-    return fNext;
+    return m_next;
 }
 
-void LeafNode::setNext(LeafNode* aNext)
+void LeafNode::setNext( LeafNode* next )
 {
-    fNext = aNext;
+    m_next = next;
 }
 
 size_t LeafNode::size() const
 {
-    return fMappings.size();
+    return m_mappings.size();
 }
 
 size_t LeafNode::minSize() const
 {
-    return order()/2;
+    return order() / 2;
 }
 
 size_t LeafNode::maxSize() const
@@ -50,14 +54,14 @@ size_t LeafNode::maxSize() const
     return order() - 1;
 }
 
-std::string LeafNode::toString(bool aVerbose) const
+std::string LeafNode::toString( bool verbose ) const
 {
     std::ostringstream keyToTextConverter;
-    if (aVerbose) {
-        keyToTextConverter << "[" << std::hex << this << std::dec << "]<" << fMappings.size() << "> ";
+    if (verbose) {
+        keyToTextConverter << "[" << std::hex << this << std::dec << "]<" << m_mappings.size() << "> ";
     }
     bool first = true;
-    for (auto mapping : fMappings) {
+    for (auto mapping : m_mappings) {
         if (first) {
             first = false;
         } else {
@@ -65,147 +69,147 @@ std::string LeafNode::toString(bool aVerbose) const
         }
         keyToTextConverter << mapping.first;
     }
-    if (aVerbose) {
-        keyToTextConverter << "[" << std::hex << fNext << ">";
+    if (verbose) {
+        keyToTextConverter << "[" << std::hex << m_next << ">";
     }
     return keyToTextConverter.str();
 }
 
-size_t LeafNode::createAndInsertRecord(KeyType aKey, ValueType aValue)
+size_t LeafNode::createAndInsertRecord( KeyType key, ValueType value )
 {
-    Record* existingRecord = lookup(aKey);
+    Record* existingRecord = lookup(key);
     if (!existingRecord) {
-        Record* newRecord = new Record(aValue);
-        insert(aKey, newRecord);
+        Record* newRecord = new Record(value);
+        insert(key, newRecord);
     }
-    return fMappings.size();
+    return m_mappings.size();
 }
 
-void LeafNode::insert(KeyType aKey, Record* aRecord)
+void LeafNode::insert( KeyType key, Record* record )
 {
-    auto insertionPoint = fMappings.begin();
-    auto end = fMappings.end();
-    while (insertionPoint != end && insertionPoint->first < aKey) {
+    auto insertionPoint = m_mappings.begin();
+    auto end = m_mappings.end();
+    while (insertionPoint != end && insertionPoint->first < key) {
         ++insertionPoint;
     }
-    fMappings.insert(insertionPoint, MappingType(aKey, aRecord));
+    m_mappings.insert(insertionPoint, MappingType( key, record ));
 }
 
-Record* LeafNode::lookup(KeyType aKey) const
+Record* LeafNode::lookup( KeyType key ) const
 {
-    for (auto mapping : fMappings) {
-        if (mapping.first == aKey) {
+    for (auto mapping : m_mappings) {
+        if (mapping.first == key) {
             return mapping.second;
         }
     }
     return nullptr;
 }
 
-void LeafNode::copyRangeStartingFrom(KeyType aKey, std::vector<EntryType>& aVector)
+void LeafNode::copyRangeStartingFrom( KeyType key, std::vector<EntryType>& vector )
 {
     bool found = false;
-    for (auto mapping : fMappings) {
-        if (mapping.first == aKey) {
+    for (auto mapping : m_mappings) {
+        if (mapping.first == key) {
             found = true;
         }
         if (found) {
-            aVector.push_back(std::make_tuple(mapping.first, mapping.second->value(), this));
+            vector.push_back(std::make_tuple(mapping.first, mapping.second->value(), this));
         }
     }
 }
 
-void LeafNode::copyRangeUntil(KeyType aKey, std::vector<EntryType>& aVector)
+void LeafNode::copyRangeUntil( KeyType key, std::vector<EntryType>& vector )
 {
     bool found = false;
-    for (auto mapping : fMappings) {
+    for (auto mapping : m_mappings) {
         if (!found) {
-            aVector.push_back(std::make_tuple(mapping.first, mapping.second->value(), this));
+            vector.push_back(std::make_tuple(mapping.first, mapping.second->value(), this));
         }
-        if (mapping.first == aKey) {
+        if (mapping.first == key) {
             found = true;
         }
     }
 }
 
-void LeafNode::copyRange(std::vector<EntryType>& aVector)
+void LeafNode::copyRange( std::vector< EntryType >& vector )
 {
-    for (auto mapping : fMappings) {
-        aVector.push_back(std::make_tuple(mapping.first, mapping.second->value(), this));
+    for (auto mapping : m_mappings) {
+        vector.push_back(std::make_tuple(mapping.first, mapping.second->value(), this));
     }
 }
 
 
-size_t LeafNode::removeAndDeleteRecord(KeyType aKey)
+size_t LeafNode::removeAndDeleteRecord( KeyType key )
 {
-    auto removalPoint = fMappings.begin();
-    auto end = fMappings.end();
-    while (removalPoint != end && removalPoint->first != aKey) {
+    auto removalPoint = m_mappings.begin();
+    auto end = m_mappings.end();
+    while (removalPoint != end && removalPoint->first != key ) {
         ++removalPoint;
     }
     if (removalPoint == end) {
-        throw RecordNotFoundException(aKey);
+        throw RecordNotFoundException(key );
     }
     auto record = *removalPoint;
-    fMappings.erase(removalPoint);
+    m_mappings.erase(removalPoint);
     delete record.second;
-    return fMappings.size();
+    return m_mappings.size();
 }
 
 KeyType LeafNode::firstKey() const
 {
-    return fMappings[0].first;
+    return m_mappings[0].first;
 }
 
-void LeafNode::moveHalfTo(LeafNode *aRecipient)
+void LeafNode::moveHalfTo( LeafNode *recipient )
 {
-    aRecipient->copyHalfFrom(fMappings);
-    size_t size = fMappings.size();
+    recipient->copyHalfFrom(m_mappings);
+    size_t size = m_mappings.size();
     for (size_t i = minSize(); i < size; ++i) {
-        fMappings.pop_back();
+        m_mappings.pop_back();
     }
 }
 
-void LeafNode::copyHalfFrom(std::vector<std::pair<KeyType, Record*> > &aMappings)
+void LeafNode::copyHalfFrom( std::vector< std::pair< KeyType, Record* > > &mappings )
 {
-    for (size_t i = minSize(); i < aMappings.size(); ++i) {
-        fMappings.push_back(aMappings[i]);
+    for (size_t i = minSize(); i < mappings.size(); ++i) {
+        m_mappings.push_back(mappings[i]);
     }
 }
 
-void LeafNode::moveAllTo(LeafNode *aRecipient, int)
+void LeafNode::moveAllTo( LeafNode *recipient, int )
 {
-    aRecipient->copyAllFrom(fMappings);
-    fMappings.clear();
-    aRecipient->setNext(next());
+    recipient->copyAllFrom(m_mappings);
+    m_mappings.clear();
+    recipient->setNext(next());
 }
 
-void LeafNode::copyAllFrom(std::vector<std::pair<KeyType, Record*> > &aMappings)
+void LeafNode::copyAllFrom( std::vector< std::pair< KeyType, Record* > > &mappings )
 {
-    for (auto mapping : aMappings) {
-        fMappings.push_back(mapping);
+    for (auto mapping : mappings) {
+        m_mappings.push_back(mapping);
     }
 }
 
-void LeafNode::moveFirstToEndOf(LeafNode* aRecipient)
+void LeafNode::moveFirstToEndOf( LeafNode* recipient )
 {
-    aRecipient->copyLastFrom(fMappings.front());
-    fMappings.erase(fMappings.begin());
-    static_cast<InternalNode*>(parent())->setKeyAt(1, fMappings.front().first);
+    recipient->copyLastFrom(m_mappings.front());
+    m_mappings.erase(m_mappings.begin());
+    static_cast<InternalNode*>(parent())->setKeyAt(1, m_mappings.front().first);
 }
 
-void LeafNode::copyLastFrom(MappingType aPair)
+void LeafNode::copyLastFrom( MappingType pair )
 {
-    fMappings.push_back(aPair);
+    m_mappings.push_back(pair);
 }
 
-void LeafNode::moveLastToFrontOf(LeafNode *aRecipient, int aParentIndex)
+void LeafNode::moveLastToFrontOf( LeafNode *recipient, int parentIndex)
 {
-    aRecipient->copyFirstFrom(fMappings.back(), aParentIndex);
-    fMappings.pop_back();
+    recipient->copyFirstFrom(m_mappings.back(), parentIndex);
+    m_mappings.pop_back();
 }
 
-void LeafNode::copyFirstFrom(MappingType aPair, int aParentIndex)
+void LeafNode::copyFirstFrom( MappingType pair, int parentIndex )
 {
-    fMappings.insert(fMappings.begin(), aPair);
-    static_cast<InternalNode*>(parent())->setKeyAt(aParentIndex, fMappings.front().first);
+    m_mappings.insert(m_mappings.begin(), pair);
+    static_cast<InternalNode*>(parent())->setKeyAt(parentIndex, m_mappings.front().first);
 }
