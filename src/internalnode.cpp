@@ -97,7 +97,7 @@ Node* InternalNode::firstChild() const
 //
 void InternalNode::populateNewRoot( Node *oldNode, Key newKey, Node *newNode )
 {
-    m_mappings.push_back( std::make_pair( DUMMY_KEY, oldNode ) );
+    m_mappings.push_back( std::make_pair( Key::Dummy(), oldNode ) );
     m_mappings.push_back( std::make_pair( newKey, newNode ) );
 }
 
@@ -136,7 +136,7 @@ Node* InternalNode::removeAndReturnOnlyChild()
 Key InternalNode::replaceAndReturnFirstKey()
 {
     Key newKey = m_mappings[ 0 ].first;
-    m_mappings[ 0 ].first = DUMMY_KEY;
+    m_mappings[ 0 ].first = Key::Dummy();
     return newKey;
 }
 
@@ -222,7 +222,7 @@ void InternalNode::copyFirstFrom( MappingType pair, size_t parentIndex )
 {
     m_mappings.front().first = static_cast< InternalNode* >( parent() )->keyAt( parentIndex );
     m_mappings.insert( m_mappings.begin(), pair );
-    m_mappings.front().first = DUMMY_KEY;
+    m_mappings.front().first = Key::Dummy();
     m_mappings.front().second->setParent( this );
     static_cast< InternalNode* >( parent() )->setKeyAt( parentIndex, m_mappings.front().first );
 }

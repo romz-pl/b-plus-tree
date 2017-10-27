@@ -1,4 +1,5 @@
 #include "key.h"
+#include <limits>
 
 
 //
@@ -67,3 +68,11 @@ std::string Key::ToString() const
     return std::to_string( m_value );
 }
 
+//
+// Key used where only the entry's pointer has meaning.
+//
+Key Key::Dummy()
+{
+    const int64_t v = std::numeric_limits< int64_t >::max();
+    return Key( v );
+}

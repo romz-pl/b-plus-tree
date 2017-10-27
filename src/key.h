@@ -29,6 +29,8 @@ public:
 
     std::string ToString() const;
 
+    static Key Dummy();
+
 
 private:
     int64_t m_value;
