@@ -8,7 +8,9 @@
 #include "node.h"
 
 //
-//
+// Sole constructor.  Accepts an optional order for the B+ Tree.
+// The default order will provide a reasonable demonstration of the
+// data structure and its operations.
 //
 BPlusTree::BPlusTree( size_t order)
     : m_order{ order }
@@ -18,7 +20,7 @@ BPlusTree::BPlusTree( size_t order)
 }
 
 //
-//
+// Returns true if this B+ tree has no keys or values.
 //
 bool BPlusTree::isEmpty() const
 {
@@ -26,7 +28,7 @@ bool BPlusTree::isEmpty() const
 }
 
 //
-// INSERTION
+// Insert a key-value pair into this B+ tree.
 //
 void BPlusTree::insert( KeyType key, ValueType value )
 {
@@ -110,7 +112,7 @@ T* BPlusTree::split( T* node )
 
 
 //
-// REMOVAL
+// Remove a key and its value from this B+ tree.
 //
 void BPlusTree::remove(KeyType key)
 {
@@ -267,7 +269,10 @@ LeafNode* BPlusTree::findLeafNode( KeyType key, bool printing, bool verbose )
 }
 
 //
-//
+// Read elements to be inserted into the B+ tree from a text file.
+// Each new element should consist of a single integer on a line by itself.
+// This B+ tree treats each such input as both a new value and the key
+// under which to store it.
 //
 void BPlusTree::readInputFromFile( std::string fileName )
 {
@@ -281,7 +286,9 @@ void BPlusTree::readInputFromFile( std::string fileName )
 }
 
 //
-//
+// Print this B+ tree to stdout using a simple command-line
+// ASCII graphic scheme.
+// verbose - Determines whether printing should include addresses.
 //
 void BPlusTree::print( bool verbose )
 {
@@ -290,7 +297,9 @@ void BPlusTree::print( bool verbose )
 }
 
 //
-//
+// Print the bottom rank of this B+ tree, consisting of its leaves.
+// This shows all the keys in the B+ tree in sorted order.
+// verbose - Determines whether printing should include addresses.
 //
 void BPlusTree::printLeaves( bool verbose )
 {
@@ -299,7 +308,8 @@ void BPlusTree::printLeaves( bool verbose )
 }
 
 //
-//
+// Remove all elements from the B+ tree. You can then build
+// it up again by inserting new elements into it.
 //
 void BPlusTree::destroyTree()
 {
@@ -315,7 +325,9 @@ void BPlusTree::destroyTree()
 }
 
 //
-//
+// Print the value associated with a given key, along with the address
+// at which the tree stores that value.
+// verbose - Determines whether printing should include addresses.
 //
 void BPlusTree::printValue( KeyType key, bool verbose )
 {
@@ -353,7 +365,8 @@ void BPlusTree::printValue( KeyType key, bool printPath, bool verbose )
 }
 
 //
-//
+// Print the path from the root to the leaf bearing key aKey.
+// verbose - Determines whether printing should include addresses.
 //
 void BPlusTree::printPathTo( KeyType key, bool verbose )
 {
@@ -361,7 +374,8 @@ void BPlusTree::printPathTo( KeyType key, bool verbose )
 }
 
 //
-//
+// Print key, value, and address for each item in the range
+// from aStart to aEnd, including both.
 //
 void BPlusTree::printRange( KeyType start, KeyType end )
 {
