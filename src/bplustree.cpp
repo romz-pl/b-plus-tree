@@ -30,7 +30,7 @@ bool BPlusTree::isEmpty() const
 //
 // Insert a key-value pair into this B+ tree.
 //
-void BPlusTree::insert( Key key, ValueType value )
+void BPlusTree::insert( Key key, Value value )
 {
     if( isEmpty() )
     {
@@ -44,7 +44,7 @@ void BPlusTree::insert( Key key, ValueType value )
 //
 //
 //
-void BPlusTree::startNewTree( Key key, ValueType value )
+void BPlusTree::startNewTree( Key key, Value value )
 {
     LeafNode* newLeafNode = new LeafNode( m_order );
     newLeafNode->createAndInsertRecord( key, value );
@@ -54,7 +54,7 @@ void BPlusTree::startNewTree( Key key, ValueType value )
 //
 //
 //
-void BPlusTree::insertIntoLeaf( Key key, ValueType value )
+void BPlusTree::insertIntoLeaf( Key key, Value value )
 {
     LeafNode* leafNode = findLeafNode( key );
     if( !leafNode )
@@ -395,7 +395,7 @@ std::vector<BPlusTree::EntryType> BPlusTree::range( Key start, Key end )
 {
     auto startLeaf = findLeafNode( start );
     auto endLeaf = findLeafNode( end );
-    std::vector< std::tuple< Key, ValueType, LeafNode* > > entries;
+    std::vector< std::tuple< Key, Value, LeafNode* > > entries;
     if( !startLeaf || !endLeaf )
     {
         return entries;

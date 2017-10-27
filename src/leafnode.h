@@ -15,7 +15,7 @@ public:
     ~LeafNode() override;
 
     using MappingType = std::pair< Key, Record* >;
-    using EntryType = std::tuple< Key, ValueType, LeafNode* >;
+    using EntryType = std::tuple< Key, Value, LeafNode* >;
 
     bool isLeaf() const override;
     LeafNode* next() const;
@@ -23,7 +23,7 @@ public:
     size_t size() const override;
     size_t minSize() const override;
     size_t maxSize() const override;
-    size_t createAndInsertRecord( Key key, ValueType value );
+    size_t createAndInsertRecord( Key key, Value value );
     void insert( Key key, Record* record );
     Record* lookup( Key key ) const;
     size_t removeAndDeleteRecord( Key key );

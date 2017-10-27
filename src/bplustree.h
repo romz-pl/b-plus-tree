@@ -20,11 +20,11 @@ public:
     /// The type used in the API for inserting a new key-value pair
     /// into the tree.  The third item is the type of the Node into
     /// which the key will be inserted.
-    using EntryType = std::tuple< Key, ValueType, LeafNode* >;
+    using EntryType = std::tuple< Key, Value, LeafNode* >;
     
 
     bool isEmpty() const;  
-    void insert( Key key, ValueType value );
+    void insert( Key key, Value value );
     void remove( Key key );
     
 
@@ -39,8 +39,8 @@ public:
     void readInputFromFile( std::string fileName );
 
 private:
-    void startNewTree( Key key, ValueType value );
-    void insertIntoLeaf( Key key, ValueType value );
+    void startNewTree( Key key, Value value );
+    void insertIntoLeaf( Key key, Value value );
     void insertIntoParent( Node* oldNode, Key key, Node* newNode );
     template < typename T > T* split( T* aNode );
     void removeFromLeaf( Key key );

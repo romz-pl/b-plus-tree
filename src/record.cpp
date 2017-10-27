@@ -6,7 +6,7 @@
 //
 //
 //
-Record::Record( ValueType value )
+Record::Record( Value value )
     : m_value( value )
 {
 
@@ -15,7 +15,7 @@ Record::Record( ValueType value )
 //
 //
 //
-ValueType Record::value() const
+Value Record::value() const
 {
     return m_value;
 }

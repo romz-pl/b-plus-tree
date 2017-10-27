@@ -13,7 +13,7 @@ const size_t MIN_ORDER{ DEFAULT_ORDER - 1 };
 const size_t MAX_ORDER{ 20 };
 
 using Key = int64_t;
-using ValueType = int64_t;
+using Value = int64_t;
 
 #endif
 

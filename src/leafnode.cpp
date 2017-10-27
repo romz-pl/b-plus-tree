@@ -116,7 +116,7 @@ std::string LeafNode::toString( bool verbose ) const
 //
 //
 //
-size_t LeafNode::createAndInsertRecord( Key key, ValueType value )
+size_t LeafNode::createAndInsertRecord( Key key, Value value )
 {
     Record* existingRecord = lookup( key );
     if( !existingRecord )
