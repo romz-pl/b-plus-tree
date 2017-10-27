@@ -6,6 +6,7 @@
 #include "definitions.h"
 #include "printer.h"
 #include "key.h"
+#include "value.h"
 
 class InternalNode;
 class LeafNode;

@@ -83,7 +83,7 @@ int main(int argc, const char * argv[]) {
                 if (key < 0) {
                     std::cout << usageMessage();
                 }
-                tree.insert( Key( key ), key);
+                tree.insert( Key( key ), Value( key ) );
                 tree.print(verbose);
                 break;
             case 'f':

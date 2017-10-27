@@ -26,6 +26,6 @@ Value Record::value() const
 std::string Record::toString() const
 {
     std::ostringstream oss;
-    oss << m_value;
+    oss << m_value.ToString();
     return oss.str();
 }

@@ -2,6 +2,7 @@
 #define BPLUSTREE_RECORD_H
 
 #include "definitions.h"
+#include "value.h"
 
 class Record
 {

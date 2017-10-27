@@ -33,6 +33,7 @@ SOURCE += main.cpp
 SOURCE += node.cpp
 SOURCE += printer.cpp
 SOURCE += record.cpp
+SOURCE += value.cpp
 
 
 #Object files
