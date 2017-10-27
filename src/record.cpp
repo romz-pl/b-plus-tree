@@ -3,18 +3,20 @@
 #include "definitions.h"
 #include "record.h"
 
-Record::Record(ValueType aValue)
-: fValue(aValue)
-{}
+Record::Record( ValueType value )
+    : m_value( value )
+{
+
+}
 
 ValueType Record::value() const
 {
-    return fValue;
+    return m_value;
 }
 
 std::string Record::toString() const
 {
     std::ostringstream oss;
-    oss << fValue;
+    oss << m_value;
     return oss.str();
 }
