@@ -13,7 +13,9 @@ public:
     explicit InternalNode( size_t order );
     explicit InternalNode( size_t order, Node* parent );
     ~InternalNode() override;
-    using MappingType = std::pair<KeyType, Node*>;
+
+    using MappingType = std::pair< KeyType, Node* >;
+
     bool isLeaf() const override;
     size_t size() const override;
     size_t minSize() const override;
@@ -35,6 +37,7 @@ public:
     Node* neighbor( int index ) const;
     std::string toString( bool verbose = false ) const override;
     void queueUpChildren( std::queue< Node* >* queue );
+
 private:
     void copyHalfFrom( std::vector< MappingType >& mappings );
     void copyAllFrom( std::vector< MappingType >& mappings );
