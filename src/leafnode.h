@@ -10,37 +10,43 @@
 class LeafNode : public Node
 {
 public:
-    explicit LeafNode(int aOrder);
-    explicit LeafNode(int aOrder, Node* aParent);
+    explicit LeafNode( size_t order );
+    explicit LeafNode( size_t order, Node* parent );
     ~LeafNode() override;
-    using MappingType = std::pair<KeyType, Record*>;
-    using EntryType = std::tuple<KeyType, ValueType, LeafNode*>;
+
+    using MappingType = std::pair< KeyType, Record* >;
+    using EntryType = std::tuple< KeyType, ValueType, LeafNode* >;
+
     bool isLeaf() const override;
     LeafNode* next() const;
-    void setNext(LeafNode* aNext);
+    void setNext( LeafNode* next );
     size_t size() const override;
     size_t minSize() const override;
     size_t maxSize() const override;
-    size_t createAndInsertRecord(KeyType aKey, ValueType aValue);
-    void insert(KeyType aKey, Record* aRecord);
-    Record* lookup(KeyType aKey) const;
-    size_t removeAndDeleteRecord(KeyType aKey);
+    size_t createAndInsertRecord( KeyType key, ValueType value );
+    void insert( KeyType key, Record* record );
+    Record* lookup( KeyType key ) const;
+    size_t removeAndDeleteRecord( KeyType key );
     KeyType firstKey() const;
-    void moveHalfTo(LeafNode* aRecipient);
-    void moveAllTo(LeafNode* aRecipient, int /* Unused */);
-    void moveFirstToEndOf(LeafNode* aRecipient);
-    void moveLastToFrontOf(LeafNode* aRecipient, int aParentIndex);
-    void copyRangeStartingFrom(KeyType aKey, std::vector<EntryType>& aVector);
-    void copyRangeUntil(KeyType aKey, std::vector<EntryType>& aVector);
-    void copyRange(std::vector<EntryType>& aVector);
-    std::string toString(bool aVerbose = false) const override;
+    void moveHalfTo( LeafNode* recipient );
+    void moveAllTo( LeafNode* recipient, int /* Unused */ );
+    void moveFirstToEndOf( LeafNode* recipient );
+    void moveLastToFrontOf( LeafNode* recipient, int parentIndex );
+    void copyRangeStartingFrom( KeyType key, std::vector< EntryType >& vector );
+    void copyRangeUntil( KeyType aKey, std::vector< EntryType >& vector );
+    void copyRange( std::vector< EntryType >& vector );
+    std::string toString( bool verbose = false ) const override;
+
 private:
-    void copyHalfFrom(std::vector<MappingType>& aMappings);
-    void copyAllFrom(std::vector<MappingType>& aMappings);
-    void copyLastFrom(MappingType aPair);
-    void copyFirstFrom(MappingType aPair, int aParentIndex);
-    std::vector<MappingType> fMappings;
-    LeafNode* fNext;
+    void copyHalfFrom( std::vector< MappingType >& mappings );
+    void copyAllFrom( std::vector< MappingType >& mappings );
+    void copyLastFrom( MappingType pair );
+    void copyFirstFrom( MappingType pair, int parentIndex );
+
+private:
+    std::vector< MappingType > m_mappings;
+
+    LeafNode* m_next;
 };
 
 #endif

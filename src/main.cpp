@@ -3,7 +3,7 @@
 #include "bplustree.h"
 #include "definitions.h"
 
-std::string introMessage(int aOrder) {
+std::string introMessage(size_t aOrder) {
     std::ostringstream oss;
     oss << "B+ Tree of Order " << aOrder << std::endl;
     oss << "C++ implementation by Amittai Aviram -- afa13@columbia.edu -- Version " << VERSION << std::endl;
@@ -34,9 +34,9 @@ std::string usageMessage() {
     return message;
 }
 
-int getOrder(int argc, const char * argv[]) {
+size_t getOrder(int argc, const char * argv[]) {
     if (argc > 1) {
-        int order = 0;
+        size_t order = 0;
         std::istringstream iss(argv[1]);
         if ((iss >> order) && iss.eof() &&
             order >= MIN_ORDER && order <= MAX_ORDER) {
@@ -59,7 +59,7 @@ int main(int argc, const char * argv[]) {
     int key = 0;
     bool quit = false;
     bool verbose = false;
-    int order = getOrder(argc, argv);
+    size_t order = getOrder(argc, argv);
     std::cout << introMessage(order);
     std::cout << usageMessage();
     BPlusTree tree(order);

@@ -9,15 +9,20 @@ class Printer
 {
 public:
     Printer();
+    ~Printer() = default;
+
     bool verbose() const;
-    void setVerbose(bool aVerbose);
-    void printTree(Node* aRoot) const;
-    void printLeaves(Node* aRoot);
+    void setVerbose( bool verbose );
+    void printTree( Node* root ) const;
+    void printLeaves( Node* root );
+
 private:
     void printEmptyTree() const;
-    void printNonEmptyTree(Node* aRoot) const;
-    void printCurrentRank(std::queue<Node*>* aCurrentRank, std::queue<Node*>* aNextRank) const;
-    bool fVerbose;
+    void printNonEmptyTree( Node* root ) const;
+    void printCurrentRank( std::queue< Node* >* currentRank, std::queue< Node* >* nextRank ) const;
+
+private:
+    bool m_verbose;
 };
 
 #endif

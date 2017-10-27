@@ -10,37 +10,42 @@
 class InternalNode : public Node
 {
 public:
-    explicit InternalNode(int aOrder);
-    explicit InternalNode(int aOrder, Node* aParent);
+    explicit InternalNode( size_t order );
+    explicit InternalNode( size_t order, Node* parent );
     ~InternalNode() override;
-    using MappingType = std::pair<KeyType, Node*>;
+
+    using MappingType = std::pair< KeyType, Node* >;
+
     bool isLeaf() const override;
     size_t size() const override;
     size_t minSize() const override;
     size_t maxSize() const override;
-    KeyType keyAt(int aIndex) const;
-    void setKeyAt(int aIndex, KeyType aKey);
+    KeyType keyAt(int index) const;
+    void setKeyAt( int index, KeyType key );
     Node* firstChild() const;
-    void populateNewRoot(Node* aOldNode, KeyType aNewKey, Node* aNewNode);
-    size_t insertNodeAfter(Node* aOldNode, KeyType aNewKey, Node* aNewNode);
-    void remove(int aIndex);
+    void populateNewRoot( Node* oldNode, KeyType newKey, Node* newNode );
+    size_t insertNodeAfter( Node* oldNode, KeyType newKey, Node* newNode );
+    void remove( int index );
     Node* removeAndReturnOnlyChild();
     KeyType replaceAndReturnFirstKey();
-    void moveHalfTo(InternalNode* aRecipient);
-    void moveAllTo(InternalNode* aRecipient, int aIndexInParent);
-    void moveFirstToEndOf(InternalNode* aRecipient);
-    void moveLastToFrontOf(InternalNode* aRecipient, int aParentIndex);
-    Node* lookup(KeyType aKey) const;
-    int nodeIndex(Node* aNode) const;
-    Node* neighbor(int aIndex) const;
-    std::string toString(bool aVerbose = false) const override;
-    void queueUpChildren(std::queue<Node*>* aQueue);
+    void moveHalfTo( InternalNode* recipient );
+    void moveAllTo( InternalNode* recipient, int indexInParent );
+    void moveFirstToEndOf( InternalNode* recipient );
+    void moveLastToFrontOf( InternalNode* recipient, int parentIndex );
+    Node* lookup( KeyType key ) const;
+    int nodeIndex( Node* node ) const;
+    Node* neighbor( int index ) const;
+    std::string toString( bool verbose = false ) const override;
+    void queueUpChildren( std::queue< Node* >* queue );
+
 private:
-    void copyHalfFrom(std::vector<MappingType>& aMappings);
-    void copyAllFrom(std::vector<MappingType>& aMappings);
-    void copyLastFrom(MappingType aPair);
-    void copyFirstFrom(MappingType aPair, int aParentIndex);
-    std::vector<MappingType> fMappings;
+    void copyHalfFrom( std::vector< MappingType >& mappings );
+    void copyAllFrom( std::vector< MappingType >& mappings );
+    void copyLastFrom( MappingType pair );
+    void copyFirstFrom( MappingType pair, int parentIndex );
+
+private:
+    std::vector<MappingType> m_mappings;
 };
 
 #endif

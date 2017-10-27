@@ -7,277 +7,407 @@
 #include "leafnode.h"
 #include "node.h"
 
-BPlusTree::BPlusTree(int aOrder) : fOrder{aOrder}, fRoot{nullptr} {}
+//
+// Sole constructor.  Accepts an optional order for the B+ Tree.
+// The default order will provide a reasonable demonstration of the
+// data structure and its operations.
+//
+BPlusTree::BPlusTree( size_t order)
+    : m_order{ order }
+    , m_root{ nullptr }
+{
 
+}
+
+//
+// Returns true if this B+ tree has no keys or values.
+//
 bool BPlusTree::isEmpty() const
 {
-    return !fRoot;
+    return !m_root;
 }
 
-// INSERTION
-
-void BPlusTree::insert(KeyType aKey, ValueType aValue)
+//
+// Insert a key-value pair into this B+ tree.
+//
+void BPlusTree::insert( KeyType key, ValueType value )
 {
-    if (isEmpty()) {
-        startNewTree(aKey, aValue);
-    } else {
-        insertIntoLeaf(aKey, aValue);
+    if( isEmpty() )
+    {
+        startNewTree( key, value );
+    } else
+    {
+        insertIntoLeaf( key, value );
     }
 }
 
-void BPlusTree::startNewTree(KeyType aKey, ValueType aValue) {
-    LeafNode* newLeafNode = new LeafNode(fOrder);
-    newLeafNode->createAndInsertRecord(aKey, aValue);
-    fRoot = newLeafNode;
+//
+//
+//
+void BPlusTree::startNewTree( KeyType key, ValueType value )
+{
+    LeafNode* newLeafNode = new LeafNode( m_order );
+    newLeafNode->createAndInsertRecord( key, value );
+    m_root = newLeafNode;
 }
 
-void BPlusTree::insertIntoLeaf(KeyType aKey, ValueType aValue)
+//
+//
+//
+void BPlusTree::insertIntoLeaf( KeyType key, ValueType value )
 {
-    LeafNode* leafNode = findLeafNode(aKey);
-    if (!leafNode) {
-        throw LeafNotFoundException(aKey);
+    LeafNode* leafNode = findLeafNode( key );
+    if( !leafNode )
+    {
+        throw LeafNotFoundException( key );
     }
-    size_t newSize = leafNode->createAndInsertRecord(aKey, aValue);
-    if (newSize > leafNode->maxSize()) {
-        LeafNode* newLeaf = split(leafNode);
-        newLeaf->setNext(leafNode->next());
-        leafNode->setNext(newLeaf);
+
+    size_t newSize = leafNode->createAndInsertRecord( key, value );
+    if( newSize > leafNode->maxSize() )
+    {
+        LeafNode* newLeaf = split( leafNode );
+        newLeaf->setNext( leafNode->next() );
+        leafNode->setNext( newLeaf );
         KeyType newKey = newLeaf->firstKey();
-        insertIntoParent(leafNode, newKey, newLeaf);
+        insertIntoParent( leafNode, newKey, newLeaf );
     }
 }
 
-void BPlusTree::insertIntoParent(Node *aOldNode, KeyType aKey, Node *aNewNode)
+//
+//
+//
+void BPlusTree::insertIntoParent( Node *oldNode, KeyType key, Node *newNode )
 {
-    InternalNode* parent = static_cast<InternalNode*>(aOldNode->parent());
-    if (parent == nullptr) {
-        fRoot = new InternalNode(fOrder);
-        parent = static_cast<InternalNode*>(fRoot);
-        aOldNode->setParent(parent);
-        aNewNode->setParent(parent);
-        parent->populateNewRoot(aOldNode, aKey, aNewNode);
-    } else {
-        size_t newSize = parent->insertNodeAfter(aOldNode, aKey, aNewNode);
-        if (newSize > parent->maxSize()) {
-            InternalNode* newNode = split(parent);
+    InternalNode* parent = static_cast< InternalNode* >( oldNode->parent() );
+    if( parent == nullptr )
+    {
+        m_root = new InternalNode( m_order );
+        parent = static_cast< InternalNode* >( m_root );
+        oldNode->setParent( parent );
+        newNode->setParent( parent );
+        parent->populateNewRoot( oldNode, key, newNode );
+    }
+    else
+    {
+        size_t newSize = parent->insertNodeAfter( oldNode, key, newNode );
+        if( newSize > parent->maxSize() )
+        {
+            InternalNode* newNode = split( parent );
             KeyType newKey = newNode->replaceAndReturnFirstKey();
-            insertIntoParent(parent, newKey, newNode);
+            insertIntoParent( parent, newKey, newNode );
         }
     }
 }
 
-template <typename T>
-T* BPlusTree::split(T* aNode)
+//
+//
+//
+template < typename T >
+T* BPlusTree::split( T* node )
 {
-    T* newNode = new T(fOrder, aNode->parent());
-    aNode->moveHalfTo(newNode);
+    T* newNode = new T( m_order, node->parent() );
+    node->moveHalfTo( newNode );
     return newNode;
 }
 
 
-// REMOVAL
-
-
-void BPlusTree::remove(KeyType aKey)
+//
+// Remove a key and its value from this B+ tree.
+//
+void BPlusTree::remove(KeyType key)
 {
-    if (isEmpty()) {
+    if( isEmpty() )
+    {
         return;
-    } else {
-        removeFromLeaf(aKey);
+    }
+    else
+    {
+        removeFromLeaf( key );
     }
 }
 
-void BPlusTree::removeFromLeaf(KeyType aKey)
+//
+//
+//
+void BPlusTree::removeFromLeaf( KeyType key )
 {
-    LeafNode* leafNode = findLeafNode(aKey);
-    if (!leafNode) {
+    LeafNode* leafNode = findLeafNode( key );
+    if( !leafNode )
+    {
         return;
     }
-    if (!leafNode->lookup(aKey)) {
+    if( !leafNode->lookup( key ) )
+    {
         return;
     }
-    size_t newSize = leafNode->removeAndDeleteRecord(aKey);
-    if (newSize < leafNode->minSize()) {
-        coalesceOrRedistribute(leafNode);
+    size_t newSize = leafNode->removeAndDeleteRecord( key );
+    if( newSize < leafNode->minSize() )
+    {
+        coalesceOrRedistribute( leafNode );
     }
 }
 
-template <typename N>
-void BPlusTree::coalesceOrRedistribute(N* aNode)
+//
+//
+//
+template < typename N >
+void BPlusTree::coalesceOrRedistribute( N* node )
 {
-    if (aNode->isRoot()) {
+    if( node->isRoot() )
+    {
         adjustRoot();
         return;
     }
-    auto parent = static_cast<InternalNode*>(aNode->parent());
-    int indexOfNodeInParent = parent->nodeIndex(aNode);
-    int neighborIndex = (indexOfNodeInParent == 0) ? 1 : indexOfNodeInParent - 1;
-    N* neighborNode = static_cast<N*>(parent->neighbor(neighborIndex));
-    if (aNode->size() + neighborNode->size() <= neighborNode->maxSize()) {
-        coalesce(neighborNode, aNode, parent, indexOfNodeInParent);
-    } else {
-        redistribute(neighborNode, aNode, parent, indexOfNodeInParent);
+
+    auto parent = static_cast< InternalNode* >( node->parent() );
+    int indexOfNodeInParent = parent->nodeIndex( node );
+    int neighborIndex = ( indexOfNodeInParent == 0 ) ? 1 : indexOfNodeInParent - 1;
+    N* neighborNode = static_cast< N* >( parent->neighbor( neighborIndex ) );
+    if( node->size() + neighborNode->size() <= neighborNode->maxSize() )
+    {
+        coalesce( neighborNode, node, parent, indexOfNodeInParent );
+    }
+    else
+    {
+        redistribute( neighborNode, node, parent, indexOfNodeInParent );
     }
 }
 
-template <typename N>
-void BPlusTree::coalesce(N* aNeighborNode, N* aNode, InternalNode* aParent, int aIndex)
+//
+//
+//
+template < typename N >
+void BPlusTree::coalesce( N* neighborNode, N* node, InternalNode* parent, int index )
 {
-    if (aIndex == 0) {
-        std::swap(aNode, aNeighborNode);
-        aIndex = 1;
+    if( index == 0 )
+    {
+        std::swap( node, neighborNode );
+        index = 1;
     }
-    aNode->moveAllTo(aNeighborNode, aIndex);
-    aParent->remove(aIndex);
-    if (aParent->size() < aParent->minSize()) {
-        coalesceOrRedistribute(aParent);
+    node->moveAllTo( neighborNode, index );
+    parent->remove( index );
+    if( parent->size() < parent->minSize() )
+    {
+        coalesceOrRedistribute( parent );
     }
-    delete aNode;
+    delete node;
 }
 
-template <typename N>
-void BPlusTree::redistribute(N* aNeighborNode, N* aNode, InternalNode* /*aParent*/, int aIndex)
+//
+//
+//
+template < typename N >
+void BPlusTree::redistribute( N* neighborNode, N* node, InternalNode* /*aParent*/, int index )
 {
-    if (aIndex == 0) {
-        aNeighborNode->moveFirstToEndOf(aNode);
-    } else {
-        aNeighborNode->moveLastToFrontOf(aNode, aIndex);
+    if( index == 0 )
+    {
+        neighborNode->moveFirstToEndOf( node );
+    }
+    else
+    {
+        neighborNode->moveLastToFrontOf( node, index );
     }
 }
 
+//
+//
+//
 void BPlusTree::adjustRoot()
 {
-    if (!fRoot->isLeaf() && fRoot->size() == 1) {
-        auto discardedNode = static_cast<InternalNode*>(fRoot);
-        fRoot = static_cast<InternalNode*>(fRoot)->removeAndReturnOnlyChild();
-        fRoot->setParent(nullptr);
+    if( !m_root->isLeaf() && m_root->size() == 1 )
+    {
+        auto discardedNode = static_cast< InternalNode* >( m_root );
+        m_root = static_cast< InternalNode* >( m_root )->removeAndReturnOnlyChild();
+        m_root->setParent( nullptr );
         delete discardedNode;
-    } else if (!fRoot->size()){
-        delete fRoot;
-        fRoot = nullptr;
+    }
+    else if( !m_root->size() )
+    {
+        delete m_root;
+        m_root = nullptr;
     }
 }
 
 
+//
 // UTILITIES AND PRINTING
-
-LeafNode* BPlusTree::findLeafNode(KeyType aKey, bool aPrinting, bool aVerbose)
+//
+LeafNode* BPlusTree::findLeafNode( KeyType key, bool printing, bool verbose )
 {
-    if (isEmpty()) {
-        if (aPrinting) {
+    if( isEmpty() )
+    {
+        if( printing )
+        {
             std::cout << "Not found: empty tree." << std::endl;
         }
         return nullptr;
     }
-    auto node = fRoot;
-    if (aPrinting) {
+    auto node = m_root;
+    if( printing)
+    {
         std::cout << "Root: ";
-        if (fRoot->isLeaf()) {
-            std::cout << "\t" << static_cast<LeafNode*>(fRoot)->toString(aVerbose);
-        } else {
-            std::cout << "\t" << static_cast<InternalNode*>(fRoot)->toString(aVerbose);
+        if( m_root->isLeaf() )
+        {
+            std::cout << "\t" << static_cast< LeafNode* >( m_root )->toString( verbose );
+        }
+        else
+        {
+            std::cout << "\t" << static_cast< InternalNode* >( m_root )->toString( verbose );
         }
         std::cout << std::endl;
     }
-    while (!node->isLeaf()) {
-        auto internalNode = static_cast<InternalNode*>(node);
-        if (aPrinting && node != fRoot) {
-            std::cout << "\tNode: " << internalNode->toString(aVerbose) << std::endl;
+    while( !node->isLeaf() )
+    {
+        auto internalNode = static_cast< InternalNode* >( node );
+        if( printing && node != m_root )
+        {
+            std::cout << "\tNode: " << internalNode->toString( verbose ) << std::endl;
         }
-        node = internalNode->lookup(aKey);
+        node = internalNode->lookup( key );
     }
-    return static_cast<LeafNode*>(node);
+    return static_cast< LeafNode* >( node );
 }
 
-void BPlusTree::readInputFromFile(std::string aFileName)
+//
+// Read elements to be inserted into the B+ tree from a text file.
+// Each new element should consist of a single integer on a line by itself.
+// This B+ tree treats each such input as both a new value and the key
+// under which to store it.
+//
+void BPlusTree::readInputFromFile( std::string fileName )
 {
     int key;
-    std::ifstream input(aFileName);
-    while (input) {
+    std::ifstream input( fileName );
+    while( input )
+    {
         input >> key;
-        insert(key, key);
+        insert( key, key );
     }
 }
 
-void BPlusTree::print(bool aVerbose)
+//
+// Print this B+ tree to stdout using a simple command-line
+// ASCII graphic scheme.
+// verbose - Determines whether printing should include addresses.
+//
+void BPlusTree::print( bool verbose )
 {
-    fPrinter.setVerbose(aVerbose);
-    fPrinter.printTree(fRoot);
+    m_printer.setVerbose( verbose );
+    m_printer.printTree( m_root );
 }
 
-void BPlusTree::printLeaves(bool aVerbose)
+//
+// Print the bottom rank of this B+ tree, consisting of its leaves.
+// This shows all the keys in the B+ tree in sorted order.
+// verbose - Determines whether printing should include addresses.
+//
+void BPlusTree::printLeaves( bool verbose )
 {
-    fPrinter.setVerbose(aVerbose);
-    fPrinter.printLeaves(fRoot);
+    m_printer.setVerbose( verbose );
+    m_printer.printLeaves( m_root );
 }
 
+//
+// Remove all elements from the B+ tree. You can then build
+// it up again by inserting new elements into it.
+//
 void BPlusTree::destroyTree()
 {
-    if (fRoot->isLeaf()) {
-        delete static_cast<LeafNode*>(fRoot);
-    } else {
-        delete static_cast<InternalNode*>(fRoot);
+    if( m_root->isLeaf() )
+    {
+        delete static_cast< LeafNode* >( m_root );
     }
-    fRoot = nullptr;
+    else
+    {
+        delete static_cast< InternalNode* >( m_root );
+    }
+    m_root = nullptr;
 }
 
-void BPlusTree::printValue(KeyType aKey, bool aVerbose)
+//
+// Print the value associated with a given key, along with the address
+// at which the tree stores that value.
+// verbose - Determines whether printing should include addresses.
+//
+void BPlusTree::printValue( KeyType key, bool verbose )
 {
-    printValue(aKey, false, aVerbose);
+    printValue( key, false, verbose );
 }
 
-void BPlusTree::printValue(KeyType aKey, bool aPrintPath, bool aVerbose)
+//
+//
+//
+void BPlusTree::printValue( KeyType key, bool printPath, bool verbose )
 {
-    LeafNode* leaf = findLeafNode(aKey, aPrintPath, aVerbose);
-    if (!leaf) {
-        std::cout << "Leaf not found with key " << aKey << "." << std::endl;
+    LeafNode* leaf = findLeafNode( key, printPath, verbose );
+    if( !leaf )
+    {
+        std::cout << "Leaf not found with key " << key << "." << std::endl;
         return;
     }
-    if (aPrintPath) {
+    if( printPath )
+    {
         std::cout << "\t";
     }
-    std::cout << "Leaf: " << leaf->toString(aVerbose) << std::endl;
-    Record* record = leaf->lookup(aKey);
-    if (!record) {
-        std::cout << "Record not found with key " << aKey << "." << std::endl;
+    std::cout << "Leaf: " << leaf->toString( verbose ) << std::endl;
+    Record* record = leaf->lookup( key );
+    if( !record )
+    {
+        std::cout << "Record not found with key " << key << "." << std::endl;
         return;
     }
-    if (aPrintPath) {
+    if( printPath )
+    {
         std::cout << "\t";
     }
     std::cout << "Record found at location " << std::hex << record << std::dec << ":" << std::endl;
-    std::cout << "\tKey: " << aKey << "   Value: " << record->value() << std::endl;
+    std::cout << "\tKey: " << key << "   Value: " << record->value() << std::endl;
 }
 
-void BPlusTree::printPathTo(KeyType aKey, bool aVerbose)
+//
+// Print the path from the root to the leaf bearing key aKey.
+// verbose - Determines whether printing should include addresses.
+//
+void BPlusTree::printPathTo( KeyType key, bool verbose )
 {
-    printValue(aKey, true, aVerbose);
+    printValue( key, true, verbose );
 }
 
-void BPlusTree::printRange(KeyType aStart, KeyType aEnd)
+//
+// Print key, value, and address for each item in the range
+// from aStart to aEnd, including both.
+//
+void BPlusTree::printRange( KeyType start, KeyType end )
 {
-    auto rangeVector = range(aStart, aEnd);
-    for (auto entry : rangeVector) {
-        std::cout << "Key: " << std::get<0>(entry);
-        std::cout << "    Value: " << std::get<1>(entry);
-        std::cout << "    Leaf: " << std::hex << std::get<2>(entry) << std::dec << std::endl;
+    auto rangeVector = range( start, end );
+    for( auto entry : rangeVector )
+    {
+        std::cout << "Key: " << std::get< 0 >( entry );
+        std::cout << "    Value: " << std::get< 1 >( entry );
+        std::cout << "    Leaf: " << std::hex << std::get< 2 >( entry ) << std::dec << std::endl;
     }
 }
 
-std::vector<BPlusTree::EntryType> BPlusTree::range(KeyType aStart, KeyType aEnd)
+//
+//
+//
+std::vector<BPlusTree::EntryType> BPlusTree::range( KeyType start, KeyType end )
 {
-    auto startLeaf = findLeafNode(aStart);
-    auto endLeaf = findLeafNode(aEnd);
-    std::vector<std::tuple<KeyType, ValueType, LeafNode*>> entries;
-    if (!startLeaf || !endLeaf) {
+    auto startLeaf = findLeafNode( start );
+    auto endLeaf = findLeafNode( end );
+    std::vector< std::tuple< KeyType, ValueType, LeafNode* > > entries;
+    if( !startLeaf || !endLeaf )
+    {
         return entries;
     }
-    startLeaf->copyRangeStartingFrom(aStart, entries);
+
+    startLeaf->copyRangeStartingFrom( start, entries );
     startLeaf = startLeaf->next();
-    while (startLeaf != endLeaf) {
-        startLeaf->copyRange(entries);
+    while( startLeaf != endLeaf )
+    {
+        startLeaf->copyRange( entries );
         startLeaf = startLeaf->next();
     }
-    startLeaf->copyRangeUntil(aEnd, entries);
+    startLeaf->copyRangeUntil( end, entries );
     return entries;
 }
