@@ -75,7 +75,7 @@ int main(int argc, const char * argv[]) {
         switch (instruction) {
             case 'd':
                 std::cin >> key;
-                tree.remove(key);
+                tree.remove( Key( key ) );
                 tree.print(verbose);
                 break;
             case 'i':
@@ -83,19 +83,19 @@ int main(int argc, const char * argv[]) {
                 if (key < 0) {
                     std::cout << usageMessage();
                 }
-                tree.insert(key, key);
+                tree.insert( Key( key ), key);
                 tree.print(verbose);
                 break;
             case 'f':
                 std::cin >> key;
-                tree.printValue(key);
+                tree.printValue( Key( key ) );
                 break;
             case 'l':
                 tree.printLeaves(verbose);
                 break;
             case 'p':
                 std::cin >> key;
-                tree.printPathTo(key, verbose);
+                tree.printPathTo( Key( key ) , verbose);
                 break;
             case 'q':
                 quit = true;
@@ -104,7 +104,7 @@ int main(int argc, const char * argv[]) {
                 int key2;
                 std::cin >> key;
                 std::cin >> key2;
-                tree.printRange(key, key2);
+                tree.printRange( Key( key ) , Key( key2 ) );
                 break;
             case 't':
                 tree.print(verbose);

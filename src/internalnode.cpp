@@ -296,7 +296,7 @@ std::string InternalNode::toString( bool verbose ) const
         {
             keyToTextConverter << " ";
         }
-        keyToTextConverter << std::dec << entry->first;
+        keyToTextConverter << std::dec << entry->first.ToString();
         if( verbose )
         {
             keyToTextConverter << "(" << std::hex << entry->second << std::dec << ")";

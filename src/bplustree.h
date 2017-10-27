@@ -5,10 +5,12 @@
 #include <vector>
 #include "definitions.h"
 #include "printer.h"
+#include "key.h"
 
 class InternalNode;
 class LeafNode;
 class Node;
+
 
 
 /// Main class providing the API for the Interactive B+ Tree.

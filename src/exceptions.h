@@ -4,6 +4,7 @@
 #include <exception>
 #include <string>
 #include "definitions.h"
+#include "key.h"
 
 //
 //

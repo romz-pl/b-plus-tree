@@ -27,6 +27,7 @@ SOURCE :=
 SOURCE += bplustree.cpp
 SOURCE += exceptions.cpp
 SOURCE += internalnode.cpp
+SOURCE += key.cpp
 SOURCE += leafnode.cpp
 SOURCE += main.cpp
 SOURCE += node.cpp

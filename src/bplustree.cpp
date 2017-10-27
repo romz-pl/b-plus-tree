@@ -281,7 +281,7 @@ void BPlusTree::readInputFromFile( std::string fileName )
     while( input )
     {
         input >> key;
-        insert( key, key );
+        insert( Key( key ), key );
     }
 }
 
@@ -342,7 +342,7 @@ void BPlusTree::printValue( Key key, bool printPath, bool verbose )
     LeafNode* leaf = findLeafNode( key, printPath, verbose );
     if( !leaf )
     {
-        std::cout << "Leaf not found with key " << key << "." << std::endl;
+        std::cout << "Leaf not found with key " << key.ToString() << "." << std::endl;
         return;
     }
     if( printPath )
@@ -353,7 +353,7 @@ void BPlusTree::printValue( Key key, bool printPath, bool verbose )
     Record* record = leaf->lookup( key );
     if( !record )
     {
-        std::cout << "Record not found with key " << key << "." << std::endl;
+        std::cout << "Record not found with key " << key.ToString() << "." << std::endl;
         return;
     }
     if( printPath )
@@ -361,7 +361,7 @@ void BPlusTree::printValue( Key key, bool printPath, bool verbose )
         std::cout << "\t";
     }
     std::cout << "Record found at location " << std::hex << record << std::dec << ":" << std::endl;
-    std::cout << "\tKey: " << key << "   Value: " << record->value() << std::endl;
+    std::cout << "\tKey: " << key.ToString() << "   Value: " << record->value() << std::endl;
 }
 
 //
@@ -382,7 +382,7 @@ void BPlusTree::printRange( Key start, Key end )
     auto rangeVector = range( start, end );
     for( auto entry : rangeVector )
     {
-        std::cout << "Key: " << std::get< 0 >( entry );
+        std::cout << "Key: " << std::get< 0 >( entry ).ToString();
         std::cout << "    Value: " << std::get< 1 >( entry );
         std::cout << "    Leaf: " << std::hex << std::get< 2 >( entry ) << std::dec << std::endl;
     }

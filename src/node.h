@@ -3,6 +3,7 @@
 
 #include <string>
 #include "definitions.h"
+#include "key.h"
 
 // Key used where only the entry's pointer has meaning.
 const Key DUMMY_KEY{-1};

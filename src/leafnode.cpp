@@ -103,7 +103,7 @@ std::string LeafNode::toString( bool verbose ) const
         {
             keyToTextConverter << " ";
         }
-        keyToTextConverter << mapping.first;
+        keyToTextConverter << mapping.first.ToString();
     }
 
     if( verbose )
