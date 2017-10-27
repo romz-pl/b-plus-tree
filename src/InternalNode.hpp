@@ -22,7 +22,7 @@
 #include <queue>
 #include <vector>
 #include "definitions.h"
-#include "Node.hpp"
+#include "node.h"
 
 class InternalNode : public Node
 {

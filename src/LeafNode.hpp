@@ -22,7 +22,7 @@
 #include <tuple>
 #include <utility>
 #include <vector>
-#include "Node.hpp"
+#include "node.h"
 #include "Record.hpp"
 
 class LeafNode : public Node
