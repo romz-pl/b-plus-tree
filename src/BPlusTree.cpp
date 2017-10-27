@@ -22,7 +22,7 @@
 #include <fstream>
 #include <string>
 #include "BPlusTree.hpp"
-#include "Exceptions.hpp"
+#include "exceptions.h"
 #include "InternalNode.hpp"
 #include "LeafNode.hpp"
 #include "Node.hpp"

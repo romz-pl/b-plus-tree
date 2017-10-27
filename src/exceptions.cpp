@@ -19,7 +19,7 @@
 
 #include <sstream>
 #include <string>
-#include "Exceptions.hpp"
+#include "exceptions.h"
 #include "Node.hpp"
 
 LeafNotFoundException::LeafNotFoundException(KeyType aKey) : fKey{aKey} {}

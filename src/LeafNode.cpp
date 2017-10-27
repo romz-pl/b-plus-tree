@@ -18,7 +18,7 @@
 //  limitations under the License.
 
 #include <sstream>
-#include "Exceptions.hpp"
+#include "exceptions.h"
 #include "InternalNode.hpp"
 #include "LeafNode.hpp"
 

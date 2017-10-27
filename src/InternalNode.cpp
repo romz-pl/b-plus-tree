@@ -19,7 +19,7 @@
 
 #include <iostream>
 #include <sstream>
-#include "Exceptions.hpp"
+#include "exceptions.h"
 #include "InternalNode.hpp"
 
 InternalNode::InternalNode(int aOrder) : Node(aOrder) {}
