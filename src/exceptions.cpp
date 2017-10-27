@@ -3,8 +3,8 @@
 #include "exceptions.h"
 #include "node.h"
 
-LeafNotFoundException::LeafNotFoundException( KeyType aKey )
-    : fKey{ aKey }
+LeafNotFoundException::LeafNotFoundException( KeyType key )
+    : m_key{ key }
 {
 
 }
@@ -13,16 +13,16 @@ const char* LeafNotFoundException::what() const noexcept
 {
     std::ostringstream ss;
     ss << "Key not found in any leaf node:  ";
-    ss << fKey;
+    ss << m_key;
     static std::string message;
     message = ss.str();
     return message.c_str();
 }
 
 
-NodeNotFoundException::NodeNotFoundException( std::string aSearchedNode, std::string aContainingNode )
-    : fSearchedNode{ aSearchedNode }
-    , fContainingNode{ aContainingNode }
+NodeNotFoundException::NodeNotFoundException( std::string searchedNode, std::string containingNode )
+    : m_searchedNode{ searchedNode }
+    , m_containingNode{ containingNode }
 {
 
 }
@@ -30,16 +30,16 @@ NodeNotFoundException::NodeNotFoundException( std::string aSearchedNode, std::st
 const char* NodeNotFoundException::what() const noexcept
 {
     std::ostringstream ss;
-    ss << "Node |" << fSearchedNode << "| not found";
+    ss << "Node |" << m_searchedNode << "| not found";
     ss << " as a child of node ";
-    ss << fContainingNode;
+    ss << m_containingNode;
     static std::string message;
     message = ss.str();
     return message.c_str();
 }
 
-RecordNotFoundException::RecordNotFoundException( KeyType aKey )
-    : fKey{ aKey }
+RecordNotFoundException::RecordNotFoundException( KeyType key )
+    : m_key{ key }
 {
 
 }
@@ -47,7 +47,7 @@ RecordNotFoundException::RecordNotFoundException( KeyType aKey )
 const char* RecordNotFoundException::what() const noexcept
 {
     std::ostringstream ss;
-    ss << "Record not found with key:  " << fKey;
+    ss << "Record not found with key:  " << m_key;
     static std::string message;
     message = ss.str();
     return message.c_str();
