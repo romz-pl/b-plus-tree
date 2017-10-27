@@ -23,7 +23,7 @@ VPATH := ../src/
 # Source files (listed in alphabetical order)
 
 SOURCE :=
-SOURCE += BPlusTree.cpp
+SOURCE += bplustree.cpp
 SOURCE += exceptions.cpp
 SOURCE += internalnode.cpp
 SOURCE += leafnode.cpp
