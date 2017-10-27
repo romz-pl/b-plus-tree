@@ -23,7 +23,7 @@
 #include <string>
 #include "BPlusTree.hpp"
 #include "exceptions.h"
-#include "InternalNode.hpp"
+#include "internalnode.h"
 #include "leafnode.h"
 #include "node.h"
 

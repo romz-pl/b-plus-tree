@@ -1,5 +1,5 @@
 #include <iostream>
-#include "InternalNode.hpp"
+#include "internalnode.h"
 #include "leafnode.h"
 #include "node.h"
 #include "printer.h"
