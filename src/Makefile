@@ -15,7 +15,7 @@ CXXFLAGS := -std=c++11 -DNDEBUG -O2 -Wall -mtune=native -march=native
 CXXLIB = 
 
 # Name of resulted binaries
-BINOUT := hashex.x
+BINOUT := bplustree.x
 
 # Directory with source code
 VPATH := ../src/
@@ -23,7 +23,14 @@ VPATH := ../src/
 # Source files (listed in alphabetical order)
 
 SOURCE :=
+SOURCE += BPlusTree.cpp
+SOURCE += Exceptions.cpp
+SOURCE += InternalNode.cpp
+SOURCE += LeafNode.cpp
 SOURCE += main.cpp
+SOURCE += Node.cpp
+SOURCE += Printer.cpp
+SOURCE += Record.cpp
 
 
 #Object files
