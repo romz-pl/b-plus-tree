@@ -3,12 +3,18 @@
 #include "exceptions.h"
 #include "node.h"
 
+//
+//
+//
 LeafNotFoundException::LeafNotFoundException( KeyType key )
     : m_key{ key }
 {
 
 }
 
+//
+//
+//
 const char* LeafNotFoundException::what() const noexcept
 {
     std::ostringstream ss;
@@ -19,7 +25,9 @@ const char* LeafNotFoundException::what() const noexcept
     return message.c_str();
 }
 
-
+//
+//
+//
 NodeNotFoundException::NodeNotFoundException( std::string searchedNode, std::string containingNode )
     : m_searchedNode{ searchedNode }
     , m_containingNode{ containingNode }
@@ -27,6 +35,9 @@ NodeNotFoundException::NodeNotFoundException( std::string searchedNode, std::str
 
 }
 
+//
+//
+//
 const char* NodeNotFoundException::what() const noexcept
 {
     std::ostringstream ss;
@@ -38,12 +49,18 @@ const char* NodeNotFoundException::what() const noexcept
     return message.c_str();
 }
 
+//
+//
+//
 RecordNotFoundException::RecordNotFoundException( KeyType key )
     : m_key{ key }
 {
 
 }
 
+//
+//
+//
 const char* RecordNotFoundException::what() const noexcept
 {
     std::ostringstream ss;
