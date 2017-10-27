@@ -10,8 +10,8 @@
 class InternalNode : public Node
 {
 public:
-    explicit InternalNode(int aOrder);
-    explicit InternalNode(int aOrder, Node* aParent);
+    explicit InternalNode( size_t aOrder );
+    explicit InternalNode( size_t aOrder, Node* aParent );
     ~InternalNode() override;
     using MappingType = std::pair<KeyType, Node*>;
     bool isLeaf() const override;

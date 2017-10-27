@@ -3,9 +3,9 @@
 #include "exceptions.h"
 #include "internalnode.h"
 
-InternalNode::InternalNode(int aOrder) : Node(aOrder) {}
+InternalNode::InternalNode( size_t aOrder ) : Node(aOrder) {}
 
-InternalNode::InternalNode(int aOrder, Node* aParent) : Node(aOrder, aParent) {}
+InternalNode::InternalNode( size_t aOrder, Node* aParent ) : Node(aOrder, aParent) {}
 
 InternalNode::~InternalNode()
 {
