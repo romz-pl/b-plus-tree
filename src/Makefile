@@ -8,8 +8,8 @@
 
 
 #Compilation flags
-CXXFLAGS := -std=c++11 -DNDEBUG -O2 -Wall -mtune=native -march=native
-# CXXFLAGS := -std=c++11 -g -O0 -Wall
+# CXXFLAGS := -std=c++11 -DNDEBUG -O2 -Wall -mtune=native -march=native
+CXXFLAGS := -std=c++11 -g -O0 -Wall
 
 # Required libraries 
 CXXLIB = 

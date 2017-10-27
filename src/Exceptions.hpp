@@ -21,7 +21,7 @@
 
 #include <exception>
 #include <string>
-#include "Definitions.hpp"
+#include "definitions.h"
 
 class LeafNotFoundException : public std::exception
 {

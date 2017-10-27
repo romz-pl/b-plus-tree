@@ -1,3 +1,6 @@
+#ifndef BPLUSTREE_DEFINITIONS_H
+#define BPLUSTREE_DEFINITIONS_H
+
 //
 //  Definitions.hpp
 //  BPlusTree.2a
@@ -17,7 +20,6 @@
 //  See the License for the specific language governing permissions and
 //  limitations under the License.
 
-#pragma once
 
 #include <cstdlib>
 
@@ -32,4 +34,7 @@ const int MAX_ORDER{20};
 
 using KeyType = int64_t;
 using ValueType = int64_t;
+
+#endif
+
 

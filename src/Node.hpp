@@ -20,7 +20,7 @@
 #pragma once
 
 #include <string>
-#include "Definitions.hpp"
+#include "definitions.h"
 
 // Key used where only the entry's pointer has meaning.
 const KeyType DUMMY_KEY{-1};

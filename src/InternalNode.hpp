@@ -21,7 +21,7 @@
 
 #include <queue>
 #include <vector>
-#include "Definitions.hpp"
+#include "definitions.h"
 #include "Node.hpp"
 
 class InternalNode : public Node
