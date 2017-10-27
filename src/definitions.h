@@ -12,9 +12,6 @@ const size_t DEFAULT_ORDER{ 4 };
 const size_t MIN_ORDER{ DEFAULT_ORDER - 1 };
 const size_t MAX_ORDER{ 20 };
 
-using KeyType = int64_t;
-using ValueType = int64_t;
-
 #endif
 
 

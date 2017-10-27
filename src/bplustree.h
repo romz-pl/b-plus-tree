@@ -5,10 +5,13 @@
 #include <vector>
 #include "definitions.h"
 #include "printer.h"
+#include "key.h"
+#include "value.h"
 
 class InternalNode;
 class LeafNode;
 class Node;
+
 
 
 /// Main class providing the API for the Interactive B+ Tree.
@@ -20,37 +23,37 @@ public:
     /// The type used in the API for inserting a new key-value pair
     /// into the tree.  The third item is the type of the Node into
     /// which the key will be inserted.
-    using EntryType = std::tuple< KeyType, ValueType, LeafNode* >;
+    using EntryType = std::tuple< Key, Value, LeafNode* >;
     
 
     bool isEmpty() const;  
-    void insert( KeyType key, ValueType value );
-    void remove( KeyType key );
+    void insert( Key key, Value value );
+    void remove( Key key );
     
 
     void print( bool verbose = false );
     void printLeaves( bool verbose = false );
-    void printValue( KeyType key, bool verbose = false );
-    void printPathTo( KeyType key, bool verbose = false );
-    void printRange( KeyType start, KeyType end );
+    void printValue( Key key, bool verbose = false );
+    void printPathTo( Key key, bool verbose = false );
+    void printRange( Key start, Key end );
 
 
     void destroyTree();
     void readInputFromFile( std::string fileName );
 
 private:
-    void startNewTree( KeyType key, ValueType value );
-    void insertIntoLeaf( KeyType key, ValueType value );
-    void insertIntoParent( Node* oldNode, KeyType key, Node* newNode );
+    void startNewTree( Key key, Value value );
+    void insertIntoLeaf( Key key, Value value );
+    void insertIntoParent( Node* oldNode, Key key, Node* newNode );
     template < typename T > T* split( T* aNode );
-    void removeFromLeaf( KeyType key );
+    void removeFromLeaf( Key key );
     template < typename N > void coalesceOrRedistribute( N* node );
-    template < typename N > void coalesce( N* neighborNode, N* node, InternalNode* parent, int index );
-    template < typename N > void redistribute( N* neighborNode, N* node, InternalNode* parent, int index );
+    template < typename N > void coalesce( N* neighborNode, N* node, InternalNode* parent, size_t index );
+    template < typename N > void redistribute( N* neighborNode, N* node, InternalNode* parent, size_t index );
     void adjustRoot();
-    LeafNode* findLeafNode( KeyType key, bool printing = false, bool verbose = false );
-    void printValue( KeyType key, bool printPath, bool verbose );
-    std::vector< EntryType > range( KeyType start, KeyType end );
+    LeafNode* findLeafNode( Key key, bool printing = false, bool verbose = false );
+    void printValue( Key key, bool printPath, bool verbose );
+    std::vector< EntryType > range( Key start, Key end );
 
 private:
     const size_t m_order;

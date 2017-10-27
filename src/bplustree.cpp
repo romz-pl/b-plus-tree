@@ -30,7 +30,7 @@ bool BPlusTree::isEmpty() const
 //
 // Insert a key-value pair into this B+ tree.
 //
-void BPlusTree::insert( KeyType key, ValueType value )
+void BPlusTree::insert( Key key, Value value )
 {
     if( isEmpty() )
     {
@@ -44,7 +44,7 @@ void BPlusTree::insert( KeyType key, ValueType value )
 //
 //
 //
-void BPlusTree::startNewTree( KeyType key, ValueType value )
+void BPlusTree::startNewTree( Key key, Value value )
 {
     LeafNode* newLeafNode = new LeafNode( m_order );
     newLeafNode->createAndInsertRecord( key, value );
@@ -54,7 +54,7 @@ void BPlusTree::startNewTree( KeyType key, ValueType value )
 //
 //
 //
-void BPlusTree::insertIntoLeaf( KeyType key, ValueType value )
+void BPlusTree::insertIntoLeaf( Key key, Value value )
 {
     LeafNode* leafNode = findLeafNode( key );
     if( !leafNode )
@@ -68,7 +68,7 @@ void BPlusTree::insertIntoLeaf( KeyType key, ValueType value )
         LeafNode* newLeaf = split( leafNode );
         newLeaf->setNext( leafNode->next() );
         leafNode->setNext( newLeaf );
-        KeyType newKey = newLeaf->firstKey();
+        Key newKey = newLeaf->firstKey();
         insertIntoParent( leafNode, newKey, newLeaf );
     }
 }
@@ -76,7 +76,7 @@ void BPlusTree::insertIntoLeaf( KeyType key, ValueType value )
 //
 //
 //
-void BPlusTree::insertIntoParent( Node *oldNode, KeyType key, Node *newNode )
+void BPlusTree::insertIntoParent( Node *oldNode, Key key, Node *newNode )
 {
     InternalNode* parent = static_cast< InternalNode* >( oldNode->parent() );
     if( parent == nullptr )
@@ -93,7 +93,7 @@ void BPlusTree::insertIntoParent( Node *oldNode, KeyType key, Node *newNode )
         if( newSize > parent->maxSize() )
         {
             InternalNode* newNode = split( parent );
-            KeyType newKey = newNode->replaceAndReturnFirstKey();
+            Key newKey = newNode->replaceAndReturnFirstKey();
             insertIntoParent( parent, newKey, newNode );
         }
     }
@@ -114,7 +114,7 @@ T* BPlusTree::split( T* node )
 //
 // Remove a key and its value from this B+ tree.
 //
-void BPlusTree::remove(KeyType key)
+void BPlusTree::remove(Key key)
 {
     if( isEmpty() )
     {
@@ -129,7 +129,7 @@ void BPlusTree::remove(KeyType key)
 //
 //
 //
-void BPlusTree::removeFromLeaf( KeyType key )
+void BPlusTree::removeFromLeaf( Key key )
 {
     LeafNode* leafNode = findLeafNode( key );
     if( !leafNode )
@@ -160,8 +160,8 @@ void BPlusTree::coalesceOrRedistribute( N* node )
     }
 
     auto parent = static_cast< InternalNode* >( node->parent() );
-    int indexOfNodeInParent = parent->nodeIndex( node );
-    int neighborIndex = ( indexOfNodeInParent == 0 ) ? 1 : indexOfNodeInParent - 1;
+    const size_t indexOfNodeInParent = parent->nodeIndex( node );
+    const size_t neighborIndex = ( indexOfNodeInParent == 0 ) ? 1 : indexOfNodeInParent - 1;
     N* neighborNode = static_cast< N* >( parent->neighbor( neighborIndex ) );
     if( node->size() + neighborNode->size() <= neighborNode->maxSize() )
     {
@@ -177,7 +177,7 @@ void BPlusTree::coalesceOrRedistribute( N* node )
 //
 //
 template < typename N >
-void BPlusTree::coalesce( N* neighborNode, N* node, InternalNode* parent, int index )
+void BPlusTree::coalesce( N* neighborNode, N* node, InternalNode* parent, size_t index )
 {
     if( index == 0 )
     {
@@ -197,7 +197,7 @@ void BPlusTree::coalesce( N* neighborNode, N* node, InternalNode* parent, int in
 //
 //
 template < typename N >
-void BPlusTree::redistribute( N* neighborNode, N* node, InternalNode* /*aParent*/, int index )
+void BPlusTree::redistribute( N* neighborNode, N* node, InternalNode* /*aParent*/, size_t index )
 {
     if( index == 0 )
     {
@@ -232,7 +232,7 @@ void BPlusTree::adjustRoot()
 //
 // UTILITIES AND PRINTING
 //
-LeafNode* BPlusTree::findLeafNode( KeyType key, bool printing, bool verbose )
+LeafNode* BPlusTree::findLeafNode( Key key, bool printing, bool verbose )
 {
     if( isEmpty() )
     {
@@ -281,7 +281,7 @@ void BPlusTree::readInputFromFile( std::string fileName )
     while( input )
     {
         input >> key;
-        insert( key, key );
+        insert( Key( key ), Value( key ) );
     }
 }
 
@@ -329,7 +329,7 @@ void BPlusTree::destroyTree()
 // at which the tree stores that value.
 // verbose - Determines whether printing should include addresses.
 //
-void BPlusTree::printValue( KeyType key, bool verbose )
+void BPlusTree::printValue( Key key, bool verbose )
 {
     printValue( key, false, verbose );
 }
@@ -337,12 +337,12 @@ void BPlusTree::printValue( KeyType key, bool verbose )
 //
 //
 //
-void BPlusTree::printValue( KeyType key, bool printPath, bool verbose )
+void BPlusTree::printValue( Key key, bool printPath, bool verbose )
 {
     LeafNode* leaf = findLeafNode( key, printPath, verbose );
     if( !leaf )
     {
-        std::cout << "Leaf not found with key " << key << "." << std::endl;
+        std::cout << "Leaf not found with key " << key.ToString() << "." << std::endl;
         return;
     }
     if( printPath )
@@ -353,7 +353,7 @@ void BPlusTree::printValue( KeyType key, bool printPath, bool verbose )
     Record* record = leaf->lookup( key );
     if( !record )
     {
-        std::cout << "Record not found with key " << key << "." << std::endl;
+        std::cout << "Record not found with key " << key.ToString() << "." << std::endl;
         return;
     }
     if( printPath )
@@ -361,14 +361,14 @@ void BPlusTree::printValue( KeyType key, bool printPath, bool verbose )
         std::cout << "\t";
     }
     std::cout << "Record found at location " << std::hex << record << std::dec << ":" << std::endl;
-    std::cout << "\tKey: " << key << "   Value: " << record->value() << std::endl;
+    std::cout << "\tKey: " << key.ToString() << "   Value: " << record->value().ToString() << std::endl;
 }
 
 //
 // Print the path from the root to the leaf bearing key aKey.
 // verbose - Determines whether printing should include addresses.
 //
-void BPlusTree::printPathTo( KeyType key, bool verbose )
+void BPlusTree::printPathTo( Key key, bool verbose )
 {
     printValue( key, true, verbose );
 }
@@ -377,13 +377,13 @@ void BPlusTree::printPathTo( KeyType key, bool verbose )
 // Print key, value, and address for each item in the range
 // from aStart to aEnd, including both.
 //
-void BPlusTree::printRange( KeyType start, KeyType end )
+void BPlusTree::printRange( Key start, Key end )
 {
     auto rangeVector = range( start, end );
     for( auto entry : rangeVector )
     {
-        std::cout << "Key: " << std::get< 0 >( entry );
-        std::cout << "    Value: " << std::get< 1 >( entry );
+        std::cout << "Key: " << std::get< 0 >( entry ).ToString();
+        std::cout << "    Value: " << std::get< 1 >( entry ).ToString();
         std::cout << "    Leaf: " << std::hex << std::get< 2 >( entry ) << std::dec << std::endl;
     }
 }
@@ -391,11 +391,11 @@ void BPlusTree::printRange( KeyType start, KeyType end )
 //
 //
 //
-std::vector<BPlusTree::EntryType> BPlusTree::range( KeyType start, KeyType end )
+std::vector<BPlusTree::EntryType> BPlusTree::range( Key start, Key end )
 {
     auto startLeaf = findLeafNode( start );
     auto endLeaf = findLeafNode( end );
-    std::vector< std::tuple< KeyType, ValueType, LeafNode* > > entries;
+    std::vector< std::tuple< Key, Value, LeafNode* > > entries;
     if( !startLeaf || !endLeaf )
     {
         return entries;

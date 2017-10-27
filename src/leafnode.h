@@ -14,8 +14,8 @@ public:
     explicit LeafNode( size_t order, Node* parent );
     ~LeafNode() override;
 
-    using MappingType = std::pair< KeyType, Record* >;
-    using EntryType = std::tuple< KeyType, ValueType, LeafNode* >;
+    using MappingType = std::pair< Key, Record* >;
+    using EntryType = std::tuple< Key, Value, LeafNode* >;
 
     bool isLeaf() const override;
     LeafNode* next() const;
@@ -23,17 +23,17 @@ public:
     size_t size() const override;
     size_t minSize() const override;
     size_t maxSize() const override;
-    size_t createAndInsertRecord( KeyType key, ValueType value );
-    void insert( KeyType key, Record* record );
-    Record* lookup( KeyType key ) const;
-    size_t removeAndDeleteRecord( KeyType key );
-    KeyType firstKey() const;
+    size_t createAndInsertRecord( Key key, Value value );
+    void insert( Key key, Record* record );
+    Record* lookup( Key key ) const;
+    size_t removeAndDeleteRecord( Key key );
+    Key firstKey() const;
     void moveHalfTo( LeafNode* recipient );
-    void moveAllTo( LeafNode* recipient, int /* Unused */ );
+    void moveAllTo( LeafNode* recipient, size_t /* Unused */ );
     void moveFirstToEndOf( LeafNode* recipient );
-    void moveLastToFrontOf( LeafNode* recipient, int parentIndex );
-    void copyRangeStartingFrom( KeyType key, std::vector< EntryType >& vector );
-    void copyRangeUntil( KeyType aKey, std::vector< EntryType >& vector );
+    void moveLastToFrontOf( LeafNode* recipient, size_t parentIndex );
+    void copyRangeStartingFrom( Key key, std::vector< EntryType >& vector );
+    void copyRangeUntil( Key aKey, std::vector< EntryType >& vector );
     void copyRange( std::vector< EntryType >& vector );
     std::string toString( bool verbose = false ) const override;
 
@@ -41,7 +41,7 @@ private:
     void copyHalfFrom( std::vector< MappingType >& mappings );
     void copyAllFrom( std::vector< MappingType >& mappings );
     void copyLastFrom( MappingType pair );
-    void copyFirstFrom( MappingType pair, int parentIndex );
+    void copyFirstFrom( MappingType pair, size_t parentIndex );
 
 private:
     std::vector< MappingType > m_mappings;

@@ -2,18 +2,19 @@
 #define BPLUSTREE_RECORD_H
 
 #include "definitions.h"
+#include "value.h"
 
 class Record
 {
 public:
-    explicit Record( ValueType value );
+    explicit Record( Value value );
     ~Record() = default;
 
-    ValueType value() const;
+    Value value() const;
     std::string toString() const;
 
 private:
-    ValueType m_value;
+    Value m_value;
 };
 
 #endif

@@ -71,7 +71,7 @@ size_t InternalNode::maxSize() const
 //
 //
 //
-KeyType InternalNode::keyAt( int index ) const
+Key InternalNode::keyAt( size_t index ) const
 {
     return m_mappings[ index ].first;
 }
@@ -79,7 +79,7 @@ KeyType InternalNode::keyAt( int index ) const
 //
 //
 //
-void InternalNode::setKeyAt( int index, KeyType key )
+void InternalNode::setKeyAt( size_t index, Key key )
 {
     m_mappings[ index ].first = key;
 }
@@ -95,16 +95,16 @@ Node* InternalNode::firstChild() const
 //
 //
 //
-void InternalNode::populateNewRoot( Node *oldNode, KeyType newKey, Node *newNode )
+void InternalNode::populateNewRoot( Node *oldNode, Key newKey, Node *newNode )
 {
-    m_mappings.push_back( std::make_pair( DUMMY_KEY, oldNode ) );
+    m_mappings.push_back( std::make_pair( Key::Dummy(), oldNode ) );
     m_mappings.push_back( std::make_pair( newKey, newNode ) );
 }
 
 //
 //
 //
-size_t InternalNode::insertNodeAfter( Node *oldNode, KeyType newKey, Node *newNode )
+size_t InternalNode::insertNodeAfter( Node *oldNode, Key newKey, Node *newNode )
 {
     auto iter = m_mappings.begin();
     for (; iter != m_mappings.end() && iter->second != oldNode; ++iter);
@@ -115,7 +115,7 @@ size_t InternalNode::insertNodeAfter( Node *oldNode, KeyType newKey, Node *newNo
 //
 //
 //
-void InternalNode::remove( int index )
+void InternalNode::remove( size_t index )
 {
     m_mappings.erase( m_mappings.begin() + index );
 }
@@ -133,10 +133,10 @@ Node* InternalNode::removeAndReturnOnlyChild()
 //
 //
 //
-KeyType InternalNode::replaceAndReturnFirstKey()
+Key InternalNode::replaceAndReturnFirstKey()
 {
-    KeyType newKey = m_mappings[ 0 ].first;
-    m_mappings[ 0 ].first = DUMMY_KEY;
+    Key newKey = m_mappings[ 0 ].first;
+    m_mappings[ 0 ].first = Key::Dummy();
     return newKey;
 }
 
@@ -168,7 +168,7 @@ void InternalNode::copyHalfFrom( std::vector< MappingType > &mappings )
 //
 //
 //
-void InternalNode::moveAllTo( InternalNode *recipient, int indexInParent )
+void InternalNode::moveAllTo( InternalNode *recipient, size_t indexInParent )
 {
     m_mappings[ 0 ].first = static_cast< InternalNode* >( parent() )->keyAt( indexInParent );
     recipient->copyAllFrom( m_mappings );
@@ -209,7 +209,7 @@ void InternalNode::copyLastFrom( MappingType pair )
 //
 //
 //
-void InternalNode::moveLastToFrontOf( InternalNode *recipient, int parentIndex )
+void InternalNode::moveLastToFrontOf( InternalNode *recipient, size_t parentIndex )
 {
     recipient->copyFirstFrom( m_mappings.back(), parentIndex );
     m_mappings.pop_back();
@@ -218,11 +218,11 @@ void InternalNode::moveLastToFrontOf( InternalNode *recipient, int parentIndex )
 //
 //
 //
-void InternalNode::copyFirstFrom( MappingType pair, int parentIndex )
+void InternalNode::copyFirstFrom( MappingType pair, size_t parentIndex )
 {
     m_mappings.front().first = static_cast< InternalNode* >( parent() )->keyAt( parentIndex );
     m_mappings.insert( m_mappings.begin(), pair );
-    m_mappings.front().first = DUMMY_KEY;
+    m_mappings.front().first = Key::Dummy();
     m_mappings.front().second->setParent( this );
     static_cast< InternalNode* >( parent() )->setKeyAt( parentIndex, m_mappings.front().first );
 }
@@ -230,7 +230,7 @@ void InternalNode::copyFirstFrom( MappingType pair, int parentIndex )
 //
 //
 //
-Node* InternalNode::lookup( KeyType key ) const
+Node* InternalNode::lookup( Key key ) const
 {
     auto locator = m_mappings.begin();
     auto end = m_mappings.end();
@@ -247,13 +247,13 @@ Node* InternalNode::lookup( KeyType key ) const
 //
 //
 //
-int InternalNode::nodeIndex( Node *node ) const
+size_t InternalNode::nodeIndex( Node *node ) const
 {
     for( size_t i = 0; i < size(); ++i )
     {
         if ( m_mappings[ i ].second == node )
         {
-            return static_cast< int >( i );
+            return i;
         }
     }
     throw NodeNotFoundException( node->toString(), toString() );
@@ -262,7 +262,7 @@ int InternalNode::nodeIndex( Node *node ) const
 //
 //
 //
-Node* InternalNode::neighbor( int index ) const
+Node* InternalNode::neighbor( size_t index ) const
 {
     return m_mappings[ index ].second;
 }
@@ -296,7 +296,7 @@ std::string InternalNode::toString( bool verbose ) const
         {
             keyToTextConverter << " ";
         }
-        keyToTextConverter << std::dec << entry->first;
+        keyToTextConverter << std::dec << entry->first.ToString();
         if( verbose )
         {
             keyToTextConverter << "(" << std::hex << entry->second << std::dec << ")";

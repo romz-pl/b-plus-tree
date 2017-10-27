@@ -4,6 +4,7 @@
 #include <exception>
 #include <string>
 #include "definitions.h"
+#include "key.h"
 
 //
 //
@@ -11,11 +12,11 @@
 class LeafNotFoundException : public std::exception
 {
 public:
-    explicit LeafNotFoundException( KeyType key );
+    explicit LeafNotFoundException( Key key );
     const char* what() const noexcept override;
 
 private:
-    KeyType m_key;
+    Key m_key;
 };
 
 //
@@ -38,11 +39,11 @@ private:
 class RecordNotFoundException : public std::exception
 {
 public:
-    explicit RecordNotFoundException( KeyType key );
+    explicit RecordNotFoundException( Key key );
     const char* what() const noexcept override;
 
 private:
-    KeyType m_key;
+    Key m_key;
 };
 
 #endif

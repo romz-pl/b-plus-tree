@@ -6,7 +6,7 @@
 //
 //
 //
-LeafNotFoundException::LeafNotFoundException( KeyType key )
+LeafNotFoundException::LeafNotFoundException( Key key )
     : m_key{ key }
 {
 
@@ -19,7 +19,7 @@ const char* LeafNotFoundException::what() const noexcept
 {
     std::ostringstream ss;
     ss << "Key not found in any leaf node:  ";
-    ss << m_key;
+    ss << m_key.ToString();
     static std::string message;
     message = ss.str();
     return message.c_str();
@@ -52,7 +52,7 @@ const char* NodeNotFoundException::what() const noexcept
 //
 //
 //
-RecordNotFoundException::RecordNotFoundException( KeyType key )
+RecordNotFoundException::RecordNotFoundException( Key key )
     : m_key{ key }
 {
 
@@ -64,7 +64,7 @@ RecordNotFoundException::RecordNotFoundException( KeyType key )
 const char* RecordNotFoundException::what() const noexcept
 {
     std::ostringstream ss;
-    ss << "Record not found with key:  " << m_key;
+    ss << "Record not found with key:  " << m_key.ToString();
     static std::string message;
     message = ss.str();
     return message.c_str();

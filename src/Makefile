@@ -6,10 +6,11 @@
 # Name of GNU compiler
 # CXX := g++
 
+CXXWARNINGS := -Wall -Wextra -Wconversion -Wsign-conversion
 
 #Compilation flags
-# CXXFLAGS := -std=c++11 -DNDEBUG -O2 -Wall -mtune=native -march=native
-CXXFLAGS := -std=c++11 -g -O0 -Wall
+# CXXFLAGS := -std=c++11 -DNDEBUG -O2 $(CXXWARNINGS) -mtune=native -march=native
+CXXFLAGS := -std=c++11 -g -O0 $(CXXWARNINGS)
 
 # Required libraries 
 CXXLIB = 
@@ -26,11 +27,13 @@ SOURCE :=
 SOURCE += bplustree.cpp
 SOURCE += exceptions.cpp
 SOURCE += internalnode.cpp
+SOURCE += key.cpp
 SOURCE += leafnode.cpp
 SOURCE += main.cpp
 SOURCE += node.cpp
 SOURCE += printer.cpp
 SOURCE += record.cpp
+SOURCE += value.cpp
 
 
 #Object files

@@ -6,7 +6,7 @@
 //
 //
 //
-Record::Record( ValueType value )
+Record::Record( Value value )
     : m_value( value )
 {
 
@@ -15,7 +15,7 @@ Record::Record( ValueType value )
 //
 //
 //
-ValueType Record::value() const
+Value Record::value() const
 {
     return m_value;
 }
@@ -26,6 +26,6 @@ ValueType Record::value() const
 std::string Record::toString() const
 {
     std::ostringstream oss;
-    oss << m_value;
+    oss << m_value.ToString();
     return oss.str();
 }
