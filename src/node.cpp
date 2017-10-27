@@ -1,27 +1,36 @@
 #include "node.h"
 
-Node::Node(size_t aOrder) : fOrder{aOrder}, fParent{nullptr} {}
+Node::Node( size_t order )
+    : m_order{ order }
+    , m_parent{ nullptr }
+{
 
-Node::Node(size_t aOrder, Node* aParent) : fOrder{aOrder}, fParent{aParent} {}
+}
 
-Node::~Node() {}
+Node::Node( size_t order, Node* parent )
+    : m_order{ order }
+    , m_parent{ parent }
+{
+
+}
+
 
 size_t Node::order() const
 {
-    return fOrder;
+    return m_order;
 }
 
 Node* Node::parent() const
 {
-    return fParent;
+    return m_parent;
 }
 
-void Node::setParent(Node* aParent)
+void Node::setParent( Node* parent )
 {
-    fParent = aParent;
+    m_parent = parent;
 }
 
 bool Node::isRoot() const
 {
-    return !fParent;
+    return !m_parent;
 }
