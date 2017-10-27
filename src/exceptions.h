@@ -8,7 +8,7 @@
 class LeafNotFoundException : public std::exception
 {
 public:
-    explicit LeafNotFoundException(KeyType);
+    explicit LeafNotFoundException( KeyType );
     const char* what() const noexcept override;
 private:
     KeyType fKey;
@@ -17,7 +17,7 @@ private:
 class NodeNotFoundException : public std::exception
 {
 public:
-    explicit NodeNotFoundException(std::string, std::string);
+    explicit NodeNotFoundException( std::string, std::string );
     const char* what() const noexcept override;
 private:
     std::string fSearchedNode;
@@ -27,7 +27,7 @@ private:
 class RecordNotFoundException : public std::exception
 {
 public:
-    explicit RecordNotFoundException(KeyType);
+    explicit RecordNotFoundException( KeyType );
     const char* what() const noexcept override;
 private:
     KeyType fKey;

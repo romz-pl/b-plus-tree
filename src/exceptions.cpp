@@ -1,15 +1,13 @@
-//
-//  Exceptions.cpp
-//  BPlusTree.2a
-//
-//  Created by Amittai Aviram on 6/12/16.
-//  Copyright © 2016 Amittai Aviram. All rights reserved.
 #include <sstream>
 #include <string>
 #include "exceptions.h"
 #include "node.h"
 
-LeafNotFoundException::LeafNotFoundException(KeyType aKey) : fKey{aKey} {}
+LeafNotFoundException::LeafNotFoundException( KeyType aKey )
+    : fKey{ aKey }
+{
+
+}
 
 const char* LeafNotFoundException::what() const noexcept
 {
@@ -22,10 +20,12 @@ const char* LeafNotFoundException::what() const noexcept
 }
 
 
-NodeNotFoundException::NodeNotFoundException(std::string aSearchedNode,
-                                             std::string aContainingNode) :
-fSearchedNode{aSearchedNode}, fContainingNode{aContainingNode}
-{}
+NodeNotFoundException::NodeNotFoundException( std::string aSearchedNode, std::string aContainingNode )
+    : fSearchedNode{ aSearchedNode }
+    , fContainingNode{ aContainingNode }
+{
+
+}
 
 const char* NodeNotFoundException::what() const noexcept
 {
@@ -38,7 +38,11 @@ const char* NodeNotFoundException::what() const noexcept
     return message.c_str();
 }
 
-RecordNotFoundException::RecordNotFoundException(KeyType aKey) : fKey{aKey} {}
+RecordNotFoundException::RecordNotFoundException( KeyType aKey )
+    : fKey{ aKey }
+{
+
+}
 
 const char* RecordNotFoundException::what() const noexcept
 {
