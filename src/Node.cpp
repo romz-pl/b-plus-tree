@@ -19,13 +19,13 @@
 
 #include "Node.hpp"
 
-Node::Node(int aOrder) : fOrder{aOrder}, fParent{nullptr} {}
+Node::Node(size_t aOrder) : fOrder{aOrder}, fParent{nullptr} {}
 
-Node::Node(int aOrder, Node* aParent) : fOrder{aOrder}, fParent{aParent} {}
+Node::Node(size_t aOrder, Node* aParent) : fOrder{aOrder}, fParent{aParent} {}
 
 Node::~Node() {}
 
-int Node::order() const
+size_t Node::order() const
 {
     return fOrder;
 }

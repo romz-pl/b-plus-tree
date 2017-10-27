@@ -36,13 +36,13 @@ public:
     bool isLeaf() const override;
     LeafNode* next() const;
     void setNext(LeafNode* aNext);
-    int size() const override;
-    int minSize() const override;
-    int maxSize() const override;
-    int createAndInsertRecord(KeyType aKey, ValueType aValue);
+    size_t size() const override;
+    size_t minSize() const override;
+    size_t maxSize() const override;
+    size_t createAndInsertRecord(KeyType aKey, ValueType aValue);
     void insert(KeyType aKey, Record* aRecord);
     Record* lookup(KeyType aKey) const;
-    int removeAndDeleteRecord(KeyType aKey);
+    size_t removeAndDeleteRecord(KeyType aKey);
     KeyType firstKey() const;
     void moveHalfTo(LeafNode* aRecipient);
     void moveAllTo(LeafNode* aRecipient, int /* Unused */);

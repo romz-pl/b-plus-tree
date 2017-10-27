@@ -32,14 +32,14 @@ public:
     ~InternalNode() override;
     using MappingType = std::pair<KeyType, Node*>;
     bool isLeaf() const override;
-    int size() const override;
-    int minSize() const override;
-    int maxSize() const override;
+    size_t size() const override;
+    size_t minSize() const override;
+    size_t maxSize() const override;
     KeyType keyAt(int aIndex) const;
     void setKeyAt(int aIndex, KeyType aKey);
     Node* firstChild() const;
     void populateNewRoot(Node* aOldNode, KeyType aNewKey, Node* aNewNode);
-    int insertNodeAfter(Node* aOldNode, KeyType aNewKey, Node* aNewNode);
+    size_t insertNodeAfter(Node* aOldNode, KeyType aNewKey, Node* aNewNode);
     void remove(int aIndex);
     Node* removeAndReturnOnlyChild();
     KeyType replaceAndReturnFirstKey();

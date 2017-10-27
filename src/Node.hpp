@@ -29,19 +29,19 @@ const KeyType DUMMY_KEY{-1};
 class Node
 {
 public:
-    explicit Node(int aOrder);
-    explicit Node(int aOrder, Node* aParent);
+    explicit Node(size_t aOrder);
+    explicit Node(size_t aOrder, Node* aParent);
     virtual ~Node();
-    int order() const;
+    size_t order() const;
     Node* parent() const;
     void setParent(Node* aParent);
     bool isRoot() const;
     virtual bool isLeaf() const = 0;
-    virtual int size() const = 0;
-    virtual int minSize() const = 0;
-    virtual int maxSize() const = 0;
+    virtual size_t size() const = 0;
+    virtual size_t minSize() const = 0;
+    virtual size_t maxSize() const = 0;
     virtual std::string toString(bool aVerbose = false) const = 0;
 private:
-    const int fOrder;
+    const size_t fOrder;
     Node* fParent;
 };
