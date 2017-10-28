@@ -31,7 +31,6 @@ SOURCE += key.cpp
 SOURCE += leafnode.cpp
 SOURCE += main.cpp
 SOURCE += node.cpp
-SOURCE += printer.cpp
 SOURCE += record.cpp
 SOURCE += value.cpp
 
