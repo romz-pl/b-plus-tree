@@ -35,7 +35,8 @@ void BPlusTree::insert( Key key, Value value )
     if( isEmpty() )
     {
         startNewTree( key, value );
-    } else
+    }
+    else
     {
         insertIntoLeaf( key, value );
     }
@@ -268,44 +269,8 @@ LeafNode* BPlusTree::findLeafNode( Key key, bool printing, bool verbose )
     return static_cast< LeafNode* >( node );
 }
 
-//
-// Read elements to be inserted into the B+ tree from a text file.
-// Each new element should consist of a single integer on a line by itself.
-// This B+ tree treats each such input as both a new value and the key
-// under which to store it.
-//
-void BPlusTree::readInputFromFile( std::string fileName )
-{
-    int key;
-    std::ifstream input( fileName );
-    while( input )
-    {
-        input >> key;
-        insert( Key( key ), Value( key ) );
-    }
-}
 
-//
-// Print this B+ tree to stdout using a simple command-line
-// ASCII graphic scheme.
-// verbose - Determines whether printing should include addresses.
-//
-void BPlusTree::print( bool verbose )
-{
-    m_printer.setVerbose( verbose );
-    m_printer.printTree( m_root );
-}
 
-//
-// Print the bottom rank of this B+ tree, consisting of its leaves.
-// This shows all the keys in the B+ tree in sorted order.
-// verbose - Determines whether printing should include addresses.
-//
-void BPlusTree::printLeaves( bool verbose )
-{
-    m_printer.setVerbose( verbose );
-    m_printer.printLeaves( m_root );
-}
 
 //
 // Remove all elements from the B+ tree. You can then build
@@ -324,69 +289,8 @@ void BPlusTree::destroyTree()
     m_root = nullptr;
 }
 
-//
-// Print the value associated with a given key, along with the address
-// at which the tree stores that value.
-// verbose - Determines whether printing should include addresses.
-//
-void BPlusTree::printValue( Key key, bool verbose )
-{
-    printValue( key, false, verbose );
-}
 
-//
-//
-//
-void BPlusTree::printValue( Key key, bool printPath, bool verbose )
-{
-    LeafNode* leaf = findLeafNode( key, printPath, verbose );
-    if( !leaf )
-    {
-        std::cout << "Leaf not found with key " << key.ToString() << "." << std::endl;
-        return;
-    }
-    if( printPath )
-    {
-        std::cout << "\t";
-    }
-    std::cout << "Leaf: " << leaf->toString( verbose ) << std::endl;
-    Record* record = leaf->lookup( key );
-    if( !record )
-    {
-        std::cout << "Record not found with key " << key.ToString() << "." << std::endl;
-        return;
-    }
-    if( printPath )
-    {
-        std::cout << "\t";
-    }
-    std::cout << "Record found at location " << std::hex << record << std::dec << ":" << std::endl;
-    std::cout << "\tKey: " << key.ToString() << "   Value: " << record->value().ToString() << std::endl;
-}
 
-//
-// Print the path from the root to the leaf bearing key aKey.
-// verbose - Determines whether printing should include addresses.
-//
-void BPlusTree::printPathTo( Key key, bool verbose )
-{
-    printValue( key, true, verbose );
-}
-
-//
-// Print key, value, and address for each item in the range
-// from aStart to aEnd, including both.
-//
-void BPlusTree::printRange( Key start, Key end )
-{
-    auto rangeVector = range( start, end );
-    for( auto entry : rangeVector )
-    {
-        std::cout << "Key: " << std::get< 0 >( entry ).ToString();
-        std::cout << "    Value: " << std::get< 1 >( entry ).ToString();
-        std::cout << "    Leaf: " << std::hex << std::get< 2 >( entry ) << std::dec << std::endl;
-    }
-}
 
 //
 //

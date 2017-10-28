@@ -4,7 +4,6 @@
 #include <tuple>
 #include <vector>
 #include "definitions.h"
-#include "printer.h"
 #include "key.h"
 #include "value.h"
 
@@ -29,17 +28,7 @@ public:
     bool isEmpty() const;  
     void insert( Key key, Value value );
     void remove( Key key );
-    
-
-    void print( bool verbose = false );
-    void printLeaves( bool verbose = false );
-    void printValue( Key key, bool verbose = false );
-    void printPathTo( Key key, bool verbose = false );
-    void printRange( Key start, Key end );
-
-
     void destroyTree();
-    void readInputFromFile( std::string fileName );
 
 private:
     void startNewTree( Key key, Value value );
@@ -52,13 +41,11 @@ private:
     template < typename N > void redistribute( N* neighborNode, N* node, InternalNode* parent, size_t index );
     void adjustRoot();
     LeafNode* findLeafNode( Key key, bool printing = false, bool verbose = false );
-    void printValue( Key key, bool printPath, bool verbose );
     std::vector< EntryType > range( Key start, Key end );
 
 private:
     const size_t m_order;
     Node* m_root;
-    Printer m_printer;
 };
 
 #endif
