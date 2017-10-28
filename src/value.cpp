@@ -11,7 +11,7 @@ Value::Value()
 //
 //
 //
-Value::Value( const int64_t& v )
+Value::Value(const std::string &v )
     : m_value( v )
 {
 
@@ -22,5 +22,5 @@ Value::Value( const int64_t& v )
 //
 std::string Value::ToString() const
 {
-    return std::to_string( m_value );
+    return m_value;
 }
