@@ -171,8 +171,7 @@ void BPlusTree::removeFromLeaf( const Key& key )
 //
 //
 //
-template < typename N >
-void BPlusTree::coalesceOrRedistribute( N* node )
+void BPlusTree::coalesceOrRedistribute( LeafNode* node )
 {
     if( node->isRoot() )
     {
@@ -183,7 +182,7 @@ void BPlusTree::coalesceOrRedistribute( N* node )
     auto parent = static_cast< InternalNode* >( node->parent() );
     const size_t indexOfNodeInParent = parent->nodeIndex( node );
     const size_t neighborIndex = ( indexOfNodeInParent == 0 ) ? 1 : indexOfNodeInParent - 1;
-    N* neighborNode = static_cast< N* >( parent->neighbor( neighborIndex ) );
+    LeafNode* neighborNode = static_cast< LeafNode* >( parent->neighbor( neighborIndex ) );
     if( node->size() + neighborNode->size() <= neighborNode->maxSize() )
     {
         coalesce( neighborNode, node, parent, indexOfNodeInParent );
@@ -197,8 +196,51 @@ void BPlusTree::coalesceOrRedistribute( N* node )
 //
 //
 //
-template < typename N >
-void BPlusTree::coalesce( N* neighborNode, N* node, InternalNode* parent, size_t index )
+void BPlusTree::coalesceOrRedistribute( InternalNode* node )
+{
+    if( node->isRoot() )
+    {
+        adjustRoot();
+        return;
+    }
+
+    auto parent = static_cast< InternalNode* >( node->parent() );
+    const size_t indexOfNodeInParent = parent->nodeIndex( node );
+    const size_t neighborIndex = ( indexOfNodeInParent == 0 ) ? 1 : indexOfNodeInParent - 1;
+    InternalNode* neighborNode = static_cast< InternalNode* >( parent->neighbor( neighborIndex ) );
+    if( node->size() + neighborNode->size() <= neighborNode->maxSize() )
+    {
+        coalesce( neighborNode, node, parent, indexOfNodeInParent );
+    }
+    else
+    {
+        neighborNode->redistribute( node, indexOfNodeInParent );
+    }
+}
+
+//
+//
+//
+void BPlusTree::coalesce( LeafNode* neighborNode, LeafNode* node, InternalNode* parent, size_t index )
+{
+    if( index == 0 )
+    {
+        std::swap( node, neighborNode );
+        index = 1;
+    }
+    node->moveAllTo( neighborNode );
+    parent->remove( index );
+    if( parent->size() < parent->minSize() )
+    {
+        coalesceOrRedistribute( parent );
+    }
+    delete node;
+}
+
+//
+//
+//
+void BPlusTree::coalesce( InternalNode* neighborNode, InternalNode* node, InternalNode* parent, size_t index )
 {
     if( index == 0 )
     {
