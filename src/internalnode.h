@@ -37,6 +37,8 @@ public:
     std::string toString( bool verbose = false ) const override;
     void queueUpChildren( std::queue< Node* >* queue );
 
+    InternalNode* split( size_t order );
+
 private:
     void copyHalfFrom( std::vector< InternalMapping >& mappings );
     void copyAllFrom( std::vector< InternalMapping >& mappings );

@@ -92,13 +92,13 @@ void BPlusTree::insertIntoLeaf( const Key& key, const Value& value )
         throw LeafNotFoundException( key );
     }
 
-    size_t newSize = leafNode->createAndInsertRecord( key, value );
+    const size_t newSize = leafNode->createAndInsertRecord( key, value );
     if( newSize > leafNode->maxSize() )
     {
-        LeafNode* newLeaf = split( leafNode );
+        LeafNode* newLeaf = leafNode->split( m_order );
         newLeaf->setNext( leafNode->next() );
         leafNode->setNext( newLeaf );
-        Key newKey = newLeaf->firstKey();
+        const Key newKey = newLeaf->firstKey();
         insertIntoParent( leafNode, newKey, newLeaf );
     }
 }
@@ -119,26 +119,16 @@ void BPlusTree::insertIntoParent( Node *oldNode, const Key& key, Node *newNode )
     }
     else
     {
-        size_t newSize = parent->insertNodeAfter( oldNode, key, newNode );
+        const size_t newSize = parent->insertNodeAfter( oldNode, key, newNode );
         if( newSize > parent->maxSize() )
         {
-            InternalNode* newNode = split( parent );
-            Key newKey = newNode->replaceAndReturnFirstKey();
+            InternalNode* newNode = parent->split( m_order );
+            const Key newKey = newNode->replaceAndReturnFirstKey();
             insertIntoParent( parent, newKey, newNode );
         }
     }
 }
 
-//
-//
-//
-template < typename T >
-T* BPlusTree::split( T* node )
-{
-    T* newNode = new T( m_order, node->parent() );
-    node->moveHalfTo( newNode );
-    return newNode;
-}
 
 
 //

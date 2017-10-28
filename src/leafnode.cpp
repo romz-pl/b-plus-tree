@@ -268,3 +268,12 @@ void LeafNode::copyFirstFrom( const LeafMapping &pair, size_t parentIndex )
     static_cast< InternalNode* >( parent() )->setKeyAt( parentIndex, m_mappings.front().m_key );
 }
 
+//
+//
+//
+LeafNode* LeafNode::split( size_t order )
+{
+    LeafNode* newNode = new LeafNode( order, parent() );
+    moveHalfTo( newNode );
+    return newNode;
+}

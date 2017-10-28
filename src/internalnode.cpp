@@ -316,3 +316,13 @@ void InternalNode::queueUpChildren( std::queue< Node* >* queue )
         queue->push( mapping.m_node );
     }
 }
+
+//
+//
+//
+InternalNode* InternalNode::split( size_t order )
+{
+    InternalNode* newNode = new InternalNode( order, parent() );
+    moveHalfTo( newNode );
+    return newNode;
+}

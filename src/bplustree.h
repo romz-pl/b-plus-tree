@@ -30,7 +30,7 @@ private:
     void startNewTree( const Key& key, const Value& value );
     void insertIntoLeaf( const Key& key, const Value& value );
     void insertIntoParent( Node* oldNode, const Key& key, Node* newNode );
-    template < typename T > T* split( T* aNode );
+
     void removeFromLeaf( const Key& key );
     template < typename N > void coalesceOrRedistribute( N* node );
     template < typename N > void coalesce( N* neighborNode, N* node, InternalNode* parent, size_t index );
