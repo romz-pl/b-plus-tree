@@ -23,10 +23,10 @@ public:
     size_t size() const override;
     size_t minSize() const override;
     size_t maxSize() const override;
-    size_t createAndInsertRecord( Key key, Value value );
-    void insert( Key key, Record* record );
-    Record* lookup( Key key ) const;
-    size_t removeAndDeleteRecord( Key key );
+    size_t createAndInsertRecord( const Key& key, const Value& value );
+    void insert( const Key& key, Record* record );
+    Record* lookup( const Key& key ) const;
+    size_t removeAndDeleteRecord( const Key& key );
     Key firstKey() const;
     void moveHalfTo( LeafNode* recipient );
     void moveAllTo( LeafNode* recipient, size_t /* Unused */ );

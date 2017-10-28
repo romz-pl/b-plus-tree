@@ -116,7 +116,7 @@ std::string LeafNode::toString( bool verbose ) const
 //
 //
 //
-size_t LeafNode::createAndInsertRecord( Key key, Value value )
+size_t LeafNode::createAndInsertRecord( const Key& key, const Value& value )
 {
     Record* existingRecord = lookup( key );
     if( !existingRecord )
@@ -130,7 +130,7 @@ size_t LeafNode::createAndInsertRecord( Key key, Value value )
 //
 //
 //
-void LeafNode::insert( Key key, Record* record )
+void LeafNode::insert( const Key& key, Record* record )
 {
     auto insertionPoint = m_mappings.begin();
     auto end = m_mappings.end();
@@ -144,7 +144,7 @@ void LeafNode::insert( Key key, Record* record )
 //
 //
 //
-Record* LeafNode::lookup( Key key ) const
+Record* LeafNode::lookup( const Key& key ) const
 {
     for( auto mapping : m_mappings )
     {
@@ -159,7 +159,7 @@ Record* LeafNode::lookup( Key key ) const
 //
 //
 //
-size_t LeafNode::removeAndDeleteRecord( Key key )
+size_t LeafNode::removeAndDeleteRecord( const Key& key )
 {
     auto removalPoint = m_mappings.begin();
     auto end = m_mappings.end();
