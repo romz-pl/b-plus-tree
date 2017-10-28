@@ -33,6 +33,7 @@ public:
     std::string toString( bool verbose = false ) const override;
 
     LeafNode* split( size_t order );
+    void redistribute( LeafNode* node, size_t index );
 
 private:
     void copyHalfFrom( std::vector< LeafMapping >& mappings );

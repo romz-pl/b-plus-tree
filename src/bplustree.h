@@ -34,7 +34,6 @@ private:
     void removeFromLeaf( const Key& key );
     template < typename N > void coalesceOrRedistribute( N* node );
     template < typename N > void coalesce( N* neighborNode, N* node, InternalNode* parent, size_t index );
-    template < typename N > void redistribute( N* neighborNode, N* node, size_t index );
 
     void adjustRoot();
     LeafNode* findLeafNode( const Key& key) ;

@@ -190,7 +190,7 @@ void BPlusTree::coalesceOrRedistribute( N* node )
     }
     else
     {
-        redistribute( neighborNode, node, indexOfNodeInParent );
+        neighborNode->redistribute( node, indexOfNodeInParent );
     }
 }
 
@@ -212,22 +212,6 @@ void BPlusTree::coalesce( N* neighborNode, N* node, InternalNode* parent, size_t
         coalesceOrRedistribute( parent );
     }
     delete node;
-}
-
-//
-//
-//
-template < typename N >
-void BPlusTree::redistribute( N* neighborNode, N* node, size_t index )
-{
-    if( index == 0 )
-    {
-        neighborNode->moveFirstToEndOf( node );
-    }
-    else
-    {
-        neighborNode->moveLastToFrontOf( node, index );
-    }
 }
 
 //

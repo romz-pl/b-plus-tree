@@ -317,3 +317,18 @@ InternalNode* InternalNode::split( size_t order )
     moveHalfTo( newNode );
     return newNode;
 }
+
+//
+//
+//
+void InternalNode::redistribute( InternalNode* node, size_t index )
+{
+    if( index == 0 )
+    {
+        moveFirstToEndOf( node );
+    }
+    else
+    {
+        moveLastToFrontOf( node, index );
+    }
+}

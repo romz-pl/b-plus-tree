@@ -37,6 +37,7 @@ public:
     void queueUpChildren( std::queue< Node* >* queue );
 
     InternalNode* split( size_t order );
+    void redistribute( InternalNode* node, size_t index );
 
 private:
     void copyHalfFrom( std::vector< InternalMapping >& mappings );

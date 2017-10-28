@@ -267,3 +267,19 @@ LeafNode* LeafNode::split( size_t order )
     moveHalfTo( newNode );
     return newNode;
 }
+
+
+//
+//
+//
+void LeafNode::redistribute( LeafNode* node, size_t index )
+{
+    if( index == 0 )
+    {
+        moveFirstToEndOf( node );
+    }
+    else
+    {
+        moveLastToFrontOf( node, index );
+    }
+}
