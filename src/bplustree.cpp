@@ -6,6 +6,7 @@
 #include "internalnode.h"
 #include "leafnode.h"
 #include "node.h"
+#include <cassert>
 
 //
 // Sole constructor.  Accepts an optional order for the B+ Tree.
@@ -25,6 +26,24 @@ BPlusTree::BPlusTree( size_t order)
 bool BPlusTree::isEmpty() const
 {
     return !m_root;
+}
+
+//
+//
+//
+Value BPlusTree::get( Key key ) const
+{
+    assert( 0 );
+    return Value();
+}
+
+//
+//
+//
+size_t BPlusTree::count() const
+{
+    assert( 0 );
+    return 0;
 }
 
 //

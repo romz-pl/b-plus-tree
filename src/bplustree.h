@@ -26,9 +26,11 @@ public:
     
 
     bool isEmpty() const;  
+    Value get( Key key ) const;
     void insert( Key key, Value value );
     void remove( Key key );
     void destroyTree();
+    size_t count() const;
 
 private:
     void startNewTree( Key key, Value value );
