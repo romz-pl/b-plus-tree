@@ -204,7 +204,7 @@ void LeafNode::copyHalfFrom( std::vector< LeafMapping > &mappings )
 //
 //
 //
-void LeafNode::moveAllTo(LeafNode *recipient, size_t )
+void LeafNode::moveAllTo( LeafNode *recipient )
 {
     recipient->copyAllFrom( m_mappings );
     m_mappings.clear();

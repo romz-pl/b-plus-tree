@@ -26,7 +26,7 @@ public:
     size_t removeAndDeleteRecord( const Key& key );
     Key firstKey() const;
     void moveHalfTo( LeafNode* recipient );
-    void moveAllTo( LeafNode* recipient, size_t /* Unused */ );
+    void moveAllTo( LeafNode* recipient );
     void moveFirstToEndOf( LeafNode* recipient );
     void moveLastToFrontOf( LeafNode* recipient, size_t parentIndex );
 
