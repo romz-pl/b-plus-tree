@@ -55,6 +55,8 @@ void Check()
         stlMap.insert( std::make_pair( k, value ) );
     }
 
+    return;
+
     // Make key randomly distributed other then inserted
     std::shuffle( key.begin(), key.end(), std::mt19937{ std::random_device{}() } );
 
