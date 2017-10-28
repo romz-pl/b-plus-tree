@@ -79,7 +79,7 @@ Key InternalNode::keyAt( size_t index ) const
 //
 //
 //
-void InternalNode::setKeyAt( size_t index, Key key )
+void InternalNode::setKeyAt( size_t index, const Key& key )
 {
     m_mappings[ index ].first = key;
 }
@@ -95,7 +95,7 @@ Node* InternalNode::firstChild() const
 //
 //
 //
-void InternalNode::populateNewRoot( Node *oldNode, Key newKey, Node *newNode )
+void InternalNode::populateNewRoot( Node* oldNode, const Key& newKey, Node* newNode )
 {
     m_mappings.push_back( std::make_pair( Key::Dummy(), oldNode ) );
     m_mappings.push_back( std::make_pair( newKey, newNode ) );
@@ -104,7 +104,7 @@ void InternalNode::populateNewRoot( Node *oldNode, Key newKey, Node *newNode )
 //
 //
 //
-size_t InternalNode::insertNodeAfter( Node *oldNode, Key newKey, Node *newNode )
+size_t InternalNode::insertNodeAfter( Node* oldNode, const Key& newKey, Node* newNode )
 {
     auto iter = m_mappings.begin();
     for (; iter != m_mappings.end() && iter->second != oldNode; ++iter);
@@ -230,7 +230,7 @@ void InternalNode::copyFirstFrom( MappingType pair, size_t parentIndex )
 //
 //
 //
-Node* InternalNode::lookup( Key key ) const
+Node* InternalNode::lookup( const Key& key ) const
 {
     auto locator = m_mappings.begin();
     auto end = m_mappings.end();
