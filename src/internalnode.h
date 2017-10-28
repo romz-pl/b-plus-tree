@@ -21,10 +21,10 @@ public:
     size_t minSize() const override;
     size_t maxSize() const override;
     Key keyAt( size_t index) const;
-    void setKeyAt( size_t index, Key key );
+    void setKeyAt( size_t index, const Key& key );
     Node* firstChild() const;
-    void populateNewRoot( Node* oldNode, Key newKey, Node* newNode );
-    size_t insertNodeAfter( Node* oldNode, Key newKey, Node* newNode );
+    void populateNewRoot( Node* oldNode, const Key& newKey, Node* newNode );
+    size_t insertNodeAfter( Node* oldNode, const Key& newKey, Node* newNode );
     void remove( size_t index );
     Node* removeAndReturnOnlyChild();
     Key replaceAndReturnFirstKey();
@@ -32,7 +32,7 @@ public:
     void moveAllTo( InternalNode* recipient, size_t indexInParent );
     void moveFirstToEndOf( InternalNode* recipient );
     void moveLastToFrontOf( InternalNode* recipient, size_t parentIndex );
-    Node* lookup( Key key ) const;
+    Node* lookup( const Key& key ) const;
     size_t nodeIndex( Node* node ) const;
     Node* neighbor( size_t index ) const;
     std::string toString( bool verbose = false ) const override;
