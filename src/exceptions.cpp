@@ -6,7 +6,7 @@
 //
 //
 //
-LeafNotFoundException::LeafNotFoundException( Key key )
+LeafNotFoundException::LeafNotFoundException( const Key &key )
     : m_key{ key }
 {
 
@@ -28,7 +28,7 @@ const char* LeafNotFoundException::what() const noexcept
 //
 //
 //
-NodeNotFoundException::NodeNotFoundException( std::string searchedNode, std::string containingNode )
+NodeNotFoundException::NodeNotFoundException( const std::string &searchedNode, const std::string &containingNode )
     : m_searchedNode{ searchedNode }
     , m_containingNode{ containingNode }
 {
@@ -52,7 +52,7 @@ const char* NodeNotFoundException::what() const noexcept
 //
 //
 //
-RecordNotFoundException::RecordNotFoundException( Key key )
+RecordNotFoundException::RecordNotFoundException( const Key& key )
     : m_key{ key }
 {
 

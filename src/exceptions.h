@@ -12,11 +12,11 @@
 class LeafNotFoundException : public std::exception
 {
 public:
-    explicit LeafNotFoundException( Key key );
+    explicit LeafNotFoundException( const Key& key );
     const char* what() const noexcept override;
 
 private:
-    Key m_key;
+    const Key m_key;
 };
 
 //
@@ -25,12 +25,12 @@ private:
 class NodeNotFoundException : public std::exception
 {
 public:
-    explicit NodeNotFoundException( std::string searchedNode, std::string containingNode );
+    explicit NodeNotFoundException( const std::string& searchedNode, const std::string& containingNode );
     const char* what() const noexcept override;
 
 private:
-    std::string m_searchedNode;
-    std::string m_containingNode;
+    const std::string m_searchedNode;
+    const std::string m_containingNode;
 };
 
 //
@@ -39,11 +39,11 @@ private:
 class RecordNotFoundException : public std::exception
 {
 public:
-    explicit RecordNotFoundException( Key key );
+    explicit RecordNotFoundException( const Key& key );
     const char* what() const noexcept override;
 
 private:
-    Key m_key;
+    const Key m_key;
 };
 
 #endif

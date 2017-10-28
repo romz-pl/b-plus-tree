@@ -1,13 +1,12 @@
 #ifndef BPLUSTREE_RECORD_H
 #define BPLUSTREE_RECORD_H
 
-#include "definitions.h"
 #include "value.h"
 
 class Record
 {
 public:
-    explicit Record( Value value );
+    explicit Record( const Value& value );
     ~Record() = default;
 
     Value value() const;
