@@ -1,17 +1,5 @@
 #include "node.h"
 
-/*
-//
-//
-//
-Node::Node( size_t order )
-    : m_order{ order }
-    , m_parent{ nullptr }
-{
-
-}
-*/
-
 //
 //
 //
