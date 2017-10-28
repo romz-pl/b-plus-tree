@@ -2,7 +2,6 @@
 #define BPLUSTREE_INTERNALNODE_H
 
 
-#include <queue>
 #include <vector>
 #include "definitions.h"
 #include "node.h"
@@ -34,7 +33,6 @@ public:
     size_t nodeIndex( Node* node ) const;
     Node* neighbor( size_t index ) const;
     std::string toString( bool verbose = false ) const override;
-    void queueUpChildren( std::queue< Node* >* queue );
 
     InternalNode* split( size_t order );
     void redistribute( InternalNode* node, size_t index );

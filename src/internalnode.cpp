@@ -300,17 +300,6 @@ std::string InternalNode::toString( bool verbose ) const
 //
 //
 //
-void InternalNode::queueUpChildren( std::queue< Node* >* queue )
-{
-    for( auto mapping : m_mappings )
-    {
-        queue->push( mapping.m_node );
-    }
-}
-
-//
-//
-//
 InternalNode* InternalNode::split( size_t order )
 {
     InternalNode* newNode = new InternalNode( order, parent() );
