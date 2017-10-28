@@ -2,7 +2,6 @@
 #define BPLUSTREE_INTERNALNODE_H
 
 
-#include <queue>
 #include <vector>
 #include "definitions.h"
 #include "node.h"
@@ -11,9 +10,8 @@
 class InternalNode : public Node
 {
 public:
-    explicit InternalNode( size_t order );
-    explicit InternalNode( size_t order, Node* parent );
-    ~InternalNode() override;
+    InternalNode( size_t order, InternalNode *parent );
+    ~InternalNode();
 
     bool isLeaf() const override;
     size_t size() const override;
@@ -35,9 +33,9 @@ public:
     size_t nodeIndex( Node* node ) const;
     Node* neighbor( size_t index ) const;
     std::string toString( bool verbose = false ) const override;
-    void queueUpChildren( std::queue< Node* >* queue );
 
     InternalNode* split( size_t order );
+    void redistribute( InternalNode* node, size_t index );
 
 private:
     void copyHalfFrom( std::vector< InternalMapping >& mappings );

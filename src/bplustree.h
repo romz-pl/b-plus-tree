@@ -32,9 +32,12 @@ private:
     void insertIntoParent( Node* oldNode, const Key& key, Node* newNode );
 
     void removeFromLeaf( const Key& key );
-    template < typename N > void coalesceOrRedistribute( N* node );
-    template < typename N > void coalesce( N* neighborNode, N* node, InternalNode* parent, size_t index );
-    template < typename N > void redistribute( N* neighborNode, N* node, InternalNode* parent, size_t index );
+
+    void coalesceOrRedistribute( LeafNode* node );
+    void coalesce( LeafNode* neighborNode, LeafNode* node, InternalNode* parent, size_t index );
+
+    void coalesceOrRedistribute( InternalNode* node );
+    void coalesce( InternalNode* neighborNode, InternalNode* node, InternalNode* parent, size_t index );
 
     void adjustRoot();
     LeafNode* findLeafNode( const Key& key) ;

@@ -6,16 +6,7 @@
 //
 //
 //
-InternalNode::InternalNode( size_t order )
-    : Node( order )
-{
-
-}
-
-//
-//
-//
-InternalNode::InternalNode( size_t order, Node* parent )
+InternalNode::InternalNode( size_t order, InternalNode* parent )
     : Node( order, parent )
 {
 
@@ -170,7 +161,7 @@ void InternalNode::copyHalfFrom( std::vector< InternalMapping > &mappings )
 //
 void InternalNode::moveAllTo( InternalNode *recipient, size_t indexInParent )
 {
-    m_mappings[ 0 ].m_key = static_cast< InternalNode* >( parent() )->keyAt( indexInParent );
+    m_mappings[ 0 ].m_key = getParent()->keyAt( indexInParent );
     recipient->copyAllFrom( m_mappings );
     m_mappings.clear();
 }
@@ -194,7 +185,7 @@ void InternalNode::moveFirstToEndOf( InternalNode *recipient )
 {
     recipient->copyLastFrom( m_mappings.front() );
     m_mappings.erase( m_mappings.begin() );
-    static_cast< InternalNode* >( parent() )->setKeyAt( 1, m_mappings.front().m_key );
+    getParent()->setKeyAt( 1, m_mappings.front().m_key );
 }
 
 //
@@ -220,11 +211,11 @@ void InternalNode::moveLastToFrontOf( InternalNode *recipient, size_t parentInde
 //
 void InternalNode::copyFirstFrom( const InternalMapping& pair, size_t parentIndex )
 {
-    m_mappings.front().m_key = static_cast< InternalNode* >( parent() )->keyAt( parentIndex );
+    m_mappings.front().m_key = getParent()->keyAt( parentIndex );
     m_mappings.insert( m_mappings.begin(), pair );
     m_mappings.front().m_key = Key::Dummy();
     m_mappings.front().m_node->setParent( this );
-    static_cast< InternalNode* >( parent() )->setKeyAt( parentIndex, m_mappings.front().m_key );
+    getParent()->setKeyAt( parentIndex, m_mappings.front().m_key );
 }
 
 //
@@ -309,20 +300,24 @@ std::string InternalNode::toString( bool verbose ) const
 //
 //
 //
-void InternalNode::queueUpChildren( std::queue< Node* >* queue )
+InternalNode* InternalNode::split( size_t order )
 {
-    for( auto mapping : m_mappings )
-    {
-        queue->push( mapping.m_node );
-    }
+    InternalNode* newNode = new InternalNode( order, getParent() );
+    moveHalfTo( newNode );
+    return newNode;
 }
 
 //
 //
 //
-InternalNode* InternalNode::split( size_t order )
+void InternalNode::redistribute( InternalNode* node, size_t index )
 {
-    InternalNode* newNode = new InternalNode( order, parent() );
-    moveHalfTo( newNode );
-    return newNode;
+    if( index == 0 )
+    {
+        moveFirstToEndOf( node );
+    }
+    else
+    {
+        moveLastToFrontOf( node, index );
+    }
 }

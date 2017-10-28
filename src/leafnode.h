@@ -11,9 +11,8 @@
 class LeafNode : public Node
 {
 public:
-    explicit LeafNode( size_t order );
-    explicit LeafNode( size_t order, Node* parent );
-    ~LeafNode() override;
+    LeafNode( size_t order, InternalNode *parent );
+    ~LeafNode();
 
     bool isLeaf() const override;
     LeafNode* next() const;
@@ -27,13 +26,14 @@ public:
     size_t removeAndDeleteRecord( const Key& key );
     Key firstKey() const;
     void moveHalfTo( LeafNode* recipient );
-    void moveAllTo( LeafNode* recipient, size_t /* Unused */ );
+    void moveAllTo( LeafNode* recipient );
     void moveFirstToEndOf( LeafNode* recipient );
     void moveLastToFrontOf( LeafNode* recipient, size_t parentIndex );
 
     std::string toString( bool verbose = false ) const override;
 
     LeafNode* split( size_t order );
+    void redistribute( LeafNode* node, size_t index );
 
 private:
     void copyHalfFrom( std::vector< LeafMapping >& mappings );

@@ -5,19 +5,18 @@
 #include "definitions.h"
 #include "key.h"
 
-
+class InternalNode;
 
 // Abstract class.
 class Node
 {
 public:
-    explicit Node( size_t order );
-    explicit Node( size_t order, Node* parent );
+    explicit Node( size_t order, InternalNode* parent );
     virtual ~Node() = default;
 
     size_t order() const;
-    Node* parent() const;
-    void setParent( Node* parent );
+    InternalNode* getParent() const;
+    void setParent( InternalNode* parent );
     bool isRoot() const;
 
     virtual bool isLeaf() const = 0;
@@ -28,7 +27,7 @@ public:
 private:
     const size_t m_order;
 
-    Node* m_parent;
+    InternalNode* m_parent;
 };
 
 #endif

@@ -6,17 +6,7 @@
 //
 //
 //
-LeafNode::LeafNode( size_t order )
-    : Node( order )
-    , m_next{ nullptr }
-{
-
-}
-
-//
-//
-//
-LeafNode::LeafNode( size_t order, Node* parent )
+LeafNode::LeafNode( size_t order, InternalNode* parent )
     : Node( order, parent )
     , m_next{ nullptr }
 {
@@ -214,7 +204,7 @@ void LeafNode::copyHalfFrom( std::vector< LeafMapping > &mappings )
 //
 //
 //
-void LeafNode::moveAllTo(LeafNode *recipient, size_t )
+void LeafNode::moveAllTo( LeafNode *recipient )
 {
     recipient->copyAllFrom( m_mappings );
     m_mappings.clear();
@@ -239,7 +229,7 @@ void LeafNode::moveFirstToEndOf( LeafNode* recipient )
 {
     recipient->copyLastFrom( m_mappings.front() );
     m_mappings.erase( m_mappings.begin() );
-    static_cast< InternalNode* >( parent() )->setKeyAt( 1, m_mappings.front().m_key );
+    getParent()->setKeyAt( 1, m_mappings.front().m_key );
 }
 
 //
@@ -265,7 +255,7 @@ void LeafNode::moveLastToFrontOf( LeafNode *recipient, size_t parentIndex )
 void LeafNode::copyFirstFrom( const LeafMapping &pair, size_t parentIndex )
 {
     m_mappings.insert( m_mappings.begin(), pair );
-    static_cast< InternalNode* >( parent() )->setKeyAt( parentIndex, m_mappings.front().m_key );
+    getParent()->setKeyAt( parentIndex, m_mappings.front().m_key );
 }
 
 //
@@ -273,7 +263,23 @@ void LeafNode::copyFirstFrom( const LeafMapping &pair, size_t parentIndex )
 //
 LeafNode* LeafNode::split( size_t order )
 {
-    LeafNode* newNode = new LeafNode( order, parent() );
+    LeafNode* newNode = new LeafNode( order, getParent() );
     moveHalfTo( newNode );
     return newNode;
+}
+
+
+//
+//
+//
+void LeafNode::redistribute( LeafNode* node, size_t index )
+{
+    if( index == 0 )
+    {
+        moveFirstToEndOf( node );
+    }
+    else
+    {
+        moveLastToFrontOf( node, index );
+    }
 }
