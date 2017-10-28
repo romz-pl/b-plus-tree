@@ -3,7 +3,7 @@
 //
 //
 //
-Node::Node( size_t order, Node* parent )
+Node::Node( size_t order, InternalNode* parent )
     : m_order{ order }
     , m_parent{ parent }
 {
@@ -21,7 +21,7 @@ size_t Node::order() const
 //
 //
 //
-Node* Node::parent() const
+InternalNode* Node::parent() const
 {
     return m_parent;
 }
@@ -29,7 +29,7 @@ Node* Node::parent() const
 //
 //
 //
-void Node::setParent( Node* parent )
+void Node::setParent( InternalNode *parent )
 {
     m_parent = parent;
 }

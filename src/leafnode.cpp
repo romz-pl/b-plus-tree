@@ -6,7 +6,7 @@
 //
 //
 //
-LeafNode::LeafNode( size_t order, Node* parent )
+LeafNode::LeafNode( size_t order, InternalNode* parent )
     : Node( order, parent )
     , m_next{ nullptr }
 {
@@ -229,7 +229,7 @@ void LeafNode::moveFirstToEndOf( LeafNode* recipient )
 {
     recipient->copyLastFrom( m_mappings.front() );
     m_mappings.erase( m_mappings.begin() );
-    static_cast< InternalNode* >( parent() )->setKeyAt( 1, m_mappings.front().m_key );
+    parent()->setKeyAt( 1, m_mappings.front().m_key );
 }
 
 //
@@ -255,7 +255,7 @@ void LeafNode::moveLastToFrontOf( LeafNode *recipient, size_t parentIndex )
 void LeafNode::copyFirstFrom( const LeafMapping &pair, size_t parentIndex )
 {
     m_mappings.insert( m_mappings.begin(), pair );
-    static_cast< InternalNode* >( parent() )->setKeyAt( parentIndex, m_mappings.front().m_key );
+    parent()->setKeyAt( parentIndex, m_mappings.front().m_key );
 }
 
 //

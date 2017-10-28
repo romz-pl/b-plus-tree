@@ -11,7 +11,7 @@
 class LeafNode : public Node
 {
 public:
-    LeafNode( size_t order, Node* parent );
+    LeafNode( size_t order, InternalNode *parent );
     ~LeafNode();
 
     bool isLeaf() const override;
