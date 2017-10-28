@@ -16,6 +16,7 @@
 BPlusTree::BPlusTree( size_t order)
     : m_order{ order }
     , m_root{ nullptr }
+    , m_count( 0 )
 {
 
 }
@@ -51,8 +52,7 @@ Value BPlusTree::get( Key key )
 //
 size_t BPlusTree::count() const
 {
-    assert( 0 );
-    return 0;
+    return m_count;
 }
 
 //
@@ -68,6 +68,7 @@ void BPlusTree::insert( Key key, Value value )
     {
         insertIntoLeaf( key, value );
     }
+    m_count++;
 }
 
 //
@@ -153,6 +154,7 @@ void BPlusTree::remove(Key key)
     {
         removeFromLeaf( key );
     }
+    m_count--;
 }
 
 //
@@ -315,6 +317,7 @@ void BPlusTree::destroyTree()
         delete static_cast< InternalNode* >( m_root );
     }
     m_root = nullptr;
+    m_count = 0;
 }
 
 
