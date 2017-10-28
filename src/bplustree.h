@@ -26,7 +26,7 @@ public:
     
 
     bool isEmpty() const;  
-    Value get( Key key ) const;
+    Value get( Key key );
     void insert( Key key, Value value );
     void remove( Key key );
     void destroyTree();
