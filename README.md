@@ -1,3 +1,6 @@
+[![Build Status](https://travis-ci.org/romz-pl/b-plus-tree.svg?branch=master)](https://travis-ci.org/romz-pl/b-plus-tree)
+
+
 # Memory based B+ tree in C++ 
 
 
