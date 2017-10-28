@@ -285,27 +285,8 @@ void BPlusTree::readInputFromFile( std::string fileName )
     }
 }
 
-//
-// Print this B+ tree to stdout using a simple command-line
-// ASCII graphic scheme.
-// verbose - Determines whether printing should include addresses.
-//
-void BPlusTree::print( bool verbose )
-{
-    m_printer.setVerbose( verbose );
-    m_printer.printTree( m_root );
-}
 
-//
-// Print the bottom rank of this B+ tree, consisting of its leaves.
-// This shows all the keys in the B+ tree in sorted order.
-// verbose - Determines whether printing should include addresses.
-//
-void BPlusTree::printLeaves( bool verbose )
-{
-    m_printer.setVerbose( verbose );
-    m_printer.printLeaves( m_root );
-}
+
 
 //
 // Remove all elements from the B+ tree. You can then build
@@ -324,15 +305,6 @@ void BPlusTree::destroyTree()
     m_root = nullptr;
 }
 
-//
-// Print the value associated with a given key, along with the address
-// at which the tree stores that value.
-// verbose - Determines whether printing should include addresses.
-//
-void BPlusTree::printValue( Key key, bool verbose )
-{
-    printValue( key, false, verbose );
-}
 
 //
 //
@@ -364,29 +336,7 @@ void BPlusTree::printValue( Key key, bool printPath, bool verbose )
     std::cout << "\tKey: " << key.ToString() << "   Value: " << record->value().ToString() << std::endl;
 }
 
-//
-// Print the path from the root to the leaf bearing key aKey.
-// verbose - Determines whether printing should include addresses.
-//
-void BPlusTree::printPathTo( Key key, bool verbose )
-{
-    printValue( key, true, verbose );
-}
 
-//
-// Print key, value, and address for each item in the range
-// from aStart to aEnd, including both.
-//
-void BPlusTree::printRange( Key start, Key end )
-{
-    auto rangeVector = range( start, end );
-    for( auto entry : rangeVector )
-    {
-        std::cout << "Key: " << std::get< 0 >( entry ).ToString();
-        std::cout << "    Value: " << std::get< 1 >( entry ).ToString();
-        std::cout << "    Leaf: " << std::hex << std::get< 2 >( entry ) << std::dec << std::endl;
-    }
-}
 
 //
 //

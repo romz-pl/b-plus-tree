@@ -4,7 +4,6 @@
 #include <tuple>
 #include <vector>
 #include "definitions.h"
-#include "printer.h"
 #include "key.h"
 #include "value.h"
 
@@ -31,13 +30,6 @@ public:
     void remove( Key key );
     
 
-    void print( bool verbose = false );
-    void printLeaves( bool verbose = false );
-    void printValue( Key key, bool verbose = false );
-    void printPathTo( Key key, bool verbose = false );
-    void printRange( Key start, Key end );
-
-
     void destroyTree();
     void readInputFromFile( std::string fileName );
 
@@ -58,7 +50,6 @@ private:
 private:
     const size_t m_order;
     Node* m_root;
-    Printer m_printer;
 };
 
 #endif
