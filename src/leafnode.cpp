@@ -159,55 +159,6 @@ Record* LeafNode::lookup( Key key ) const
 //
 //
 //
-void LeafNode::copyRangeStartingFrom( Key key, std::vector<EntryType>& vector )
-{
-    bool found = false;
-    for( auto mapping : m_mappings )
-    {
-        if( mapping.first == key )
-        {
-            found = true;
-        }
-        if( found )
-        {
-            vector.push_back( std::make_tuple( mapping.first, mapping.second->value(), this ) );
-        }
-    }
-}
-
-//
-//
-//
-void LeafNode::copyRangeUntil( Key key, std::vector<EntryType>& vector )
-{
-    bool found = false;
-    for( auto mapping : m_mappings )
-    {
-        if( !found )
-        {
-            vector.push_back( std::make_tuple( mapping.first, mapping.second->value(), this ) );
-        }
-        if( mapping.first == key )
-        {
-            found = true;
-        }
-    }
-}
-
-//
-//
-//
-void LeafNode::copyRange( std::vector< EntryType >& vector )
-{
-    for( auto mapping : m_mappings )
-    {
-        vector.push_back( std::make_tuple( mapping.first, mapping.second->value(), this ) );
-    }
-}
-
-//
-//
-//
 size_t LeafNode::removeAndDeleteRecord( Key key )
 {
     auto removalPoint = m_mappings.begin();

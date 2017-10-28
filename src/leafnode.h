@@ -32,9 +32,7 @@ public:
     void moveAllTo( LeafNode* recipient, size_t /* Unused */ );
     void moveFirstToEndOf( LeafNode* recipient );
     void moveLastToFrontOf( LeafNode* recipient, size_t parentIndex );
-    void copyRangeStartingFrom( Key key, std::vector< EntryType >& vector );
-    void copyRangeUntil( Key aKey, std::vector< EntryType >& vector );
-    void copyRange( std::vector< EntryType >& vector );
+
     std::string toString( bool verbose = false ) const override;
 
 private:
