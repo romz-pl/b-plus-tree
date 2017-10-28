@@ -6,6 +6,7 @@
 #include <vector>
 #include "node.h"
 #include "record.h"
+#include "leafmapping.h"
 
 class LeafNode : public Node
 {
@@ -13,9 +14,6 @@ public:
     explicit LeafNode( size_t order );
     explicit LeafNode( size_t order, Node* parent );
     ~LeafNode() override;
-
-    using MappingType = std::pair< Key, Record* >;
-    using EntryType = std::tuple< Key, Value, LeafNode* >;
 
     bool isLeaf() const override;
     LeafNode* next() const;
@@ -36,13 +34,13 @@ public:
     std::string toString( bool verbose = false ) const override;
 
 private:
-    void copyHalfFrom( std::vector< MappingType >& mappings );
-    void copyAllFrom( std::vector< MappingType >& mappings );
-    void copyLastFrom( MappingType pair );
-    void copyFirstFrom( MappingType pair, size_t parentIndex );
+    void copyHalfFrom( std::vector< LeafMapping >& mappings );
+    void copyAllFrom( std::vector< LeafMapping >& mappings );
+    void copyLastFrom( const LeafMapping& pair );
+    void copyFirstFrom( const LeafMapping& pair, size_t parentIndex );
 
 private:
-    std::vector< MappingType > m_mappings;
+    std::vector< LeafMapping > m_mappings;
 
     LeafNode* m_next;
 };
