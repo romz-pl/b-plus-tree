@@ -51,11 +51,11 @@ void Check()
     for( Key k : key )
     {
         const Value value = Value( GetRandomString() );
+        // std::cout << k.ToString() << " " << value.ToString() << std::endl << std::flush;
+
         bPlusTree.insert( k, value );
         stlMap.insert( std::make_pair( k, value ) );
     }
-
-    return;
 
     // Make key randomly distributed other then inserted
     std::shuffle( key.begin(), key.end(), std::mt19937{ std::random_device{}() } );
@@ -71,10 +71,11 @@ void Check()
             throw std::runtime_error( "Insert Error" );
         }
     }
-    if( bPlusTree.count() != stlMap.size() )
-    {
-        throw std::runtime_error( "Insert Error: Not equal size" );
-    }
+
+//    if( bPlusTree.count() != stlMap.size() )
+//    {
+//        throw std::runtime_error( "Insert Error: Not equal size" );
+//    }
 
     // Make key randomly distributed other then inserted
     std::shuffle( key.begin(), key.end(), std::mt19937{ std::random_device{}() } );
@@ -86,10 +87,10 @@ void Check()
         stlMap.erase( k );
     }
 
-    if( bPlusTree.count() != stlMap.size() )
-    {
-        throw std::runtime_error( "Delete Error: Not equal size" );
-    }
+//    if( bPlusTree.count() != stlMap.size() )
+//    {
+//        throw std::runtime_error( "Delete Error: Not equal size" );
+//    }
 }
 
 //

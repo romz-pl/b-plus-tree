@@ -31,10 +31,19 @@ bool BPlusTree::isEmpty() const
 //
 //
 //
-Value BPlusTree::get( Key key ) const
+Value BPlusTree::get( Key key )
 {
-    assert( 0 );
-    return Value();
+    LeafNode* leafNode = findLeafNode( key );
+    if( !leafNode )
+    {
+        throw std::runtime_error( "Key not found (LeafNode)" );
+    }
+    Record * rec = leafNode->lookup( key );
+    if( !rec )
+    {
+        throw std::runtime_error( "Key not found (Record)" );
+    }
+    return rec->value();
 }
 
 //
