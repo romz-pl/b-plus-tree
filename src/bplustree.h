@@ -19,12 +19,6 @@ class BPlusTree
 public:
     explicit BPlusTree( size_t order = DEFAULT_ORDER );
     
-    /// The type used in the API for inserting a new key-value pair
-    /// into the tree.  The third item is the type of the Node into
-    /// which the key will be inserted.
-    using EntryType = std::tuple< Key, Value, LeafNode* >;
-    
-
     bool isEmpty() const;  
     Value get( Key key );
     void insert( Key key, Value value );
@@ -43,7 +37,6 @@ private:
     template < typename N > void redistribute( N* neighborNode, N* node, InternalNode* parent, size_t index );
     void adjustRoot();
     LeafNode* findLeafNode( Key key, bool printing = false, bool verbose = false );
-    std::vector< EntryType > range( Key start, Key end );
 
 private:
     const size_t m_order;

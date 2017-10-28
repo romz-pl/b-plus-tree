@@ -299,9 +299,6 @@ LeafNode* BPlusTree::findLeafNode( Key key, bool printing, bool verbose )
     return static_cast< LeafNode* >( node );
 }
 
-
-
-
 //
 // Remove all elements from the B+ tree. You can then build
 // it up again by inserting new elements into it.
@@ -320,29 +317,3 @@ void BPlusTree::destroyTree()
     m_count = 0;
 }
 
-
-
-
-//
-//
-//
-std::vector<BPlusTree::EntryType> BPlusTree::range( Key start, Key end )
-{
-    auto startLeaf = findLeafNode( start );
-    auto endLeaf = findLeafNode( end );
-    std::vector< std::tuple< Key, Value, LeafNode* > > entries;
-    if( !startLeaf || !endLeaf )
-    {
-        return entries;
-    }
-
-    startLeaf->copyRangeStartingFrom( start, entries );
-    startLeaf = startLeaf->next();
-    while( startLeaf != endLeaf )
-    {
-        startLeaf->copyRange( entries );
-        startLeaf = startLeaf->next();
-    }
-    startLeaf->copyRangeUntil( end, entries );
-    return entries;
-}
