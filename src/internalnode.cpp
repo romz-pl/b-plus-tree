@@ -6,15 +6,6 @@
 //
 //
 //
-InternalNode::InternalNode( size_t order )
-    : Node( order )
-{
-
-}
-
-//
-//
-//
 InternalNode::InternalNode( size_t order, Node* parent )
     : Node( order, parent )
 {

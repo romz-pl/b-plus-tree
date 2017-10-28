@@ -6,16 +6,6 @@
 //
 //
 //
-LeafNode::LeafNode( size_t order )
-    : Node( order )
-    , m_next{ nullptr }
-{
-
-}
-
-//
-//
-//
 LeafNode::LeafNode( size_t order, Node* parent )
     : Node( order, parent )
     , m_next{ nullptr }

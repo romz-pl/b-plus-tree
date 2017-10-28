@@ -11,7 +11,7 @@
 class Node
 {
 public:
-    explicit Node( size_t order );
+    // explicit Node( size_t order );
     explicit Node( size_t order, Node* parent );
     virtual ~Node() = default;
 

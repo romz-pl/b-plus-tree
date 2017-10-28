@@ -1,5 +1,6 @@
 #include "node.h"
 
+/*
 //
 //
 //
@@ -9,6 +10,7 @@ Node::Node( size_t order )
 {
 
 }
+*/
 
 //
 //

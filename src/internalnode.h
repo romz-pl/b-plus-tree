@@ -11,9 +11,8 @@
 class InternalNode : public Node
 {
 public:
-    explicit InternalNode( size_t order );
-    explicit InternalNode( size_t order, Node* parent );
-    ~InternalNode() override;
+    InternalNode( size_t order, Node* parent );
+    ~InternalNode();
 
     bool isLeaf() const override;
     size_t size() const override;

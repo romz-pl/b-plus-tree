@@ -11,9 +11,9 @@
 class LeafNode : public Node
 {
 public:
-    explicit LeafNode( size_t order );
-    explicit LeafNode( size_t order, Node* parent );
-    ~LeafNode() override;
+    // explicit LeafNode( size_t order );
+    LeafNode( size_t order, Node* parent );
+    ~LeafNode();
 
     bool isLeaf() const override;
     LeafNode* next() const;
