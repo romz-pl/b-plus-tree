@@ -21,7 +21,7 @@ size_t Node::order() const
 //
 //
 //
-InternalNode* Node::parent() const
+InternalNode* Node::getParent() const
 {
     return m_parent;
 }

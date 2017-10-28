@@ -15,7 +15,7 @@ public:
     virtual ~Node() = default;
 
     size_t order() const;
-    InternalNode* parent() const;
+    InternalNode* getParent() const;
     void setParent( InternalNode* parent );
     bool isRoot() const;
 

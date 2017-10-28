@@ -229,7 +229,7 @@ void LeafNode::moveFirstToEndOf( LeafNode* recipient )
 {
     recipient->copyLastFrom( m_mappings.front() );
     m_mappings.erase( m_mappings.begin() );
-    parent()->setKeyAt( 1, m_mappings.front().m_key );
+    getParent()->setKeyAt( 1, m_mappings.front().m_key );
 }
 
 //
@@ -255,7 +255,7 @@ void LeafNode::moveLastToFrontOf( LeafNode *recipient, size_t parentIndex )
 void LeafNode::copyFirstFrom( const LeafMapping &pair, size_t parentIndex )
 {
     m_mappings.insert( m_mappings.begin(), pair );
-    parent()->setKeyAt( parentIndex, m_mappings.front().m_key );
+    getParent()->setKeyAt( parentIndex, m_mappings.front().m_key );
 }
 
 //
@@ -263,7 +263,7 @@ void LeafNode::copyFirstFrom( const LeafMapping &pair, size_t parentIndex )
 //
 LeafNode* LeafNode::split( size_t order )
 {
-    LeafNode* newNode = new LeafNode( order, parent() );
+    LeafNode* newNode = new LeafNode( order, getParent() );
     moveHalfTo( newNode );
     return newNode;
 }
