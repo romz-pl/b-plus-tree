@@ -26,6 +26,7 @@ VPATH := ../src/
 SOURCE :=
 SOURCE += bplustree.cpp
 SOURCE += exceptions.cpp
+SOURCE += internalmapping.cpp
 SOURCE += internalnode.cpp
 SOURCE += key.cpp
 SOURCE += leafmapping.cpp

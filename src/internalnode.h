@@ -6,6 +6,7 @@
 #include <vector>
 #include "definitions.h"
 #include "node.h"
+#include "internalmapping.h"
 
 class InternalNode : public Node
 {
@@ -13,8 +14,6 @@ public:
     explicit InternalNode( size_t order );
     explicit InternalNode( size_t order, Node* parent );
     ~InternalNode() override;
-
-    using MappingType = std::pair< Key, Node* >;
 
     bool isLeaf() const override;
     size_t size() const override;
@@ -39,13 +38,13 @@ public:
     void queueUpChildren( std::queue< Node* >* queue );
 
 private:
-    void copyHalfFrom( std::vector< MappingType >& mappings );
-    void copyAllFrom( std::vector< MappingType >& mappings );
-    void copyLastFrom( MappingType pair );
-    void copyFirstFrom( MappingType pair, size_t parentIndex );
+    void copyHalfFrom( std::vector< InternalMapping >& mappings );
+    void copyAllFrom( std::vector< InternalMapping >& mappings );
+    void copyLastFrom( const InternalMapping& pair );
+    void copyFirstFrom( const InternalMapping& pair, size_t parentIndex );
 
 private:
-    std::vector<MappingType> m_mappings;
+    std::vector< InternalMapping > m_mappings;
 };
 
 #endif
