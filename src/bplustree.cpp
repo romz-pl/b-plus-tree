@@ -35,7 +35,8 @@ void BPlusTree::insert( Key key, Value value )
     if( isEmpty() )
     {
         startNewTree( key, value );
-    } else
+    }
+    else
     {
         insertIntoLeaf( key, value );
     }
@@ -268,23 +269,6 @@ LeafNode* BPlusTree::findLeafNode( Key key, bool printing, bool verbose )
     return static_cast< LeafNode* >( node );
 }
 
-//
-// Read elements to be inserted into the B+ tree from a text file.
-// Each new element should consist of a single integer on a line by itself.
-// This B+ tree treats each such input as both a new value and the key
-// under which to store it.
-//
-void BPlusTree::readInputFromFile( std::string fileName )
-{
-    int key;
-    std::ifstream input( fileName );
-    while( input )
-    {
-        input >> key;
-        insert( Key( key ), Value( key ) );
-    }
-}
-
 
 
 
@@ -305,36 +289,6 @@ void BPlusTree::destroyTree()
     m_root = nullptr;
 }
 
-
-//
-//
-//
-void BPlusTree::printValue( Key key, bool printPath, bool verbose )
-{
-    LeafNode* leaf = findLeafNode( key, printPath, verbose );
-    if( !leaf )
-    {
-        std::cout << "Leaf not found with key " << key.ToString() << "." << std::endl;
-        return;
-    }
-    if( printPath )
-    {
-        std::cout << "\t";
-    }
-    std::cout << "Leaf: " << leaf->toString( verbose ) << std::endl;
-    Record* record = leaf->lookup( key );
-    if( !record )
-    {
-        std::cout << "Record not found with key " << key.ToString() << "." << std::endl;
-        return;
-    }
-    if( printPath )
-    {
-        std::cout << "\t";
-    }
-    std::cout << "Record found at location " << std::hex << record << std::dec << ":" << std::endl;
-    std::cout << "\tKey: " << key.ToString() << "   Value: " << record->value().ToString() << std::endl;
-}
 
 
 

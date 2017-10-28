@@ -28,10 +28,7 @@ public:
     bool isEmpty() const;  
     void insert( Key key, Value value );
     void remove( Key key );
-    
-
     void destroyTree();
-    void readInputFromFile( std::string fileName );
 
 private:
     void startNewTree( Key key, Value value );
@@ -44,7 +41,6 @@ private:
     template < typename N > void redistribute( N* neighborNode, N* node, InternalNode* parent, size_t index );
     void adjustRoot();
     LeafNode* findLeafNode( Key key, bool printing = false, bool verbose = false );
-    void printValue( Key key, bool printPath, bool verbose );
     std::vector< EntryType > range( Key start, Key end );
 
 private:
