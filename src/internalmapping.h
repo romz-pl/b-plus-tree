@@ -10,8 +10,8 @@ public:
     InternalMapping( const Key& key, Node* node );
 
 public:
-    const Key m_key;
-    const Node* m_node;
+    Key m_key;
+    Node* m_node;
 };
 
 #endif
