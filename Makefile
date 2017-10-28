@@ -4,10 +4,10 @@
 # e-mail: romz@wp.pl
 #
 
-.PHONY : hashex clean
+.PHONY : bplustree clean
 
 
-hashex :
+bplustree :
 	cd build && $(MAKE)
 
 
