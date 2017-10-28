@@ -48,6 +48,8 @@ private:
 private:
     const size_t m_order;
     Node* m_root;
+
+    size_t m_count;
 };
 
 #endif
