@@ -1,5 +1,5 @@
 #include "key.h"
-#include <limits>
+// #include <limits>
 
 
 //
@@ -73,6 +73,7 @@ std::string Key::ToString() const
 //
 Key Key::Dummy()
 {
-    const int64_t v = std::numeric_limits< int64_t >::max();
-    return Key( v );
+    //const int64_t v = std::numeric_limits< int64_t >::max();
+    // return Key( v );
+    return Key( -1 );
 }
