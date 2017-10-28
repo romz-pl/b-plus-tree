@@ -20,23 +20,23 @@ public:
     explicit BPlusTree( size_t order = DEFAULT_ORDER );
     
     bool isEmpty() const;  
-    Value get( Key key );
-    void insert( Key key, Value value );
-    void remove( Key key );
+    Value get( const Key& key );
+    void insert( const Key& key, const Value& value );
+    void remove( const Key& key );
     void destroyTree();
     size_t count() const;
 
 private:
-    void startNewTree( Key key, Value value );
-    void insertIntoLeaf( Key key, Value value );
-    void insertIntoParent( Node* oldNode, Key key, Node* newNode );
+    void startNewTree( const Key& key, const Value& value );
+    void insertIntoLeaf( const Key& key, const Value& value );
+    void insertIntoParent( Node* oldNode, const Key& key, Node* newNode );
     template < typename T > T* split( T* aNode );
-    void removeFromLeaf( Key key );
+    void removeFromLeaf( const Key& key );
     template < typename N > void coalesceOrRedistribute( N* node );
     template < typename N > void coalesce( N* neighborNode, N* node, InternalNode* parent, size_t index );
     template < typename N > void redistribute( N* neighborNode, N* node, InternalNode* parent, size_t index );
     void adjustRoot();
-    LeafNode* findLeafNode( Key key, bool printing = false, bool verbose = false );
+    LeafNode* findLeafNode( const Key& key, bool printing = false, bool verbose = false );
 
 private:
     const size_t m_order;

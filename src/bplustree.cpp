@@ -32,7 +32,7 @@ bool BPlusTree::isEmpty() const
 //
 //
 //
-Value BPlusTree::get( Key key )
+Value BPlusTree::get( const Key &key )
 {
     LeafNode* leafNode = findLeafNode( key );
     if( !leafNode )
@@ -58,7 +58,7 @@ size_t BPlusTree::count() const
 //
 // Insert a key-value pair into this B+ tree.
 //
-void BPlusTree::insert( Key key, Value value )
+void BPlusTree::insert( const Key& key, const Value& value )
 {
     if( isEmpty() )
     {
@@ -74,7 +74,7 @@ void BPlusTree::insert( Key key, Value value )
 //
 //
 //
-void BPlusTree::startNewTree( Key key, Value value )
+void BPlusTree::startNewTree( const Key& key, const Value& value )
 {
     LeafNode* newLeafNode = new LeafNode( m_order );
     newLeafNode->createAndInsertRecord( key, value );
@@ -84,7 +84,7 @@ void BPlusTree::startNewTree( Key key, Value value )
 //
 //
 //
-void BPlusTree::insertIntoLeaf( Key key, Value value )
+void BPlusTree::insertIntoLeaf( const Key& key, const Value& value )
 {
     LeafNode* leafNode = findLeafNode( key );
     if( !leafNode )
@@ -106,7 +106,7 @@ void BPlusTree::insertIntoLeaf( Key key, Value value )
 //
 //
 //
-void BPlusTree::insertIntoParent( Node *oldNode, Key key, Node *newNode )
+void BPlusTree::insertIntoParent( Node *oldNode, const Key& key, Node *newNode )
 {
     InternalNode* parent = static_cast< InternalNode* >( oldNode->parent() );
     if( parent == nullptr )
@@ -144,7 +144,7 @@ T* BPlusTree::split( T* node )
 //
 // Remove a key and its value from this B+ tree.
 //
-void BPlusTree::remove(Key key)
+void BPlusTree::remove( const Key& key )
 {
     if( isEmpty() )
     {
@@ -160,7 +160,7 @@ void BPlusTree::remove(Key key)
 //
 //
 //
-void BPlusTree::removeFromLeaf( Key key )
+void BPlusTree::removeFromLeaf( const Key& key )
 {
     LeafNode* leafNode = findLeafNode( key );
     if( !leafNode )
@@ -263,7 +263,7 @@ void BPlusTree::adjustRoot()
 //
 // UTILITIES AND PRINTING
 //
-LeafNode* BPlusTree::findLeafNode( Key key, bool printing, bool verbose )
+LeafNode* BPlusTree::findLeafNode( const Key& key, bool printing, bool verbose )
 {
     if( isEmpty() )
     {
