@@ -190,7 +190,7 @@ void BPlusTree::coalesceOrRedistribute( N* node )
     }
     else
     {
-        redistribute( neighborNode, node, parent, indexOfNodeInParent );
+        redistribute( neighborNode, node, indexOfNodeInParent );
     }
 }
 
@@ -218,7 +218,7 @@ void BPlusTree::coalesce( N* neighborNode, N* node, InternalNode* parent, size_t
 //
 //
 template < typename N >
-void BPlusTree::redistribute( N* neighborNode, N* node, InternalNode* /*aParent*/, size_t index )
+void BPlusTree::redistribute( N* neighborNode, N* node, size_t index )
 {
     if( index == 0 )
     {
