@@ -161,7 +161,7 @@ void BPlusTree::removeFromLeaf( const Key& key )
     {
         return;
     }
-    size_t newSize = leafNode->removeAndDeleteRecord( key );
+    const size_t newSize = leafNode->removeAndDeleteRecord( key );
     if( newSize < leafNode->minSize() )
     {
         coalesceOrRedistribute( leafNode );
@@ -251,39 +251,19 @@ void BPlusTree::adjustRoot()
 
 
 //
-// UTILITIES AND PRINTING
 //
-LeafNode* BPlusTree::findLeafNode( const Key& key, bool printing, bool verbose )
+//
+LeafNode* BPlusTree::findLeafNode( const Key& key )
 {
     if( isEmpty() )
     {
-        if( printing )
-        {
-            std::cout << "Not found: empty tree." << std::endl;
-        }
         return nullptr;
     }
+
     auto node = m_root;
-    if( printing)
-    {
-        std::cout << "Root: ";
-        if( m_root->isLeaf() )
-        {
-            std::cout << "\t" << static_cast< LeafNode* >( m_root )->toString( verbose );
-        }
-        else
-        {
-            std::cout << "\t" << static_cast< InternalNode* >( m_root )->toString( verbose );
-        }
-        std::cout << std::endl;
-    }
     while( !node->isLeaf() )
     {
         auto internalNode = static_cast< InternalNode* >( node );
-        if( printing && node != m_root )
-        {
-            std::cout << "\tNode: " << internalNode->toString( verbose ) << std::endl;
-        }
         node = internalNode->lookup( key );
     }
     return static_cast< LeafNode* >( node );

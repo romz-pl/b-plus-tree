@@ -35,8 +35,9 @@ private:
     template < typename N > void coalesceOrRedistribute( N* node );
     template < typename N > void coalesce( N* neighborNode, N* node, InternalNode* parent, size_t index );
     template < typename N > void redistribute( N* neighborNode, N* node, InternalNode* parent, size_t index );
+
     void adjustRoot();
-    LeafNode* findLeafNode( const Key& key, bool printing = false, bool verbose = false );
+    LeafNode* findLeafNode( const Key& key) ;
 
 private:
     const size_t m_order;
