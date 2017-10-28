@@ -11,7 +11,6 @@
 class LeafNode : public Node
 {
 public:
-    // explicit LeafNode( size_t order );
     LeafNode( size_t order, Node* parent );
     ~LeafNode();
 
