@@ -3,7 +3,6 @@
 
 
 #include <vector>
-#include "definitions.h"
 #include "node.h"
 #include "internalmapping.h"
 

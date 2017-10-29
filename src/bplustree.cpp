@@ -9,9 +9,8 @@
 #include <cassert>
 
 //
-// Sole constructor.  Accepts an optional order for the B+ Tree.
-// The default order will provide a reasonable demonstration of the
-// data structure and its operations.
+// Sole constructor.
+// Accepts an order for the B+ Tree.
 //
 BPlusTree::BPlusTree( size_t order)
     : m_order{ order }
