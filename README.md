@@ -4,8 +4,9 @@
 # Memory based B+ tree in C++ 
 
 
-1. This is refactored version of the Amittai's code 
+This is refactored version of the Amittai's code 
 http://www.amittai.com/prose/bplustree_cpp.html
+
 
 ## References
 
@@ -19,6 +20,7 @@ http://www.amittai.com/prose/bplustree_cpp.html
 
 * A. Drozdek, D.L. Simon "Data Structures in C", (PWS, 1995)
 
+
 ## Similar projects in C++: 
 
 * cpp-btree: https://code.google.com/archive/p/cpp-btree/
@@ -26,6 +28,8 @@ http://www.amittai.com/prose/bplustree_cpp.html
 * STX: http://panthema.net/2007/stx-btree/
 
 
-### Author: Zbigniew Romanowski, e-mail: romz@wp.pl
+### Author
+* Zbigniew Romanowski
+* e-mail: romz@wp.pl
 
 
