@@ -2,7 +2,6 @@
 #include <fstream>
 #include <string>
 #include "bplustree.h"
-#include "exceptions.h"
 #include "internalnode.h"
 #include "leafnode.h"
 #include "node.h"
@@ -88,7 +87,7 @@ void BPlusTree::insertIntoLeaf( const Key& key, const Value& value )
     LeafNode* leafNode = findLeafNode( key );
     if( !leafNode )
     {
-        throw LeafNotFoundException( key );
+        throw std::runtime_error( "Key not found in any leaf node" );
     }
 
     const size_t newSize = leafNode->createAndInsertRecord( key, value );
