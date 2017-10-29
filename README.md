@@ -15,6 +15,8 @@ http://www.amittai.com/prose/bplustree_cpp.html
 
 2c. D. Comer, "Ubiquitous B-Tree", ACM Computing Surveys, Volume 11, Issue 2, Pages 121-137, Year 1979 
 
+2d. R. BayerE. M. McCreight, "Organization and maintenance of large ordered indexes", Acta Informatica, Volume 1, Issue 3, pp. 173–189, Year 1972
+
 3. Similar projects in C++: 
 
 3a. cpp-btree: https://code.google.com/archive/p/cpp-btree/
