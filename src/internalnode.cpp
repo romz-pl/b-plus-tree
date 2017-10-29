@@ -321,3 +321,11 @@ void InternalNode::redistribute( InternalNode* node, size_t index )
         moveLastToFrontOf( node, index );
     }
 }
+
+//
+//
+//
+InternalNode* InternalNode::getInternalNode()
+{
+    return this;
+}
