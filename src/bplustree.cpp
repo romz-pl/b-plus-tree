@@ -6,6 +6,7 @@
 #include "leafnode.h"
 #include "node.h"
 #include <cassert>
+#include <stdexcept>
 
 //
 // Sole constructor.

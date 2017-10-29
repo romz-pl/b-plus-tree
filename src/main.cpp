@@ -4,6 +4,7 @@
 #include <cassert>
 #include <random>
 #include <algorithm>
+#include <stdexcept>
 
 void Check();
 std::string GetRandomString();

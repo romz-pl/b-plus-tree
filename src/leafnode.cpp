@@ -1,6 +1,7 @@
 #include <sstream>
 #include "internalnode.h"
 #include "leafnode.h"
+#include <stdexcept>
 
 //
 //

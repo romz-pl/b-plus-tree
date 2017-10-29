@@ -1,6 +1,7 @@
 #include <iostream>
 #include <sstream>
 #include "internalnode.h"
+#include <stdexcept>
 
 //
 //
