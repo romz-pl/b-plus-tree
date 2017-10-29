@@ -20,8 +20,8 @@ public:
     void setParent( InternalNode* parent );
     bool isRoot() const;
 
-    InternalNode* getInternalNode();
-    LeafNode* getLeafNode();
+    virtual InternalNode* getInternalNode();
+    virtual LeafNode* getLeafNode();
 
     virtual bool isLeaf() const = 0;
     virtual size_t size() const = 0;

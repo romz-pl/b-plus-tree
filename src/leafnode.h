@@ -35,7 +35,7 @@ public:
     LeafNode* split( size_t order );
     void redistribute( LeafNode* node, size_t index );
 
-    LeafNode* getLeafNode();
+    LeafNode* getLeafNode() override;
 
 private:
     void copyHalfFrom( std::vector< LeafMapping >& mappings );
