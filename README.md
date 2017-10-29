@@ -15,7 +15,14 @@ http://www.amittai.com/prose/bplustree_cpp.html
 
 2c. D. Comer, "Ubiquitous B-Tree", ACM Computing Surveys, Volume 11, Issue 2, Pages 121-137, Year 1979 
 
-3. Author: Zbigniew Romanowski,
+3. Similar projects in C++: 
+
+3a. cpp-btree: https://code.google.com/archive/p/cpp-btree/
+
+3b. STX: http://panthema.net/2007/stx-btree/
+
+Author: Zbigniew Romanowski,
+
 e-mail: romz@wp.pl
 
 
