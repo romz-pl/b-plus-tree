@@ -2,16 +2,15 @@
 #include <fstream>
 #include <string>
 #include "bplustree.h"
-#include "exceptions.h"
 #include "internalnode.h"
 #include "leafnode.h"
 #include "node.h"
 #include <cassert>
+#include <stdexcept>
 
 //
-// Sole constructor.  Accepts an optional order for the B+ Tree.
-// The default order will provide a reasonable demonstration of the
-// data structure and its operations.
+// Sole constructor.
+// Accepts an order for the B+ Tree.
 //
 BPlusTree::BPlusTree( size_t order)
     : m_order{ order }
@@ -89,7 +88,7 @@ void BPlusTree::insertIntoLeaf( const Key& key, const Value& value )
     LeafNode* leafNode = findLeafNode( key );
     if( !leafNode )
     {
-        throw LeafNotFoundException( key );
+        throw std::runtime_error( "Key not found in any leaf node" );
     }
 
     const size_t newSize = leafNode->createAndInsertRecord( key, value );

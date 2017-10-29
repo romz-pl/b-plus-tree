@@ -1,7 +1,7 @@
 #include <sstream>
-#include "exceptions.h"
 #include "internalnode.h"
 #include "leafnode.h"
+#include <stdexcept>
 
 //
 //
@@ -160,7 +160,7 @@ size_t LeafNode::removeAndDeleteRecord( const Key& key )
 
     if( removalPoint == end )
     {
-        throw RecordNotFoundException( key );
+        throw std::runtime_error( "Record not found with key" );
     }
 
     auto record = *removalPoint;

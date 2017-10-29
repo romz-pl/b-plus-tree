@@ -3,7 +3,6 @@
 
 #include <tuple>
 #include <vector>
-#include "definitions.h"
 #include "key.h"
 #include "value.h"
 
@@ -17,7 +16,7 @@ class Node;
 class BPlusTree
 {
 public:
-    explicit BPlusTree( size_t order = DEFAULT_ORDER );
+    explicit BPlusTree( size_t order );
     
     bool isEmpty() const;  
     Value get( const Key& key );

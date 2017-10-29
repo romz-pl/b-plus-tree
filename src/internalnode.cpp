@@ -1,7 +1,7 @@
 #include <iostream>
 #include <sstream>
-#include "exceptions.h"
 #include "internalnode.h"
+#include <stdexcept>
 
 //
 //
@@ -247,7 +247,7 @@ size_t InternalNode::nodeIndex( Node *node ) const
             return i;
         }
     }
-    throw NodeNotFoundException( node->toString(), toString() );
+    throw std::runtime_error( "Node not found" );
 }
 
 //
