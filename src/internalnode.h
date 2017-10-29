@@ -37,6 +37,8 @@ public:
     InternalNode* split( size_t order );
     void redistribute( InternalNode* node, size_t index );
 
+    InternalNode* getInternalNode();
+
 private:
     void copyHalfFrom( std::vector< InternalMapping >& mappings );
     void copyAllFrom( std::vector< InternalMapping >& mappings );

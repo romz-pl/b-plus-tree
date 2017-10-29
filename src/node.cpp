@@ -1,4 +1,5 @@
 #include "node.h"
+#include <cassert>
 
 //
 //
@@ -40,4 +41,22 @@ void Node::setParent( InternalNode *parent )
 bool Node::isRoot() const
 {
     return !m_parent;
+}
+
+//
+//
+//
+InternalNode* Node::getInternalNode()
+{
+    assert( 0 );
+    return nullptr;
+}
+
+//
+//
+//
+LeafNode* Node::getLeafNode()
+{
+    assert( 0 );
+    return nullptr;
 }

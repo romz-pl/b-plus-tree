@@ -283,3 +283,11 @@ void LeafNode::redistribute( LeafNode* node, size_t index )
         moveLastToFrontOf( node, index );
     }
 }
+
+//
+//
+//
+LeafNode* LeafNode::getLeafNode()
+{
+    return this;
+}

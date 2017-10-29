@@ -6,6 +6,7 @@
 #include "key.h"
 
 class InternalNode;
+class LeafNode;
 
 // Abstract class.
 class Node
@@ -18,6 +19,9 @@ public:
     InternalNode* getParent() const;
     void setParent( InternalNode* parent );
     bool isRoot() const;
+
+    InternalNode* getInternalNode();
+    LeafNode* getLeafNode();
 
     virtual bool isLeaf() const = 0;
     virtual size_t size() const = 0;
