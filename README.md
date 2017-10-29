@@ -20,6 +20,9 @@ http://www.amittai.com/prose/bplustree_cpp.html
 
 * A. Drozdek, D.L. Simon "Data Structures in C", (PWS, 1995)
 
+* J. Zhou "A B+-tree Index fot the Know-It-All Database Framework", 2003, 
+https://spectrum.library.concordia.ca/2344/1/MQ83927.pdf
+
 
 ## Similar projects in C++: 
 
