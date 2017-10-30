@@ -10,7 +10,7 @@ http://www.amittai.com/prose/bplustree_cpp.html
 
 ## References, books
 
-* A. Silberschatz, H.F. Korth, S. Sudarshan, _"Database System Concepts"_, 5th ed. (McGraw Hill, 2006)
+* A. Silberschatz, H.F. Korth, S. Sudarshan, _"Database System Concepts"_, 6th ed. (McGraw Hill, 2011)
 
 * R. Ramakrishnan, J. Gehrke, _"Database Management Systems "_, 3rd ed. (McGraw Hill, 2003)
 
