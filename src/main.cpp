@@ -7,6 +7,10 @@
 #include <stdexcept>
 
 void Check();
+void CheckInsert( BPlusTree& bPlusTree, std::map< Key, Value >& stlMap, std::vector< Key >& key );
+void CheckGet( BPlusTree& bPlusTree, std::map< Key, Value >& stlMap, std::vector< Key >& key );
+void CheckDelete( BPlusTree& bPlusTree, std::map< Key, Value >& stlMap, std::vector< Key >& key );
+
 std::string GetRandomString();
 std::vector< Key > GenerateKeys();
 BPlusTree CreateBPlusTree();
@@ -48,7 +52,21 @@ void Check()
     BPlusTree bPlusTree = CreateBPlusTree();
     std::vector< Key > key = GenerateKeys();
 
-    // Insert keys
+    CheckInsert( bPlusTree, stlMap, key );
+    CheckGet( bPlusTree, stlMap, key );
+    CheckDelete( bPlusTree, stlMap, key );
+}
+
+//
+// Insert keys
+//
+void CheckInsert( BPlusTree& bPlusTree, std::map< Key, Value >& stlMap, std::vector< Key >& key )
+{
+    std::cout << "Inserting..." << std::flush;
+
+    // Make key randomly distributed
+    std::shuffle( key.begin(), key.end(), std::mt19937{ std::random_device{}() } );
+
     for( Key k : key )
     {
         const Value value = Value( GetRandomString() );
@@ -57,11 +75,19 @@ void Check()
         bPlusTree.insert( k, value );
         stlMap.insert( std::make_pair( k, value ) );
     }
+    std::cout << "OK\n" << std::flush;
+}
 
-    // Make key randomly distributed other then inserted
+//
+// Check if keys are in B+tree
+//
+void CheckGet( BPlusTree& bPlusTree, std::map< Key, Value >& stlMap, std::vector< Key >& key )
+{
+    std::cout << "Getting..." << std::flush;
+
+    // Make key randomly distributed
     std::shuffle( key.begin(), key.end(), std::mt19937{ std::random_device{}() } );
 
-    // Check if keys are in hash table
     for( Key k : key )
     {
         const Value valueA = bPlusTree.get( k );
@@ -76,20 +102,39 @@ void Check()
     {
         throw std::runtime_error( "Insert Error: Not equal size" );
     }
+    std::cout << "OK\n" << std::flush;
+}
 
-    // Make key randomly distributed other then inserted
+//
+// Delete keys in random order
+//
+void CheckDelete( BPlusTree& bPlusTree, std::map< Key, Value >& stlMap, std::vector< Key >& key )
+{
+    std::cout << "Deleting..." << std::flush;
+
+    // Make key randomly distributed
     std::shuffle( key.begin(), key.end(), std::mt19937{ std::random_device{}() } );
 
-    // Delete keys in random order
     for( Key k : key )
     {
+        std::cout << k.ToString() << " " << std::flush;
+
+        const Value valueA = bPlusTree.get( k );
         bPlusTree.remove( k );
+
+        const Value valueB = stlMap.at( k );
         stlMap.erase( k );
+
+        if( valueA != valueB )
+        {
+            throw std::runtime_error( "Delete Error" );
+        }
     }
     if( bPlusTree.count() != stlMap.size() )
     {
         throw std::runtime_error( "Delete Error: Not equal size" );
     }
+    std::cout << "OK\n" << std::flush;
 }
 
 //
