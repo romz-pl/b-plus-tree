@@ -33,6 +33,9 @@ public:
 
 
 private:
+    static int64_t MinValue();
+
+private:
     int64_t m_value;
 };
 
