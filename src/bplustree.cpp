@@ -142,7 +142,6 @@ void BPlusTree::remove( const Key& key )
     }
 
     removeFromLeaf( key );
-    m_count--;
 }
 
 //
@@ -166,6 +165,7 @@ void BPlusTree::removeFromLeaf( const Key& key )
     {
         coalesceOrRedistribute( leafNode );
     }
+    m_count--;
 }
 
 //
