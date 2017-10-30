@@ -75,6 +75,12 @@ void CheckInsert( BPlusTree& bPlusTree, std::map< Key, Value >& stlMap, std::vec
         bPlusTree.insert( k, value );
         stlMap.insert( std::make_pair( k, value ) );
     }
+
+    if( bPlusTree.count() != stlMap.size() )
+    {
+        throw std::runtime_error( "Error in CheckInsert: Not equal size" );
+    }
+
     std::cout << "OK\n" << std::flush;
 }
 
@@ -95,13 +101,15 @@ void CheckGet( BPlusTree& bPlusTree, std::map< Key, Value >& stlMap, std::vector
 
         if( valueA != valueB )
         {
-            throw std::runtime_error( "Insert Error" );
+            throw std::runtime_error( "Error in CheckGet: not equal values." );
         }
     }
+
     if( bPlusTree.count() != stlMap.size() )
     {
-        throw std::runtime_error( "Insert Error: Not equal size" );
+        throw std::runtime_error( "Error in CheckGet:: Not equal size." );
     }
+
     std::cout << "OK\n" << std::flush;
 }
 
@@ -127,13 +135,15 @@ void CheckDelete( BPlusTree& bPlusTree, std::map< Key, Value >& stlMap, std::vec
 
         if( valueA != valueB )
         {
-            throw std::runtime_error( "Delete Error" );
+            throw std::runtime_error( "Error in CheckDelete: not equal values." );
         }
     }
+
     if( bPlusTree.count() != stlMap.size() )
     {
-        throw std::runtime_error( "Delete Error: Not equal size" );
+        throw std::runtime_error( "Error in CheckDelete: Not equal size" );
     }
+
     std::cout << "OK\n" << std::flush;
 }
 
