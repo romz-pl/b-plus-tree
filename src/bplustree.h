@@ -17,7 +17,8 @@ class BPlusTree
 {
 public:
     explicit BPlusTree( size_t order );
-    
+    ~BPlusTree();
+
     bool isEmpty() const;  
     Value get( const Key& key );
     void insert( const Key& key, const Value& value );

@@ -21,6 +21,14 @@ BPlusTree::BPlusTree( size_t order)
 }
 
 //
+//
+//
+BPlusTree::~BPlusTree()
+{
+    destroyTree();
+}
+
+//
 // Returns true if this B+ tree has no keys or values.
 //
 bool BPlusTree::isEmpty() const
