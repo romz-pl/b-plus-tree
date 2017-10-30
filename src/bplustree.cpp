@@ -21,6 +21,14 @@ BPlusTree::BPlusTree( size_t order)
 }
 
 //
+//
+//
+BPlusTree::~BPlusTree()
+{
+    destroyTree();
+}
+
+//
 // Returns true if this B+ tree has no keys or values.
 //
 bool BPlusTree::isEmpty() const
@@ -300,14 +308,12 @@ LeafNode* BPlusTree::findLeafNode( const Key& key )
 //
 void BPlusTree::destroyTree()
 {
-    if( m_root->isLeaf() )
+    if( !m_root )
     {
-        delete m_root->getLeafNode();
+        return;
     }
-    else
-    {
-        delete m_root->getInternalNode();
-    }
+
+    delete m_root;
     m_root = nullptr;
     m_count = 0;
 }
