@@ -12,7 +12,7 @@ class LeafNode : public Node
 {
 public:
     LeafNode( size_t order, InternalNode *parent );
-    ~LeafNode();
+    virtual ~LeafNode();
 
     bool isLeaf() const override;
     LeafNode* next() const;

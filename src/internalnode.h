@@ -10,7 +10,7 @@ class InternalNode : public Node
 {
 public:
     InternalNode( size_t order, InternalNode *parent );
-    ~InternalNode();
+    virtual ~InternalNode();
 
     bool isLeaf() const override;
     size_t size() const override;
