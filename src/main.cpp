@@ -15,18 +15,13 @@ std::string GetRandomString();
 std::vector< Key > GenerateKeys();
 BPlusTree CreateBPlusTree();
 
-
-bool operator==( const Value& a, const Value& b )
-{
-    return a.ToString() == b.ToString();
-}
-
-bool operator!=( const Value& a, const Value& b )
-{
-    return !( a == b);
-}
+bool operator==( const Value& a, const Value& b );
+bool operator!=( const Value& a, const Value& b );
 
 
+//
+//
+//
 int main()
 {
     try
@@ -36,6 +31,11 @@ int main()
     catch( std::exception& e )
     {
         std::cout << e.what() << std::endl << std::flush;
+        return 1;
+    }
+    catch( ... )
+    {
+        std::cout << "Caught unknown excpetion.\n" << std::flush;
         return 1;
     }
 
@@ -205,3 +205,18 @@ std::string GetRandomString()
     return s;
 }
 
+//
+//
+//
+bool operator==( const Value& a, const Value& b )
+{
+    return a.ToString() == b.ToString();
+}
+
+//
+//
+//
+bool operator!=( const Value& a, const Value& b )
+{
+    return !( a == b);
+}
