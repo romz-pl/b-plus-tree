@@ -7,6 +7,10 @@
 This is refactored version of the Amittai's code 
 http://www.amittai.com/prose/bplustree_cpp.html
 
+I have found the link to Amittai's code (on October 2017) in wikipedia's article describing to B+tree https://en.wikipedia.org/wiki/B%2B_tree. The link is in section _Implementation_ and it is called _Interactive B+ Tree Implementation in C++_.
+
+**Caution!** The current implementation have the bug in deletion procedure. See Issues. 
+
 
 ## References, books
 
