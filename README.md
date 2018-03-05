@@ -5,7 +5,7 @@
 
 ## Definition of the B-tree
 
-Let _h >= 0_ be an integer,and  _k_ a natural number. A directed tree _T_
+Let _h >= 0_ be an integer, and  _k_ a natural number. A directed tree _T_
 is in the class _(k, h)_ of B-trees if _T_ is either empty (i.e. h=0) or has the following
 properties:
 
