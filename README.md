@@ -70,7 +70,7 @@ https://spectrum.library.concordia.ca/2344/1/MQ83927.pdf
 
 * STX: http://panthema.net/2007/stx-btree/
 
-* From Wikipedia: http://www.amittai.com/prose/bplustree_cpp.html (**Caution!** Tis code has the bug in deletion procedure!)
+* From Wikipedia: http://www.amittai.com/prose/bplustree_cpp.html (**Caution!** The code has the bug in deletion procedure!)
 
 
 ### Author
