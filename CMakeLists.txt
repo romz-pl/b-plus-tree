@@ -10,5 +10,5 @@ add_subdirectory(proj-a/src)
 add_subdirectory(proj-b/src)
 add_subdirectory(proj-c/src)
 add_subdirectory(proj-d/src)
-#add_subdirectory(proj-e/src)
+add_subdirectory(proj-e/src)
 
