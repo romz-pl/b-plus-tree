@@ -8,8 +8,8 @@
 
 void Check();
 void CheckInsert( BPlusTree& bPlusTree, std::map< Key, Value >& stlMap, std::vector< Key >& key );
-void CheckGet( BPlusTree& bPlusTree, std::map< Key, Value >& stlMap, std::vector< Key >& key );
-void CheckDelete( BPlusTree& bPlusTree, std::map< Key, Value >& stlMap, std::vector< Key >& key );
+void CheckFind( BPlusTree& bPlusTree, std::map< Key, Value >& stlMap, std::vector< Key >& key );
+void CheckErase( BPlusTree& bPlusTree, std::map< Key, Value >& stlMap, std::vector< Key >& key );
 
 std::string GetRandomString();
 std::vector< Key > GenerateKeys();
@@ -53,8 +53,8 @@ void Check()
     std::vector< Key > key = GenerateKeys();
 
     CheckInsert( bPlusTree, stlMap, key );
-    CheckGet( bPlusTree, stlMap, key );
-    CheckDelete( bPlusTree, stlMap, key );
+    CheckFind( bPlusTree, stlMap, key );
+    CheckErase( bPlusTree, stlMap, key );
 }
 
 //
@@ -87,7 +87,7 @@ void CheckInsert( BPlusTree& bPlusTree, std::map< Key, Value >& stlMap, std::vec
 //
 // Check if keys are in B+tree
 //
-void CheckGet( BPlusTree& bPlusTree, std::map< Key, Value >& stlMap, std::vector< Key >& key )
+void CheckFind( BPlusTree& bPlusTree, std::map< Key, Value >& stlMap, std::vector< Key >& key )
 {
     std::cout << "Getting..." << std::flush;
 
@@ -116,7 +116,7 @@ void CheckGet( BPlusTree& bPlusTree, std::map< Key, Value >& stlMap, std::vector
 //
 // Delete keys in random order
 //
-void CheckDelete( BPlusTree& bPlusTree, std::map< Key, Value >& stlMap, std::vector< Key >& key )
+void CheckErase( BPlusTree& bPlusTree, std::map< Key, Value >& stlMap, std::vector< Key >& key )
 {
     std::cout << "Deleting..." << std::flush;
 
