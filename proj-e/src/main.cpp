@@ -13,7 +13,7 @@ int main( )
     const Data data = 3;
     btree::Btree< Key, Data >::value_type x( key, data );
 
-    b.insert_unique( x );
+//    b.insert_unique( x );
 
     std::cout << "OK\n";
     return 0;
