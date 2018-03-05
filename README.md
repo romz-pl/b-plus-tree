@@ -3,13 +3,43 @@
 
 # Memory based B+ tree in C++ 
 
+## Definition of the B-tree
 
-This is refactored version of the Amittai's code 
-http://www.amittai.com/prose/bplustree_cpp.html
+Let _h >= 0_ be an integer,and  _k_ a natural number. A directed tree _T_
+is in the class _(k, h)_ of B-trees if _T_ is either empty (i.e. h=0) or has the following
+properties:
 
-I have found the link to Amittai's code (on October 2017) in wikipedia's article describing the B+tree https://en.wikipedia.org/wiki/B%2B_tree. The link is in section _Implementation_ and it is called _Interactive B+ Tree Implementation in C++_.
+* Each path from the root to any leaf has the same length _h_, also called the
+    height of _T_, i.e. _h_ is eequal to the number of nodes in path.
 
-**Caution!** The current implementation have the bug in deletion procedure. See Issues. 
+* Each node except the root and the leaves has at least _(k + 1)_ sons.
+    The root is a leaf or has at least two sons.
+
+* Each node has at most _(2k + 1)_ sons. 
+
+
+## Properties of the B-tree
+
+* Each page holds between _k_ and _2k_ keys (index elements) except the root
+    page which may hold between _1_ and _2k_ keys.
+
+* Let the number of keys on a page _P_, which is not a leaf, be _L_.
+    Then _P_ has _L+1_ sons.
+
+* Within each page _P_ the keys are sequential in increasing order:
+    _x<sub>1</sub>, x<sub>2</sub>, ... x<sub>L</sub>_, where _k <= L <= 2k_ 
+    except for the root page for which _1 <= L <= 2k_.
+
+* Furthermore, _P_ contains _(L + 1)_ pointers _P<sub>0</sub>, P<sub>1</sub> ... P<sub>L</sub>_ to the sons of _P_.
+    On leaf pages these pointers are undefined (i.e. null pointers).
+
+* Let _P(p<sub>i</sub>)_ be the page to which _P<sub>i</sub>_ points, let _K(P<sub>i</sub>)_ be the set of keys on
+    the pages of that maximal subtree of which _P(P<sub>i</sub>)_ is the root. Then for the B-trees
+    considered here the following conditions shall always hold:
+    1) for each y in K(p<sub>0</sub>)   y < x<sub>i</sub>
+    2) for each y in K(p<sub>i</sub>)  x<sub>i</sub> < y < x<sub>i+1</sub>  for i = 1,2,...,L-1
+    3) for each y in K(p<sub>L</sub>)  x<sub>L</sub> < y
+
 
 
 ## References, books
@@ -39,6 +69,8 @@ https://spectrum.library.concordia.ca/2344/1/MQ83927.pdf
 * cpp-btree: https://code.google.com/archive/p/cpp-btree/
 
 * STX: http://panthema.net/2007/stx-btree/
+
+* From Wikipedia: http://www.amittai.com/prose/bplustree_cpp.html (**Caution!** Tis code has the bug in deletion procedure!)
 
 
 ### Author
