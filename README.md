@@ -70,7 +70,16 @@ Journal of Foundations of Computer Science, [PDF](http://citeseerx.ist.psu.edu/v
 
  * G. Graefe, _"Write-Optimized B-Trees "_, Proceedings of the 30th VLDB Conference, 2004, [PDF](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.90.4825&rep=rep1&type=pdf)
  
- * G. GRAEFE, _"A Survey of B-Tree Logging and Recovery Technique"_, ACM Transactions on Database Systems, Vol. 37, No. 1, Article 1, 2012, [PDF](https://people.eecs.berkeley.edu/~kubitron/cs262/handouts/papers/a1-graefe.pdf)
+ * G. Graefe, _"A Survey of B-Tree Logging and Recovery Technique"_, ACM Transactions on Database Systems, Vol. 35, No. 3, Article 16, 2012, [PDF](https://people.eecs.berkeley.edu/~kubitron/cs262/handouts/papers/a1-graefe.pdf)
+ 
+ * G. Graefe, _"Modern B-Tree Techniques"_, Foundations and Trends in Databases, Vol. 3, No. 4, pp. 203–402, Year 2010, [PDF](https://pdfs.semanticscholar.org/0b19/f413ffb5bc68b43f3bd05a97c282a7c6d6ab.pdf)
+ 
+ * G. Graefe, _"A Survey of B-Tree Locking Technique"_, ACM Transactions on Database Systems, Vol. 35, No. 3, Article 16, Year 2010, [PDF](http://people.eecs.berkeley.edu/~kubitron/courses/cs262a-S16/handouts/papers/a16-graefe.pdf)
+ 
+ * P. Wang, _"An In-Depth Analysis of Concurrent B-tree Algorithms"_, Massachusetts Institute of Technology Report MIT/LCS/TR-496, Year 1991, [PDF](http://www.dtic.mil/dtic/tr/fulltext/u2/a232287.pdf)
+ 
+ * Y.-S. KWONG,D. WOOD, _"A New Method for Concurrency in B-Trees"_, IEEE TRANSACTIONS ON SOFTWARE ENGINEERING, VOL. SE-8, NO. 3,
+pp. 211-222, Year 1982, [PDF](https://www.computer.org/csdl/trans/ts/1982/03/01702938.pdf) 
 
 
 ## Similar projects in C++: 
