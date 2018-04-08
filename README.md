@@ -52,25 +52,34 @@ properties:
 
 ## References, articles
 
-* R. Bayer E.M. McCreight, _"Organization and maintenance of large ordered indexes"_, Acta Informatica, Volume 1, Issue 3, pp. 173–189, Year 1972
+* R. Bayer E.M. McCreight, _"Organization and maintenance of large ordered indexes"_, Acta Informatica, Volume 1, Issue 3, pp. 173–189, Year 1972, [PDF](http://www.inf.fu-berlin.de/lehre/SS10/DBS-Intro/Reader/BayerBTree-72.pdf)
 
-* R. Bayer, _"Symmetric binary B-Trees: Data structure and maintenance algorithms"_, Acta Informatica, Volume 1, Issue 4, pp. 290–306, Year 1972
+* R. Bayer, _"Symmetric binary B-Trees: Data structure and maintenance algorithms"_, Acta Informatica, Volume 1, Issue 4, pp. 290–306, Year 1972, [Abstract](https://link.springer.com/article/10.1007/BF00289509)
 
-* R. Bayer, K. Unterauer, _"Prefix B-trees"_, ACM Transactions on Database Systems, Volume 2, Issue 1, pp. 11-26, Year 1977
+* R. Bayer, K. Unterauer, _"Prefix B-trees"_, ACM Transactions on Database Systems, Volume 2, Issue 1, pp. 11-26, Year 1977, [Abstract](https://dl.acm.org/citation.cfm?id=320530&dl=ACM&coll=DL)
 
-* D. Comer, _"Ubiquitous B-Tree"_, ACM Computing Surveys, Volume 11, Issue 2, Pages 121-137, Year 1979 
+* D. Comer, _"Ubiquitous B-Tree"_, ACM Computing Surveys, Volume 11, Issue 2, Pages 121-137, Year 1979, [PDF](http://www.ezdoum.com/upload/14/20020512204603/TheUbiquitousB-Tree.pdf) 
 
 * J. Zhou _"A B+-tree Index fot the Know-It-All Database Framework"_, 2003, 
-https://spectrum.library.concordia.ca/2344/1/MQ83927.pdf
+[PDF](https://spectrum.library.concordia.ca/2344/1/MQ83927.pdf)
+
+ * D. Lomet, _"The Evolution of Effective B-tree: Page Organization and Techniques: A Personal Account"_, SIGMOD Record, Volume 30, No. 3, 2001, [PDF](https://www.microsoft.com/en-us/research/wp-content/uploads/2016/02/p64-lomet.pdf)
+ 
+ * R. ORLANDIC, H.M. MAHMOUD _"STORAGE OVERHEAD OF O-TREES, B-TREES AND PREFIX B-TREES: A COMPARATIVE ANALYSIS"_, International
+Journal of Foundations of Computer Science, [PDF](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.133.9412&rep=rep1&type=pdf)
+
+ * G. Graefe, _"Write-Optimized B-Trees "_, Proceedings of the 30th VLDB Conference, 2004, [PDF](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.90.4825&rep=rep1&type=pdf)
+ 
+ * G. GRAEFE, _"A Survey of B-Tree Logging and Recovery Technique"_, ACM Transactions on Database Systems, Vol. 37, No. 1, Article 1, 2012, [PDF](https://people.eecs.berkeley.edu/~kubitron/cs262/handouts/papers/a1-graefe.pdf)
 
 
 ## Similar projects in C++: 
 
-* cpp-btree: https://code.google.com/archive/p/cpp-btree/
+* [cpp-btree](https://code.google.com/archive/p/cpp-btree/)
 
-* STX: http://panthema.net/2007/stx-btree/
+* [STX](http://panthema.net/2007/stx-btree/)
 
-* From Wikipedia: http://www.amittai.com/prose/bplustree_cpp.html (**Caution!** The code has the bug in deletion procedure!)
+* From Wikipedia: [B+Tree](http://www.amittai.com/prose/bplustree_cpp.html) (**Caution!** The code has the bug in deletion procedure!)
 
 
 ### Author
