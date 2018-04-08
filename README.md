@@ -81,6 +81,8 @@ Journal of Foundations of Computer Science, [PDF](http://citeseerx.ist.psu.edu/v
  * Y.-S. KWONG,D. WOOD, _"A New Method for Concurrency in B-Trees"_, IEEE TRANSACTIONS ON SOFTWARE ENGINEERING, VOL. SE-8, NO. 3,
 pp. 211-222, Year 1982, [PDF](https://www.computer.org/csdl/trans/ts/1982/03/01702938.pdf) 
 
+ * M.K. Aguilera, W. Golab, M.A. Shah, _"A Practical Scalable Distributed B-Tree"_, VLDB, Year 2008, [PDF](https://pdfs.semanticscholar.org/3d4a/f9523014bc15c4b3cb00d9398813ce461cf9.pdf)
+
 
 ## Similar projects in C++: 
 
